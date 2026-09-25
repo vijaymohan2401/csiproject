@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="SereneCampus - College Student Stress Levels & Adaptive Coping Mechanisms System" />
+	<title>SereneCampus - Student Stress Levels & Coping Mechanisms Portal</title>
+	<link rel="icon" href="images/fav.png" type="image/png" sizes="16x16">
+
+	<!-- Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+	<!-- Bootstrap & Icons -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="./js/config.js"></script>
+
+	<style>
+		:root {
+			--primary: #4f46e5;
+			--primary-hover: #4338ca;
+			--primary-light: #e0e7ff;
+			--accent: #06b6d4;
+			--bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+			--card-bg: rgba(255, 255, 255, 0.95);
+			--text-main: #0f172a;
+			--text-muted: #64748b;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+			background: var(--bg-gradient);
+			min-height: 100vh;
+			color: var(--text-main);
+			margin: 0;
+			padding: 0;
+			overflow-x: hidden;
+		}
+
+		/* Background Ambient Glows */
+		.ambient-glow-1 {
+			position: fixed;
+			top: -10%;
+			left: -10%;
+			width: 600px;
+			height: 600px;
+			background: radial-gradient(circle, rgba(79, 70, 229, 0.25) 0%, transparent 70%);
+			pointer-events: none;
+			z-index: 0;
+		}
+		.ambient-glow-2 {
+			position: fixed;
+			bottom: -10%;
+			right: -10%;
+			width: 600px;
+			height: 600px;
+			background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 70%);
+			pointer-events: none;
+			z-index: 0;
+		}
+
+		/* Navbar */
+		.custom-navbar {
+			background: rgba(15, 23, 42, 0.85);
+			backdrop-filter: blur(12px);
+			border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+			padding: 16px 0;
+			position: relative;
+			z-index: 10;
+		}
+		.nav-brand-title {
+			font-size: 1.45rem;
+			font-weight: 800;
+			color: #ffffff;
+			letter-spacing: -0.02em;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			text-decoration: none;
+		}
+		.nav-brand-tag {
+			background: rgba(79, 70, 229, 0.35);
+			border: 1px solid rgba(129, 140, 248, 0.4);
+			color: #c7d2fe;
+			font-size: 0.72rem;
+			font-weight: 700;
+			padding: 4px 10px;
+			border-radius: 20px;
+			letter-spacing: 0.05em;
+		}
+
+		/* Main Container */
+		.main-wrapper {
+			position: relative;
+			z-index: 5;
+			padding: 40px 16px 80px;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		/* Flow Progress Bar */
+		.flow-indicator {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 14px;
+			margin-bottom: 36px;
+		}
+		.flow-step {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			font-size: 0.85rem;
+			font-weight: 700;
+			color: #94a3b8;
+			transition: all 0.3s ease;
+		}
+		.flow-step.active {
+			color: #ffffff;
+		}
+		.flow-step-num {
+			width: 28px;
+			height: 28px;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.1);
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 0.8rem;
+		}
+		.flow-step.active .flow-step-num {
+			background: var(--primary);
+			border-color: #818cf8;
+			color: #ffffff;
+			box-shadow: 0 0 15px rgba(79, 70, 229, 0.6);
+		}
+		.flow-divider {
+			width: 40px;
+			height: 2px;
+			background: rgba(255, 255, 255, 0.15);
+		}
+
+		/* Section Headings */
+		.hero-header {
+			text-align: center;
+			margin-bottom: 36px;
+		}
+		.hero-header h1 {
+			font-weight: 800;
+			font-size: 2.35rem;
+			color: #ffffff;
+			letter-spacing: -0.02em;
+			margin-bottom: 12px;
+		}
+		.hero-header p {
+			color: #94a3b8;
+			font-size: 1.05rem;
+			max-width: 650px;
+			margin: 0 auto;
+		}
+
+		/* Role Cards (Step 1) */
+		.role-card {
+			background: rgba(255, 255, 255, 0.05);
+			border: 1px solid rgba(255, 255, 255, 0.12);
+			border-radius: 20px;
+			backdrop-filter: blur(16px);
+			overflow: hidden;
+			transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+			cursor: pointer;
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+		}
+		.role-card:hover {
+			transform: translateY(-8px);
+			border-color: rgba(129, 140, 248, 0.6);
+			box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.5), 0 0 25px rgba(79, 70, 229, 0.35);
+			background: rgba(255, 255, 255, 0.08);
+		}
+		.role-card-img-wrapper {
+			position: relative;
+			height: 210px;
+			overflow: hidden;
+		}
+		.role-card-img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.5s ease;
+		}
+		.role-card:hover .role-card-img {
+			transform: scale(1.06);
+		}
+		.role-card-badge {
+			position: absolute;
+			top: 14px;
+			left: 14px;
+			background: rgba(15, 23, 42, 0.8);
+			backdrop-filter: blur(8px);
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			color: #ffffff;
+			font-size: 0.75rem;
+			font-weight: 700;
+			padding: 5px 12px;
+			border-radius: 20px;
+		}
+		.role-card-body {
+			padding: 24px;
+			display: flex;
+			flex-direction: column;
+			flex-grow: 1;
+		}
+		.role-card-title {
+			font-weight: 800;
+			font-size: 1.35rem;
+			color: #ffffff;
+			margin-bottom: 8px;
+		}
+		.role-card-desc {
+			color: #cbd5e1;
+			font-size: 0.9rem;
+			line-height: 1.5;
+			margin-bottom: 20px;
+			flex-grow: 1;
+		}
+		.role-card-btn {
+			background: var(--primary);
+			color: #ffffff;
+			border: none;
+			border-radius: 12px;
+			padding: 12px 20px;
+			font-weight: 700;
+			font-size: 0.95rem;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			transition: all 0.2s ease;
+		}
+		.role-card:hover .role-card-btn {
+			background: #6366f1;
+			box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+		}
+
+		/* Form Container Box (Step 2 & 3) */
+		.auth-box-container {
+			background: #ffffff;
+			border-radius: 24px;
+			box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+			overflow: hidden;
+			max-width: 980px;
+			margin: 0 auto;
+			display: none;
+			animation: slideUpFade 0.4s ease forwards;
+		}
+		@keyframes slideUpFade {
+			from { opacity: 0; transform: translateY(20px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		.auth-box-header {
+			background: #f8fafc;
+			border-bottom: 1px solid #e2e8f0;
+			padding: 20px 28px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			gap: 12px;
+		}
+		.back-to-roles-btn {
+			background: transparent;
+			border: 1px solid #cbd5e1;
+			color: #475569;
+			border-radius: 10px;
+			padding: 7px 14px;
+			font-size: 0.85rem;
+			font-weight: 700;
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			transition: all 0.2s ease;
+		}
+		.back-to-roles-btn:hover {
+			background: #e2e8f0;
+			color: #0f172a;
+		}
+
+		/* Segmented Switcher (Login vs Register) */
+		.segmented-control {
+			background: #e2e8f0;
+			border-radius: 12px;
+			padding: 4px;
+			display: inline-flex;
+			gap: 4px;
+		}
+		.segmented-btn {
+			border: none;
+			background: transparent;
+			padding: 8px 20px;
+			font-size: 0.88rem;
+			font-weight: 700;
+			color: #64748b;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: all 0.2s ease;
+		}
+		.segmented-btn.active {
+			background: #ffffff;
+			color: var(--primary);
+			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+		}
+
+		/* Form Styling */
+		.form-section-body {
+			padding: 36px 40px;
+		}
+		.form-label {
+			font-weight: 700;
+			font-size: 0.85rem;
+			color: #334155;
+			margin-bottom: 6px;
+		}
+		.form-control, .form-select {
+			border-radius: 10px;
+			padding: 11px 14px;
+			font-size: 0.92rem;
+			border: 1.5px solid #cbd5e1;
+			transition: all 0.2s ease;
+		}
+		.form-control:focus, .form-select:focus {
+			border-color: var(--primary);
+			box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+		}
+		.btn-submit-action {
+			background: var(--primary);
+			color: #ffffff;
+			border: none;
+			border-radius: 12px;
+			padding: 13px;
+			font-weight: 800;
+			font-size: 1rem;
+			width: 100%;
+			letter-spacing: -0.01em;
+			transition: all 0.2s ease;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+		}
+		.btn-submit-action:hover {
+			background: var(--primary-hover);
+			transform: translateY(-1px);
+			box-shadow: 0 6px 20px rgba(79, 70, 229, 0.35);
+		}
+
+		/* Demo Quick Fill Box */
+		.demo-fill-card {
+			background: #f1f5f9;
+			border: 1px dashed #cbd5e1;
+			border-radius: 12px;
+			padding: 14px 16px;
+			margin-bottom: 24px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			gap: 10px;
+		}
+		.demo-fill-text {
+			font-size: 0.85rem;
+			color: #475569;
+			font-weight: 600;
+		}
+		.demo-fill-btn {
+			background: #ffffff;
+			border: 1px solid #cbd5e1;
+			color: var(--primary);
+			border-radius: 8px;
+			padding: 6px 14px;
+			font-size: 0.8rem;
+			font-weight: 700;
+			transition: all 0.2s ease;
+		}
+		.demo-fill-btn:hover {
+			background: var(--primary);
+			color: #ffffff;
+			border-color: var(--primary);
+		}
+
+		/* Loading Overlay */
+		.loading-overlay {
+			display: none;
+			position: fixed;
+			top: 0; left: 0; width: 100%; height: 100%;
+			background: rgba(15, 23, 42, 0.7);
+			backdrop-filter: blur(4px);
+			z-index: 9999;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			color: white;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="ambient-glow-1"></div>
+	<div class="ambient-glow-2"></div>
+
+	<!-- Loading Spinner -->
+	<div class="loading-overlay" id="loadingOverlay">
+		<div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status"></div>
+		<p class="mt-3 font-weight-bold" id="loadingText">Processing request...</p>
+	</div>
+
+	<!-- Top Navbar -->
+	<header class="custom-navbar">
+		<div class="container d-flex align-items-center justify-content-between">
+			<a href="landing.html" class="nav-brand-title">
+				<img src="images/logo.png" alt="SereneCampus" style="height: 38px; width: auto;">
+				<span>SereneCampus</span>
+				<span class="nav-brand-tag">MENTAL HEALTH PORTAL</span>
+			</a>
+			<div class="d-flex align-items-center gap-3">
+				<a href="coping.html" class="btn btn-sm btn-outline-light d-none d-md-inline-block" style="border-radius: 8px; font-weight: 600;">
+					<i class="fa fa-spa me-1"></i> Coping Techniques
+				</a>
+			</div>
+		</div>
+	</header>
+
+	<main class="main-wrapper">
+		<!-- Flow Step Indicator -->
+		<div class="flow-indicator">
+			<div class="flow-step active" id="flowStep1">
+				<div class="flow-step-num">1</div>
+				<span>Choose Role</span>
+			</div>
+			<div class="flow-divider"></div>
+			<div class="flow-step" id="flowStep2">
+				<div class="flow-step-num">2</div>
+				<span>Login or Register</span>
+			</div>
+			<div class="flow-divider"></div>
+			<div class="flow-step" id="flowStep3">
+				<div class="flow-step-num">3</div>
+				<span>Access Dashboard</span>
+			</div>
+		</div>
+
+		<!-- ================= STEP 1: ROLE SELECTION ================= -->
+		<div id="roleSelectionScreen">
+			<div class="hero-header">
+				<h1>Welcome to SereneCampus</h1>
+				<p>Select your role below to access personalized stress management tools, counseling sessions, or institutional analytics.</p>
+			</div>
+
+			<div class="row g-4">
+				<!-- 1. Student Card -->
+				<div class="col-lg-4 col-md-6">
+					<div class="role-card" onclick="selectRole('student')">
+						<div class="role-card-img-wrapper">
+							<img src="images/student_hero.jpg" alt="Student Portal" class="role-card-img">
+							<span class="role-card-badge">🎓 COLLEGE STUDENT</span>
+						</div>
+						<div class="role-card-body">
+							<h3 class="role-card-title">Student Portal</h3>
+							<p class="role-card-desc">Track academic stress, monitor your daily mood, unlock resilience points, and practice guided coping mechanisms like Box Breathing and Grounding.</p>
+							<button type="button" class="role-card-btn">
+								Continue as Student <i class="fa fa-arrow-right"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- 2. Psychologist Card -->
+				<div class="col-lg-4 col-md-6">
+					<div class="role-card" onclick="selectRole('psychologist')">
+						<div class="role-card-img-wrapper">
+							<img src="images/counselor_hero.jpg" alt="Campus Psychologist" class="role-card-img">
+							<span class="role-card-badge">🩺 MENTAL HEALTH CLINICAL</span>
+						</div>
+						<div class="role-card-body">
+							<h3 class="role-card-title">Campus Psychologist</h3>
+							<p class="role-card-desc">Manage student counseling appointments, review high-risk stress scorecards, prescribe tailored breathwork techniques, and provide compassionate guidance.</p>
+							<button type="button" class="role-card-btn" style="background: #0891b2;">
+								Continue as Psychologist <i class="fa fa-arrow-right"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- 3. College Admin Card -->
+				<div class="col-lg-4 col-md-6">
+					<div class="role-card" onclick="selectRole('college')">
+						<div class="role-card-img-wrapper">
+							<img src="images/admin_hero.jpg" alt="College Administration" class="role-card-img">
+							<span class="role-card-badge">🏛️ UNIVERSITY ADMIN</span>
+						</div>
+						<div class="role-card-body">
+							<h3 class="role-card-title">College Administration</h3>
+							<p class="role-card-desc">Access executive campus stress analytics, department-wise risk distributions, coping adoption rates, active psychologists, and export Excel reports.</p>
+							<button type="button" class="role-card-btn" style="background: #3730a3;">
+								Continue as College Admin <i class="fa fa-arrow-right"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- ================= STEP 2 & 3: ACTION SCREEN (LOGIN / REGISTER) ================= -->
+		<div id="authScreen" class="auth-box-container">
+			<!-- Header with Back Button and Role Badge -->
+			<div class="auth-box-header">
+				<div class="d-flex align-items-center gap-3">
+					<button type="button" class="back-to-roles-btn" onclick="backToRoleSelection()">
+						<i class="fa fa-arrow-left"></i> Change Role
+					</button>
+					<span id="activeRoleBadge" class="badge bg-primary text-white px-3 py-2" style="border-radius: 8px; font-weight: 700; font-size: 0.85rem;">
+						Student Portal
+					</span>
+				</div>
+
+				<!-- Segmented Switcher for Login / Register -->
+				<div id="segmentedSwitcher" class="segmented-control">
+					<button type="button" id="tabBtnLogin" class="segmented-btn active" onclick="switchAuthTab('login')">
+						<i class="fa fa-sign-in-alt me-1"></i> Log In
+					</button>
+					<button type="button" id="tabBtnRegister" class="segmented-btn" onclick="switchAuthTab('register')">
+						<i class="fa fa-user-plus me-1"></i> Register New
+					</button>
+				</div>
+			</div>
+
+			<!-- Dynamic Content Body -->
+			<div class="form-section-body">
+
+				<!-- ----------------- 1. STUDENT LOGIN FORM ----------------- -->
+				<div id="studentLoginFormSection" class="auth-form-view">
+					<div class="demo-fill-card">
+						<span class="demo-fill-text">
+							<i class="fa fa-bolt text-warning me-1"></i> <strong>Quick Test Credential:</strong> rahul@college.edu / password123
+						</span>
+						<button type="button" class="demo-fill-btn" onclick="fillStudentCredentials()">
+							Auto-Fill Student
+						</button>
+					</div>
+
+					<form id="studentLoginForm">
+						<div class="mb-3">
+							<label class="form-label">College Email Address</label>
+							<div class="input-group">
+								<span class="input-group-text bg-white"><i class="fa fa-envelope text-muted"></i></span>
+								<input type="email" id="studentLoginEmail" class="form-control" placeholder="e.g. rahul@college.edu" required>
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Password</label>
+							<div class="input-group">
+								<span class="input-group-text bg-white"><i class="fa fa-lock text-muted"></i></span>
+								<input type="password" id="studentLoginPassword" class="form-control" placeholder="Enter password" required>
+								<button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('studentLoginPassword', this)">
+									<i class="fa fa-eye"></i>
+								</button>
+							</div>
+						</div>
+
+						<button type="submit" class="btn-submit-action mt-4">
+							<i class="fa fa-arrow-right-to-bracket"></i> Log In to Student Portal
+						</button>
+					</form>
+				</div>
+
+				<!-- ----------------- 2. STUDENT REGISTER FORM (DISTINCT PAGE) ----------------- -->
+				<div id="studentRegisterFormSection" class="auth-form-view" style="display: none;">
+					<h5 class="fw-bold mb-3 text-primary"><i class="fa fa-user-graduate me-2"></i>New Student Registration</h5>
+					<p class="text-muted small mb-4">Create your confidential wellness profile. Your data is encrypted and used only for academic stress support.</p>
+
+					<form id="studentRegisterForm">
+						<div class="row g-3">
+							<div class="col-md-6">
+								<label class="form-label">Full Name / Nickname</label>
+								<input type="text" id="regStudentName" class="form-control" placeholder="e.g. Ananya Patel" required>
+							</div>
+							<div class="col-md-6">
+								<label class="form-label">Student Email Address</label>
+								<input type="email" id="regStudentEmail" class="form-control" placeholder="e.g. ananya@college.edu" required>
+							</div>
+							<div class="col-md-6">
+								<label class="form-label">Create Password</label>
+								<div class="input-group">
+									<input type="password" id="regStudentPassword" class="form-control" placeholder="Minimum 6 characters" required>
+									<button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('regStudentPassword', this)">
+										<i class="fa fa-eye"></i>
+									</button>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label class="form-label">Age</label>
+								<input type="number" id="regStudentAge" class="form-control" min="16" max="40" value="20" required>
+							</div>
+							<div class="col-md-6">
+								<label class="form-label">Select College</label>
+								<select id="regStudentCollege" class="form-select" required>
+									<option value="COL001">Apex Institute of Engineering & Technology (COL001)</option>
+									<option value="COL002">National Institute of Science & Technology (COL002)</option>
+								</select>
+							</div>
+							<div class="col-md-6">
+								<label class="form-label">Department / Branch</label>
+								<select id="regStudentDept" class="form-select" required>
+									<option value="Computer Science & Engineering">Computer Science & Engineering</option>
+									<option value="Electronics & Communication">Electronics & Communication</option>
+									<option value="Mechanical Engineering">Mechanical Engineering</option>
+									<option value="Civil Engineering">Civil Engineering</option>
+									<option value="MBA (Management)">MBA (Management)</option>
+									<option value="Biotechnology">Biotechnology</option>
+								</select>
+							</div>
+							<div class="col-md-6">
+								<label class="form-label">Academic Year</label>
+								<select id="regStudentYear" class="form-select" required>
+									<option value="1st Year B.Tech">1st Year Undergraduate</option>
+									<option value="2nd Year B.Tech">2nd Year Undergraduate</option>
+									<option value="3rd Year B.Tech">3rd Year Undergraduate</option>
+									<option value="4th Year B.Tech">4th Year Senior</option>
+									<option value="Postgraduate / Master">Postgraduate / Master</option>
+								</select>
+							</div>
+							<div class="col-md-6">
+								<label class="form-label">Primary Stress Focus</label>
+								<select id="regStudentStressFocus" class="form-select">
+									<option value="Exams & CGPA Pressure">Exams & CGPA Pressure</option>
+									<option value="Project & Lab Deadlines">Project & Lab Deadlines</option>
+									<option value="Career & Campus Placements">Career & Campus Placements</option>
+									<option value="Sleep Deprivation & Anxiety">Sleep Deprivation & Anxiety</option>
+									<option value="General Campus Adjustment">General Campus Adjustment</option>
+								</select>
+							</div>
+						</div>
+
+						<button type="submit" class="btn-submit-action mt-4">
+							<i class="fa fa-user-check"></i> Register as Student
+						</button>
+					</form>
+				</div>
+
+				<!-- ----------------- 3. PSYCHOLOGIST LOGIN FORM ----------------- -->
+				<div id="psyLoginFormSection" class="auth-form-view" style="display: none;">
+					<div class="demo-fill-card">
+						<span class="demo-fill-text">
+							<i class="fa fa-bolt text-warning me-1"></i> <strong>Quick Test Credential:</strong> sarah.mitchell@psyshell.help / password123
+						</span>
+						<button type="button" class="demo-fill-btn" onclick="fillPsyCredentials()">
+							Auto-Fill Counselor
+						</button>
+					</div>
+
+					<form id="psyLoginForm">
+						<div class="mb-3">
+							<label class="form-label">Clinical / Professional Email</label>
+							<div class="input-group">
+								<span class="input-group-text bg-white"><i class="fa fa-user-doctor text-muted"></i></span>
+								<input type="email" id="psyLoginEmail" class="form-control" placeholder="e.g. sarah.mitchell@psyshell.help" required>
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Password</label>
+							<div class="input-group">
+								<span class="input-group-text bg-white"><i class="fa fa-lock text-muted"></i></span>
+								<input type="password" id="psyLoginPassword" class="form-control" placeholder="Enter password" required>
+								<button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('psyLoginPassword', this)">
+									<i class="fa fa-eye"></i>
+								</button>
+							</div>
+						</div>
+
+						<button type="submit" class="btn-submit-action mt-4" style="background: #0891b2;">
+							<i class="fa fa-stethoscope"></i> Log In to Psychologist Portal
+						</button>
+					</form>
+				</div>
+
+				<!-- ----------------- 4. PSYCHOLOGIST REGISTER FORM (DISTINCT PAGE) ----------------- -->
+				<div id="psyRegisterFormSection" class="auth-form-view" style="display: none;">
+					<h5 class="fw-bold mb-3 text-cyan" style="color: #0891b2;"><i class="fa fa-user-doctor me-2"></i>Campus Psychologist Onboarding</h5>
+					<p class="text-muted small mb-4">Register as a licensed mental health professional or campus clinical counselor.</p>
+
+					<form id="psyRegisterForm">
+						<div class="row g-3">
+							<div class="col-md-6">
+								<label class="form-label">Full Name with Title</label>
+								<input type="text" id="regPsyName" class="form-control" placeholder="e.g. Dr. Priya Deshmukh" required>
+							</div>
+							<div class="col-md-6">
+								<label class="form-label">Professional Email Address</label>
+								<input type="email" id="regPsyEmail" class="form-control" placeholder="e.g. priya.deshmukh@psyshell.help" required>
+							</div>
+							<div class="col-md-6">
+								<label class="form-label">Create Password</label>
+								<div class="input-group">
+									<input type="password" id="regPsyPassword" class="form-control" placeholder="Minimum 6 characters" required>
+									<button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('regPsyPassword', this)">
+										<i class="fa fa-eye"></i>
+									</button>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<label class="form-label">Contact Phone Number</label>
+								<input type="text" id="regPsyPhone" class="form-control" placeholder="+91 98765 43210" required>
+							</div>
+							<div class="col-md-6">
+								<label class="form-label">Area of Clinical Expertise</label>
+								<select id="regPsyAoe" class="form-select" required>
+									<option value="Cognitive Behavioral Therapy & Academic Stress">Cognitive Behavioral Therapy & Academic Stress</option>
+									<option value="Anxiety Disorders & Breathwork Regulation">Anxiety Disorders & Breathwork Regulation</option>
+									<option value="Sleep Hygiene & Mindful Coping Techniques">Sleep Hygiene & Mindful Coping Techniques</option>
+									<option value="Emotional Resilience & Crisis Intervention">Emotional Resilience & Crisis Intervention</option>
+								</select>
+							</div>
+							<div class="col-md-6">
+								<label class="form-label">Assigned College</label>
+								<select id="regPsyCollege" class="form-select" required>
+									<option value="COL001">Apex Institute of Engineering & Technology (COL001)</option>
+									<option value="COL002">National Institute of Science & Technology (COL002)</option>
+								</select>
+							</div>
+						</div>
+
+						<button type="submit" class="btn-submit-action mt-4" style="background: #0891b2;">
+							<i class="fa fa-user-plus"></i> Register Psychologist Profile
+						</button>
+					</form>
+				</div>
+
+				<!-- ----------------- 5. COLLEGE ADMIN LOGIN FORM ----------------- -->
+				<div id="collegeLoginFormSection" class="auth-form-view" style="display: none;">
+					<div class="demo-fill-card">
+						<span class="demo-fill-text">
+							<i class="fa fa-bolt text-warning me-1"></i> <strong>Quick Test Credential:</strong> admin@college.edu / password123
+						</span>
+						<button type="button" class="demo-fill-btn" onclick="fillCollegeCredentials()">
+							Auto-Fill Admin
+						</button>
+					</div>
+
+					<form id="collegeLoginForm">
+						<div class="mb-3">
+							<label class="form-label">Affiliated College Code</label>
+							<select id="collegeLoginSelect" class="form-select" required>
+								<option value="COL001">Apex Institute of Engineering & Technology (COL001)</option>
+								<option value="COL002">National Institute of Science & Technology (COL002)</option>
+							</select>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Official College Administration Email</label>
+							<div class="input-group">
+								<span class="input-group-text bg-white"><i class="fa fa-building-columns text-muted"></i></span>
+								<input type="email" id="collegeLoginEmail" class="form-control" placeholder="e.g. admin@college.edu" required>
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">Administrative Password</label>
+							<div class="input-group">
+								<span class="input-group-text bg-white"><i class="fa fa-lock text-muted"></i></span>
+								<input type="password" id="collegeLoginPassword" class="form-control" placeholder="Enter administrative password" required>
+								<button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('collegeLoginPassword', this)">
+									<i class="fa fa-eye"></i>
+								</button>
+							</div>
+						</div>
+
+						<button type="submit" class="btn-submit-action mt-4" style="background: #3730a3;">
+							<i class="fa fa-chart-line"></i> Access College Stress Analytics Dashboard
+						</button>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</main>
+
+	<!-- Footer -->
+	<footer class="py-4 text-center text-white-50 small" style="border-top: 1px solid rgba(255,255,255,0.1); position: relative; z-index: 5;">
+		<p class="mb-0">SereneCampus &bull; Problem Statement: Student Stress Levels & Coping Mechanisms &bull; University Wellness Initiative 2026</p>
+	</footer>
+
+	<!-- Interactive Controller Script -->
+	<script>
+		let currentRole = 'student'; // 'student' | 'psychologist' | 'college'
+		let currentTab = 'login';    // 'login' | 'register'
+
+		const API_BASE = window.API_BASE || 'http://localhost:8000';
+
+		// Step 1 -> Step 2
+		function selectRole(role) {
+			currentRole = role;
+			currentTab = 'login';
+
+			document.getElementById('roleSelectionScreen').style.display = 'none';
+			document.getElementById('authScreen').style.display = 'block';
+
+			// Update flow indicators
+			document.getElementById('flowStep1').classList.remove('active');
+			document.getElementById('flowStep2').classList.add('active');
+
+			// Update Role Badge
+			const badge = document.getElementById('activeRoleBadge');
+			const switcher = document.getElementById('segmentedSwitcher');
+
+			if (role === 'student') {
+				badge.textContent = '🎓 Selected: Student Portal';
+				badge.className = 'badge bg-primary text-white px-3 py-2';
+				switcher.style.display = 'inline-flex';
+			} else if (role === 'psychologist') {
+				badge.textContent = '🩺 Selected: Psychologist Portal';
+				badge.className = 'badge text-white px-3 py-2';
+				badge.style.background = '#0891b2';
+				switcher.style.display = 'inline-flex';
+			} else if (role === 'college') {
+				badge.textContent = '🏛️ Selected: College Administration';
+				badge.className = 'badge text-white px-3 py-2';
+				badge.style.background = '#3730a3';
+				switcher.style.display = 'none'; // Admin is login-only
+			}
+
+			switchAuthTab('login');
+		}
+
+		// Back to Step 1
+		function backToRoleSelection() {
+			document.getElementById('authScreen').style.display = 'none';
+			document.getElementById('roleSelectionScreen').style.display = 'block';
+
+			document.getElementById('flowStep2').classList.remove('active');
+			document.getElementById('flowStep1').classList.add('active');
+		}
+
+		// Switch Login vs Register Tabs
+		function switchAuthTab(tab) {
+			currentTab = tab;
+
+			document.getElementById('tabBtnLogin').classList.toggle('active', tab === 'login');
+			document.getElementById('tabBtnRegister').classList.toggle('active', tab === 'register');
+
+			// Hide all form sections
+			document.querySelectorAll('.auth-form-view').forEach(el => el.style.display = 'none');
+
+			if (currentRole === 'student') {
+				document.getElementById(tab === 'login' ? 'studentLoginFormSection' : 'studentRegisterFormSection').style.display = 'block';
+			} else if (currentRole === 'psychologist') {
+				document.getElementById(tab === 'login' ? 'psyLoginFormSection' : 'psyRegisterFormSection').style.display = 'block';
+			} else if (currentRole === 'college') {
+				document.getElementById('collegeLoginFormSection').style.display = 'block';
+			}
+		}
+
+		// Password Eye Toggle
+		function togglePasswordVisibility(inputId, btn) {
+			const input = document.getElementById(inputId);
+			const icon = btn.querySelector('i');
+			if (input.type === 'password') {
+				input.type = 'text';
+				icon.classList.remove('fa-eye');
+				icon.classList.add('fa-eye-slash');
+			} else {
+				input.type = 'password';
+				icon.classList.remove('fa-eye-slash');
+				icon.classList.add('fa-eye');
+			}
+		}
+
+		// Auto Fill Helpers
+		function fillStudentCredentials() {
+			document.getElementById('studentLoginEmail').value = 'rahul@college.edu';
+			document.getElementById('studentLoginPassword').value = 'password123';
+		}
+
+		function fillPsyCredentials() {
+			document.getElementById('psyLoginEmail').value = 'sarah.mitchell@psyshell.help';
+			document.getElementById('psyLoginPassword').value = 'password123';
+		}
+
+		function fillCollegeCredentials() {
+			document.getElementById('collegeLoginEmail').value = 'admin@college.edu';
+			document.getElementById('collegeLoginPassword').value = 'password123';
+		}
+
+		function showLoading(msg) {
+			document.getElementById('loadingText').textContent = msg || 'Processing...';
+			document.getElementById('loadingOverlay').style.display = 'flex';
+		}
+
+		function hideLoading() {
+			document.getElementById('loadingOverlay').style.display = 'none';
+		}
+
+		// ----------------- FORM SUBMISSIONS -----------------
+
+		// 1. Student Login
+		document.getElementById('studentLoginForm').addEventListener('submit', async function (e) {
+			e.preventDefault();
+			showLoading('Logging in student...');
+			const email = document.getElementById('studentLoginEmail').value.trim();
+			const password = document.getElementById('studentLoginPassword').value;
+
+			try {
+				const response = await axios.post(`${API_BASE}/UserLogin`, { email, password });
+				if (response.data && response.data.message === "Login successful") {
+					localStorage.clear();
+					localStorage.setItem("uid", response.data.userData.uid);
+					localStorage.setItem("nickname", response.data.userData.nickname);
+					localStorage.setItem("token", response.data.userData.token);
+					localStorage.setItem("userDetails", JSON.stringify(response.data));
+					window.location.href = "index.html";
+				} else {
+					alert(response.data.message || "Invalid student credentials");
+				}
+			} catch (err) {
+				console.error(err);
+				alert("Error logging in. Please check backend connection.");
+			} finally {
+				hideLoading();
+			}
+		});
+
+		// 2. Student Register
+		document.getElementById('studentRegisterForm').addEventListener('submit', async function (e) {
+			e.preventDefault();
+			showLoading('Registering new student profile...');
+			const nickname = document.getElementById('regStudentName').value.trim();
+			const email = document.getElementById('regStudentEmail').value.trim();
+			const password = document.getElementById('regStudentPassword').value;
+			const age = document.getElementById('regStudentAge').value;
+			const college = document.getElementById('regStudentCollege').value;
+			const dept = document.getElementById('regStudentDept').value;
+			const occupation = document.getElementById('regStudentYear').value;
+			const stressFocus = document.getElementById('regStudentStressFocus').value;
+
+			try {
+				const response = await axios.post(`${API_BASE}/registerUseronweb`, {
+					nickname, email, password, age, college, dept, occupation,
+					coping_technique: `Box Breathing (Focus: ${stressFocus})`
+				});
+
+				if (response.data && response.data.status === 200) {
+					alert("Student Registration Successful! You can now log in.");
+					switchAuthTab('login');
+					document.getElementById('studentLoginEmail').value = email;
+					document.getElementById('studentLoginPassword').value = password;
+				} else {
+					alert(response.data.message || "Registration failed");
+				}
+			} catch (err) {
+				console.error(err);
+				alert("Error registering student profile.");
+			} finally {
+				hideLoading();
+			}
+		});
+
+		// 3. Psychologist Login
+		document.getElementById('psyLoginForm').addEventListener('submit', async function (e) {
+			e.preventDefault();
+			showLoading('Logging in psychologist...');
+			const email = document.getElementById('psyLoginEmail').value.trim();
+			const password = document.getElementById('psyLoginPassword').value;
+
+			try {
+				const response = await axios.post(`${API_BASE}/psychologistLogin`, { email, password });
+				if (response.data && response.data.message === "Login successful") {
+					localStorage.clear();
+					localStorage.setItem("puid", response.data.userData.uid);
+					localStorage.setItem("nickname", response.data.userData.nickname);
+					localStorage.setItem("token", response.data.userData.token);
+					localStorage.setItem("doctorDetails", JSON.stringify(response.data));
+					window.location.href = "index2.html";
+				} else {
+					alert(response.data.message || "Invalid psychologist credentials");
+				}
+			} catch (err) {
+				console.error(err);
+				alert("Error logging in psychologist.");
+			} finally {
+				hideLoading();
+			}
+		});
+
+		// 4. Psychologist Register
+		document.getElementById('psyRegisterForm').addEventListener('submit', async function (e) {
+			e.preventDefault();
+			showLoading('Registering counselor profile...');
+			const nickname = document.getElementById('regPsyName').value.trim();
+			const email = document.getElementById('regPsyEmail').value.trim();
+			const password = document.getElementById('regPsyPassword').value;
+			const phone = document.getElementById('regPsyPhone').value;
+			const aoe = document.getElementById('regPsyAoe').value;
+			const college = document.getElementById('regPsyCollege').value;
+
+			try {
+				const response = await axios.post(`${API_BASE}/registerPsychologistonweb`, {
+					nickname, email, password, area_of_expertise: aoe, phonenumber: phone, collegecode: college
+				});
+
+				if (response.data && response.data.status === 200) {
+					alert("Psychologist Profile Created Successfully! Please log in.");
+					switchAuthTab('login');
+					document.getElementById('psyLoginEmail').value = email;
+					document.getElementById('psyLoginPassword').value = password;
+				} else {
+					alert(response.data.message || "Registration failed");
+				}
+			} catch (err) {
+				console.error(err);
+				alert("Error registering counselor profile.");
+			} finally {
+				hideLoading();
+			}
+		});
+
+		// 5. College Admin Login
+		document.getElementById('collegeLoginForm').addEventListener('submit', async function (e) {
+			e.preventDefault();
+			showLoading('Authenticating college administrator...');
+			const email = document.getElementById('collegeLoginEmail').value.trim();
+			const password = document.getElementById('collegeLoginPassword').value;
+			const collegeCode = document.getElementById('collegeLoginSelect').value;
+
+			try {
+				const response = await axios.post(`${API_BASE}/collegelogin`, { email, password });
+				if (response.data && response.data.message === "Login successful") {
+					localStorage.clear();
+					localStorage.setItem("Collegecode", response.data.collegeData.collegecode || collegeCode);
+					window.location.href = "index-2.html";
+				} else {
+					alert(response.data.error || response.data.message || "Invalid college credentials");
+				}
+			} catch (err) {
+				console.error(err);
+				alert("Error logging in as college administrator.");
+			} finally {
+				hideLoading();
+			}
+		});
+
+		// Populate dynamic colleges on load
+		document.addEventListener("DOMContentLoaded", async function () {
+			try {
+				const res = await axios.get(`${API_BASE}/listcolleges`);
+				if (res.data && res.data.list) {
+					const regSelect = document.getElementById("regStudentCollege");
+					const psySelect = document.getElementById("regPsyCollege");
+					const loginSelect = document.getElementById("collegeLoginSelect");
+
+					if (regSelect) regSelect.innerHTML = "";
+					if (psySelect) psySelect.innerHTML = "";
+					if (loginSelect) loginSelect.innerHTML = "";
+
+					res.data.list.forEach(c => {
+						const opt1 = document.createElement("option");
+						opt1.value = c.collegecode;
+						opt1.text = `${c.collegename} (${c.collegecode})`;
+						regSelect?.appendChild(opt1);
+
+						const opt2 = opt1.cloneNode(true);
+						psySelect?.appendChild(opt2);
+
+						const opt3 = opt1.cloneNode(true);
+						loginSelect?.appendChild(opt3);
+					});
+				}
+			} catch (e) {
+				console.warn("Could not load dynamic colleges list, using defaults.", e);
+			}
+		});
+	</script>
+</body>
+
+</html>

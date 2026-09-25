@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+	<title>PsyShell - Bridge gap to inner peace</title>
+    <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16"> 
+    
+    <link rel="stylesheet" href="css/main.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/color.css">
+    <link rel="stylesheet" href="css/responsive.css">
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="./js/protected.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="./js/network.js" defer></script>
+
+	<script>navigator.serviceWorker.register("js/service-worker.js")</script> 
+	<link rel="manifest" href="manifest.json" />
+</head>
+<body>
+<!--<div class="se-pre-con"></div>-->
+<div class="theme-layout">
+	
+	<div class="responsive-header">
+		<div class="mh-head first Sticky">
+			<span class="mh-btns-left">
+				<a class="" href="#menu"><i class="fa fa-align-justify"></i></a>
+			</span>
+			<span class="mh-text">
+				<a href="newsfeed.html" title=""><img src="images/logo.png" alt="" class="logo-img"></a>
+			</span>
+			
+		</div>
+		
+		<nav id="menu" class="res-menu">
+			<ul>
+				<li><a href="index.html" title="">Home</a></li>
+				<li><a href="newsfeed.html" title="">Community</a></li>
+				<li><a href="journal.html" title> Daily Journal</a></li>
+
+				<li><a href="groups.html" title="">Book Appointment</a></li>
+				<li><a href="messages.html" title="">Messages</a></li>
+				<li><a href="edit-account-setting.html" title="">edit account setting</a></li>
+				<li><a href="edit-password.html" title="">edit-password</a></li>
+				<li><a href="logout.html" title="">Logout</a></li>
+			 </ul>
+		</nav>
+		
+	</div><!-- responsive header -->
+	
+	<div class="topbar stick">
+		<div class="logo">
+			<a title="" href="index.html"><img src="images/logo.png" alt="" class="logo-img"></a>
+		</div>
+		
+		<div class="top-area">
+			<ul class="main-menu">
+				<li>
+					<a href="newsfeed.html" title>Community</a>
+				
+				</li>
+				<li><a href="journal.html" title> Daily Journal</a></li>
+				<li><a href="selftest.html" title>self test</a></li>
+
+			
+				<li><a href="groups.html" title>book
+					Appointment</a></li>
+			
+		
+
+
+			</ul>
+				<ul class="main-menu menu-2">
+
+			
+			<li>
+				<a><img src="images/resources/defaultpic.jpg" alt class="adminlogo"></a>
+
+				<ul>
+				
+					<li>
+						<a id="username"><i class="ti-user"></i></a>
+					</li>
+					<li>
+						<a href="edit-account-setting.html" title>edit account
+							setting</a>
+					</li>
+					<li>
+						<a href="edit-password.html" title>edit-password</a>
+					</li>
+						<li>
+							<a href="logout.html" title><i class="ti-power-off"></i>log out</a>
+						</li>
+					
+						
+						
+						
+					
+				</ul>
+
+			</li>
+			<li>
+			</li>
+			
+		</ul>
+		
+			
+		
+		</div>
+	</div><!-- topbar -->
+	
+
+
+	<section>
+		<div class="gap gray-bg">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="row" id="page-contents">
+							<div class="col-lg-4">
+								<aside class="sidebar static">
+									<div class="widget">
+											<h4 class="widget-title">Recent Activity</h4>
+											<ul class="activitiez" id="activity-log">
+												<li>
+													<div class="activity-meta">
+														<i>10 hours Ago</i>
+														<span><a title="" href="#">Commented on Video posted </a></span>
+														<h6>by <a href="time-line.html">black demon.</a></h6>
+													</div>
+												</li>
+												<li>
+													<div class="activity-meta">
+														<i>30 Days Ago</i>
+														<span><a title="" href="#">Posted your status. “Hello guys, how are you?”</a></span>
+													</div>
+												</li>
+												<li>
+													<div class="activity-meta">
+														<i>2 Years Ago</i>
+														<span><a title="" href="#">Share a video on her timeline.</a></span>
+														<h6>"<a href="#">you are so funny mr.been.</a>"</h6>
+													</div>
+												</li>
+											</ul>
+											<div id="get-more"></div>
+										</div>
+									<!-- settings widget -->										
+								</aside>
+							</div><!-- sidebar -->
+							<div class="col-lg-4 user-profile card bg-light">
+								<form id="imageUploadForm" enctype="multipart/form-data">
+								  <label for="imageInput" id="imageInputLabel">
+									<div id="imagePreview">
+									  <img id="profileImage" src="./images/resources/defaultpic.jpg" alt="Profile Image">
+									  <i id="addImageIcon" class="fa fa-plus-circle"></i>
+									  <span id="addImageText">Add Image</span>
+									</div>
+								  </label>
+								  <input type="file" name="image" id="imageInput" accept="image/*" hidden>
+								  <input type="text" name="uid" id="uidInput" value="" hidden><br>
+								  <button type="submit" class="btn btn-success" id="upload-btn">Upload Image</button><button id="removeImageButton" onclick="removeProfileImage()" class="btn btn-danger">Remove Image</button>
+
+								</form>
+
+
+								<div class="container d-flex flex-column overflow-auto pt-5 mt-5">
+									<h2 class="mt-5 pt-5">Update Details</h2>
+									<form id="userDetailsForm" method="post">
+										<div class="form-group">
+											<label for="name">Name:</label>
+											<input type="text" class="form-control" id="name" name="name">
+										</div>
+										<div class="form-group">
+											<label for="gender">Gender:</label>
+											<select class="form-control" id="gender" name="gender">
+												<option value="male">Male</option>
+												<option value="female">Female</option>
+												<option value="other">Other</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label for="age">Age:</label>
+											<input type="text" class="form-control" id="age" name="age">
+										</div>
+										<div class="form-group">
+											<label for="occupation">Occupation:</label>
+											<input type="text" class="form-control" id="occupation" name="occupation">
+										</div>
+										<div class="form-group">
+											<label for="relationshipStatus">Relationship Status:</label>
+											<select class="form-control" id="relationshipStatus" name="relationshipStatus">
+												<option value="single">Single</option>
+												<option value="in_relationship">In a Relationship</option>
+												<option value="complicated">It's Complicated</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label for="language">Language:</label>
+											<input type="text" class="form-control" id="language" name="language">
+										</div>
+										<div class="form-group">
+											<label for="dept">Department/ Branch:</label>
+											<input type="text" class="form-control" id="dept" name="dept">
+										</div>
+										<div class="form-group">
+											<label for="year">Year of study:</label>
+											<input type="text" class="form-control" id="year" name="year">
+										</div>
+										<button type="submit" class="btn btn-primary">UPDATE</button>
+									</form>
+								</div>
+							  </div>
+							<div class="col-lg-3">
+								<aside class="sidebar static">
+									<div class="widget">
+											
+										</div>
+										<div class="widget stick-widget">
+											<h4 class="widget-title">Edit info</h4>
+											<ul class="naves">
+												
+												<li>
+													<i class="ti-settings"></i>
+													<a href="edit-account-setting.html" title="">account setting</a>
+												</li>
+												<li>
+													<i class="ti-lock"></i>
+													<a href="edit-password.html" title="">change password</a>
+												</li>
+											</ul>
+										</div><!-- who's following -->
+								</aside>
+							</div><!-- sidebar -->
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>	
+	</section>
+
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-4">
+					<div class="widget">
+						<div class="foot-logo">
+							<div class="logo">
+								<a href="index-2.html" title=""><img src="images/logo.png" alt="" class="logo-img"></a>
+							</div>	
+							<p>
+									
+									We're always on the lookout to work with new colleges. If you're interested in working with us, please get in touch in one of the following ways
+								</p>
+						</div>
+						<ul class="location">
+							<li>
+								<i class="ti-email"></i>
+								<p>contact@psyshell.help</p>			
+											</li>
+							<li>
+								<i class="ti-mobile"></i>
+								<p>+91 91214 22554</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-4">
+					<div class="widget">
+						<div class="widget-title"><h4>follow</h4></div>
+						<ul class="list-style">
+							<li><i class="fa fa-facebook-square"></i> <a href="https://web.facebook.com/shopcircut/" title="">facebook</a></li>
+							<li><i class="fa fa-twitter-square"></i><a href="https://twitter.com/login?lang=en" title="">twitter</a></li>
+							<li><i class="fa fa-instagram"></i><a href="https://www.instagram.com/?hl=en" title="">instagram</a></li>
+							<li><i class="fa fa-google-plus-square"></i> <a href="https://plus.google.com/discover" title="">Google+</a></li>
+							<li><i class="fa fa-pinterest-square"></i> <a href="https://www.pinterest.com/" title="">Pintrest</a></li>
+						</ul>
+					</div>
+				</div>
+			
+			
+				<div class="col-lg-2 col-md-4">
+					<div class="widget">
+						<div class="widget-title"><h4>download apps</h4></div>
+						<ul class="colla-apps">
+							<li><a href="https://play.google.com/store?hl=en" title=""><i class="fa fa-android"></i>android</a></li>
+							<li><a href="https://www.apple.com/lae/ios/app-store/" title=""><i class="ti-apple"></i>iPhone</a></li>
+							<li><a href="https://www.microsoft.com/store/apps" title=""><i class="fa fa-windows"></i>Windows</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer><!-- footer -->
+	
+</div>
+		
+	
+	<script src="js/main.min.js"></script>
+	<script src="js/script.js"></script>
+	<script src="./js/userlog.js"></script>
+	<script src="./js/accountsetting.js"></script>
+
+</body>	
+
+</html>

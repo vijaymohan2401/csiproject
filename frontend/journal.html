@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SereneCampus - Student Daily Wellness & Stress Reflection Journal" />
+  <title>SereneCampus - Daily Journal & Reflection</title>
+  <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16" />
+
+  <!-- Google Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/themify-icons/0.1.2/css/themify-icons.css" />
+  
+  <!-- Serene Modern Unified Design System -->
+  <link rel="stylesheet" href="css/serene-modern.css" />
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/protected.js"></script>
+  <script src="js/journal.js"></script>
+</head>
+<body>
+
+  <!-- Modern Serene Global Navigation -->
+  <nav class="serene-nav">
+    <div class="serene-nav-inner">
+      <a href="index.html" class="serene-brand">
+        <div class="serene-brand-icon">🌿</div>
+        <div>
+          <span class="serene-brand-title">SereneCampus</span>
+          <span class="serene-brand-tag">Daily Journal</span>
+        </div>
+      </a>
+
+      <ul class="serene-menu">
+        <li><a href="index.html" class="serene-link"><i class="fa fa-house"></i> Home</a></li>
+        <li><a href="newsfeed.html" class="serene-link"><i class="fa fa-users"></i> Community</a></li>
+        <li><a href="coping.html" class="serene-link"><i class="fa fa-spa"></i> Coping Tools</a></li>
+        <li><a href="selftest.html" class="serene-link"><i class="fa fa-clipboard-check"></i> Self Test</a></li>
+        <li><a href="journal.html" class="serene-link active"><i class="fa fa-book-journal-whills"></i> Daily Journal</a></li>
+        <li><a href="groups.html" class="serene-link"><i class="fa fa-user-doctor"></i> Counselors</a></li>
+      </ul>
+
+      <div class="serene-user-area">
+        <div class="serene-user-chip" onclick="window.location.href='index.html'">
+          <img src="images/resources/defaultpic.jpg" alt="Avatar" class="serene-user-avatar" id="navAvatar" />
+          <span class="serene-user-name" id="navUserName">Student</span>
+        </div>
+        <button class="serene-logout-btn" onclick="logoutStudent()">
+          <i class="fa fa-arrow-right-from-bracket"></i> Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Notification Toast -->
+  <div id="messageToast" style="display:none; position:fixed; bottom:24px; right:24px; z-index:9999; background:rgba(15,23,42,0.95); border:1px solid #10b981; color:#fff; padding:14px 22px; border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,0.5); backdrop-filter:blur(10px); font-weight:600;">
+    Journal updated
+  </div>
+
+  <!-- Main Container -->
+  <main class="serene-page">
+
+    <!-- Journal Hero Banner -->
+    <section class="serene-hero" style="margin-bottom: 2rem;">
+      <div class="serene-hero-content">
+        <div class="serene-hero-badge">
+          <i class="fa fa-lock"></i> Confidential & Encrypted Student Diary
+        </div>
+        <h1 class="serene-hero-title">Daily Wellness & Reflection Journal</h1>
+        <p class="serene-hero-desc">
+          Putting emotions into words decreases amygdala reactivity and accelerates stress recovery. Take 5 distraction-free minutes today to reflect on your thoughts, academic workload, and personal victories.
+        </p>
+        <div class="serene-hero-stats">
+          <div class="serene-stat-pill">
+            <i class="fa fa-calendar-day" style="color:#f59e0b;"></i>
+            <span id="journalDateStr">Today</span>
+          </div>
+          <div class="serene-stat-pill">
+            <i class="fa fa-feather" style="color:#38bdf8;"></i>
+            <span>Daily Streak: <strong>4 Reflections</strong></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Journal Writing Area -->
+    <div style="max-width: 860px; margin: 0 auto;">
+
+      <!-- Intro Step (Optional / Can direct-load question) -->
+      <div id="journalIntro" class="serene-panel" style="text-align: center; padding: 2.5rem 2rem; margin-bottom: 2rem;">
+        <div style="width: 72px; height: 72px; border-radius: 50%; background: rgba(245,158,11,0.15); color: #f59e0b; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; margin: 0 auto 1.25rem; border: 1px solid rgba(245,158,11,0.3);">
+          📖
+        </div>
+        <h2 style="font-size: 1.6rem; color: #fff; margin-bottom: 0.75rem;">Ready to Clear Your Mind?</h2>
+        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 1.75rem; font-size: 0.95rem; line-height: 1.6;">
+          Your entries are completely confidential. Take a deep breath, unload what's weighing on you, and receive today's guided self-reflection prompt.
+        </p>
+        <button class="serene-btn-primary" onclick="showQuestion()" style="background: var(--gradient-warm);">
+          <i class="fa fa-pen"></i> Begin Today's Reflection
+        </button>
+      </div>
+
+      <!-- Question & Writing Box (Active Stage) -->
+      <div id="questionContainer" class="serene-panel" style="display: none; padding: 2rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-subtle);">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 1.4rem;">💡</span>
+            <span style="font-size: 0.85rem; font-weight: 700; color: #f59e0b; text-transform: uppercase; letter-spacing: 0.05em;">Guided Reflection Prompt</span>
+          </div>
+          <button type="button" onclick="showQuestion()" style="background: none; border: 1px solid var(--border-subtle); color: #94a3b8; font-size: 0.8rem; padding: 4px 10px; border-radius: 9999px; cursor: pointer;">
+            <i class="fa fa-rotate"></i> Another Prompt
+          </button>
+        </div>
+
+        <h3 id="question" style="font-size: 1.25rem; color: #ffffff; line-height: 1.5; margin-bottom: 1.25rem;">
+          How was your day? What challenged your peace of mind and what helped you regain balance?
+        </h3>
+
+        <!-- Rich Writing Canvas -->
+        <textarea id="answerTextarea" rows="9" class="serene-input" style="width: 100%; min-height: 220px; font-size: 1rem; line-height: 1.7; padding: 1.25rem; resize: vertical; margin-bottom: 1.5rem;" placeholder="Start writing here... (Take your time, let your thoughts flow freely without judging yourself)"></textarea>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+          <div style="font-size: 0.82rem; color: #94a3b8; display: flex; align-items: center; gap: 8px;">
+            <i class="fa fa-shield-halved" style="color: #10b981;"></i>
+            <span>Encrypted & private to your student ID.</span>
+          </div>
+
+          <button type="button" class="serene-btn-primary" onclick="SubmitJournalAnswer()" style="background: var(--gradient-warm);">
+            <i class="fa fa-floppy-disk"></i> Save Reflection (+25 Pts)
+          </button>
+        </div>
+      </div>
+
+      <!-- Past Journal Snippets Preview -->
+      <div style="margin-top: 2.5rem;">
+        <h4 style="font-size: 1.05rem; color: #fff; margin-bottom: 1rem;">Recent Reflections History</h4>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <strong style="color: #fff; font-size: 0.9rem;">Navigating mid-semester lab evaluations</strong>
+              <span style="font-size: 0.75rem; color: #94a3b8;">Yesterday • 09:30 PM</span>
+            </div>
+            <p style="margin: 0; font-size: 0.85rem; color: #cbd5e1; line-height: 1.5;">
+              "Felt extreme apprehension about the digital circuits practical. Practiced Box Breathing for 4 cycles in the corridor which stabilized my focus. Finished on time."
+            </p>
+          </div>
+
+          <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <strong style="color: #fff; font-size: 0.9rem;">Sleep schedule and burnout awareness</strong>
+              <span style="font-size: 0.75rem; color: #94a3b8;">3 days ago • 11:15 PM</span>
+            </div>
+            <p style="margin: 0; font-size: 0.85rem; color: #cbd5e1; line-height: 1.5;">
+              "Acknowledged that staying awake past 2 AM studying was compounding my anxiety. Used 4-7-8 breathing and disconnected screens 30 minutes before bed."
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Modern Serene Footer -->
+  <footer class="serene-footer">
+    <div class="serene-footer-inner">
+      <div class="serene-footer-brand">
+        <h3>🌿 SereneCampus</h3>
+        <p style="font-size:0.9rem; line-height:1.6;">
+          Private student reflection and cognitive mindfulness journal.
+        </p>
+      </div>
+
+      <div>
+        <h4 style="font-size:1rem; color:#fff; margin-bottom:1rem;">Campus Resources</h4>
+        <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; font-size:0.9rem;">
+          <li><a href="index.html" style="color:#94a3b8;">Student Home</a></li>
+          <li><a href="coping.html" style="color:#94a3b8;">Coping Mechanisms</a></li>
+          <li><a href="selftest.html" style="color:#94a3b8;">Stress Assessment</a></li>
+          <li><a href="groups.html" style="color:#94a3b8;">Counselor Sessions</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="font-size:1rem; color:#fff; margin-bottom:1rem;">Emergency Contacts</h4>
+        <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:6px;">National Mental Health Helpline: 14416</p>
+        <p style="font-size:0.85rem; color:#94a3b8;">100% Free & Confidential</p>
+      </div>
+    </div>
+
+    <div class="serene-footer-copy">
+      © 2026 SereneCampus Ecosystem. Built for Student Wellness, Academic Resilience & Adaptive Stress Coping.
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const studentName = user.nickname || user.name || "Student";
+      document.getElementById("navUserName").textContent = studentName;
+
+      const options = { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' };
+      document.getElementById("journalDateStr").textContent = new Date().toLocaleDateString("en-US", options);
+    });
+
+    function logoutStudent() {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = "landing.html";
+    }
+  </script>
+</body>
+</html>

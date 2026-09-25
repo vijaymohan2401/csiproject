@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SereneCampus - Adaptive Coping Mechanisms & Guided Breathing Studio" />
+  <title>SereneCampus - Adaptive Coping Studio</title>
+  <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16" />
+
+  <!-- Google Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/themify-icons/0.1.2/css/themify-icons.css" />
+  
+  <!-- Serene Modern Unified Design System -->
+  <link rel="stylesheet" href="css/serene-modern.css" />
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/protected.js"></script>
+</head>
+<body>
+
+  <!-- Modern Serene Global Navigation -->
+  <nav class="serene-nav">
+    <div class="serene-nav-inner">
+      <a href="index.html" class="serene-brand">
+        <div class="serene-brand-icon">🌿</div>
+        <div>
+          <span class="serene-brand-title">SereneCampus</span>
+          <span class="serene-brand-tag">Coping Studio</span>
+        </div>
+      </a>
+
+      <ul class="serene-menu">
+        <li><a href="index.html" class="serene-link"><i class="fa fa-house"></i> Home</a></li>
+        <li><a href="newsfeed.html" class="serene-link"><i class="fa fa-users"></i> Community</a></li>
+        <li><a href="coping.html" class="serene-link active"><i class="fa fa-spa"></i> Coping Tools</a></li>
+        <li><a href="selftest.html" class="serene-link"><i class="fa fa-clipboard-check"></i> Self Test</a></li>
+        <li><a href="journal.html" class="serene-link"><i class="fa fa-book-journal-whills"></i> Daily Journal</a></li>
+        <li><a href="groups.html" class="serene-link"><i class="fa fa-user-doctor"></i> Counselors</a></li>
+      </ul>
+
+      <div class="serene-user-area">
+        <div class="serene-user-chip" onclick="window.location.href='index.html'">
+          <img src="images/resources/defaultpic.jpg" alt="Avatar" class="serene-user-avatar" id="navAvatar" />
+          <span class="serene-user-name" id="navUserName">Student</span>
+        </div>
+        <button class="serene-logout-btn" onclick="logoutStudent()">
+          <i class="fa fa-arrow-right-from-bracket"></i> Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Notification Toast -->
+  <div id="copingToast" style="display:none; position:fixed; bottom:24px; right:24px; z-index:9999; background:rgba(15,23,42,0.95); border:1px solid #10b981; color:#fff; padding:14px 22px; border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,0.5); backdrop-filter:blur(10px); font-weight:600; display:flex; align-items:center; gap:10px;">
+    <span id="toastIcon">🧘</span>
+    <span id="toastMsg">Exercise completed! +50 Wellness Points awarded.</span>
+  </div>
+
+  <!-- Main Container -->
+  <main class="serene-page">
+
+    <!-- Studio Hero Banner -->
+    <section class="serene-hero" style="margin-bottom: 2rem;">
+      <div class="serene-hero-content">
+        <div class="serene-hero-badge">
+          <i class="fa fa-spa"></i> Evidence-Based Somatic & Cognitive Coping
+        </div>
+        <h1 class="serene-hero-title">Adaptive Coping Studio</h1>
+        <p class="serene-hero-desc">
+          When academic stress or panic strikes, somatic exercises immediately activate your vagus nerve to slow down your heart rate and re-center your cognitive focus. Select any proven technique below.
+        </p>
+        <div class="serene-hero-stats">
+          <div class="serene-stat-pill">
+            <i class="fa fa-check-double" style="color:#10b981;"></i>
+            <span>Completed Today: <strong id="completedCount">2 Sessions</strong></span>
+          </div>
+          <div class="serene-stat-pill">
+            <i class="fa fa-star" style="color:#f59e0b;"></i>
+            <span>Wellness Points: <strong id="wellnessPoints">180 Pts</strong></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Studio Grid (Technique Picker + Interactive Stage) -->
+    <div class="serene-coping-grid">
+
+      <!-- Left: Techniques Selector (8 Techniques) -->
+      <aside class="serene-technique-list">
+        <div style="font-size:0.85rem; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.25rem;">
+          Select Coping Ritual
+        </div>
+
+        <!-- 1. Box Breathing -->
+        <div class="serene-tech-item active" id="item-BoxBreathing" onclick="selectTechnique('BoxBreathing', 'Box Breathing (4-4-4-4)', 'Inhale 4s • Hold 4s • Exhale 4s • Hold 4s', 'A tactical breathing method used to regain control in high-stress college exam and interview situations.')">
+          <div class="serene-tech-icon" style="color:#38bdf8;">📦</div>
+          <div class="serene-tech-meta">
+            <h4>Box Breathing (4-4-4-4)</h4>
+            <span>4 min • Autonomic Reset</span>
+          </div>
+        </div>
+
+        <!-- 2. 4-7-8 Technique -->
+        <div class="serene-tech-item" id="item-4-7-8_technique" onclick="selectTechnique('4-7-8_technique', '4-7-8 Relaxing Breath', 'Inhale 4s • Hold 7s • Exhale 8s', 'Dr. Andrew Weil\'s natural tranquilizer for the nervous system, ideal for evening study anxiety and insomnia.')">
+          <div class="serene-tech-icon" style="color:#818cf8;">🌬️</div>
+          <div class="serene-tech-meta">
+            <h4>4-7-8 Relaxation</h4>
+            <span>5 min • Deep Calm & Sleep</span>
+          </div>
+        </div>
+
+        <!-- 3. 5-4-3-2-1 Sensory Grounding -->
+        <div class="serene-tech-item" id="item-5-4-3-2-1" onclick="selectTechnique('5-4-3-2-1', '5-4-3-2-1 Sensory Grounding', 'Acknowledge 5 visual, 4 touch, 3 sound, 2 smell, 1 taste sensations', 'Cognitive grounding to pull you out of anxiety spirals and reconnect you to immediate physical reality.')">
+          <div class="serene-tech-icon" style="color:#34d399;">🖐️</div>
+          <div class="serene-tech-meta">
+            <h4>5-4-3-2-1 Grounding</h4>
+            <span>3 min • Panic Interruption</span>
+          </div>
+        </div>
+
+        <!-- 4. Alternate Nostril Breathing -->
+        <div class="serene-tech-item" id="item-alternate_nostril" onclick="selectTechnique('alternate_nostril', 'Alternate Nostril Breathing', 'Nadi Shodhana Pranayama', 'Balances the left and right hemispheres of the brain, promoting clear mental focus before exams.')">
+          <div class="serene-tech-icon" style="color:#fbbf24;">👃</div>
+          <div class="serene-tech-meta">
+            <h4>Alternate Nostril</h4>
+            <span>5 min • Focus & Balance</span>
+          </div>
+        </div>
+
+        <!-- 5. Affirmations -->
+        <div class="serene-tech-item" id="item-affrimation" onclick="selectTechnique('affrimation', 'Positive Affirmations', 'Cognitive Reframing for Imposter Syndrome', 'Break self-doubt, reframe negative automatic thoughts, and foster self-compassion.')">
+          <div class="serene-tech-icon" style="color:#f472b6;">✨</div>
+          <div class="serene-tech-meta">
+            <h4>Affirmations Ritual</h4>
+            <span>2 min • Confidence Boost</span>
+          </div>
+        </div>
+
+        <!-- 6. Belly Breathing -->
+        <div class="serene-tech-item" id="item-belly_breathing" onclick="selectTechnique('belly_breathing', 'Diaphragmatic Belly Breathing', 'Deep abdominal breathing with chest steady', 'Eliminates shallow chest breathing caused by prolonged sitting and studying.')">
+          <div class="serene-tech-icon" style="color:#a78bfa;">🫁</div>
+          <div class="serene-tech-meta">
+            <h4>Belly Breathing</h4>
+            <span>4 min • Tension Release</span>
+          </div>
+        </div>
+
+        <!-- 7. 8-4-7 Technique -->
+        <div class="serene-tech-item" id="item-8-4-7_technique" onclick="selectTechnique('8-4-7_technique', '8-4-7 Calming Sequence', 'Controlled rhythmic inhalation and exhalation', 'Fast-acting decompression sequence for study fatigue and acute burnout.')">
+          <div class="serene-tech-icon" style="color:#fb7185;">🌊</div>
+          <div class="serene-tech-meta">
+            <h4>8-4-7 Calm Method</h4>
+            <span>3 min • Rapid Relief</span>
+          </div>
+        </div>
+
+        <!-- 8. Counting Backwards -->
+        <div class="serene-tech-item" id="item-counting_backwards" onclick="selectTechnique('counting_backwards', 'Backward Counting Focus', 'Count down from 100 in steps of 7', 'Engages executive cognitive function in the prefrontal cortex to disengage panic centers.')">
+          <div class="serene-tech-icon" style="color:#38bdf8;">🔢</div>
+          <div class="serene-tech-meta">
+            <h4>Backward Counting</h4>
+            <span>3 min • Mental Clarity</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Right: Main Active Studio Stage Panel -->
+      <section class="serene-stage-panel">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1rem;">
+          <div>
+            <h2 id="stageTitle" style="font-size:1.65rem; margin:0 0 0.35rem; color:#fff;">Box Breathing (4-4-4-4)</h2>
+            <div id="stageSubtitle" style="font-size:0.9rem; color:#38bdf8; font-weight:600;">Inhale 4s • Hold 4s • Exhale 4s • Hold 4s</div>
+          </div>
+          <button class="serene-btn-primary" onclick="markCompleted()" style="background:var(--gradient-coping);">
+            <i class="fa fa-circle-check"></i> Mark as Completed (+50 Pts)
+          </button>
+        </div>
+
+        <p id="stageDesc" style="color:var(--text-muted); font-size:0.95rem; line-height:1.6; margin-bottom:1rem;">
+          A tactical breathing method used to regain control in high-stress college exam and interview situations.
+        </p>
+
+        <!-- Interactive Embedded Player Container -->
+        <div class="serene-iframe-wrapper">
+          <iframe id="techniqueFrame" src="./copingtechs/BoxBreathing/" title="Coping Technique Player"></iframe>
+        </div>
+
+        <!-- Bottom Guidance Strip -->
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-top:1.5rem; padding-top:1.25rem; border-top:1px solid var(--border-subtle);">
+          <div style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:#94a3b8;">
+            <i class="fa fa-lightbulb" style="color:#f59e0b;"></i>
+            <span>Tip: Close your eyes or focus softly on the guiding dot while breathing through your nose.</span>
+          </div>
+          <div style="display:flex; gap:12px;">
+            <a href="journal.html" style="font-size:0.85rem; color:#818cf8; font-weight:600; text-decoration:none;">
+              <i class="fa fa-pen"></i> Log in Journal
+            </a>
+            <a href="groups.html" style="font-size:0.85rem; color:#34d399; font-weight:600; text-decoration:none;">
+              <i class="fa fa-user-doctor"></i> Talk to Counselor
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Modern Serene Footer -->
+  <footer class="serene-footer">
+    <div class="serene-footer-inner">
+      <div class="serene-footer-brand">
+        <h3>🌿 SereneCampus</h3>
+        <p style="font-size:0.9rem; line-height:1.6;">
+          Clinically grounded coping techniques engineered to mitigate student anxiety and build psychological resilience.
+        </p>
+      </div>
+
+      <div>
+        <h4 style="font-size:1rem; color:#fff; margin-bottom:1rem;">Campus Resources</h4>
+        <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; font-size:0.9rem;">
+          <li><a href="index.html" style="color:#94a3b8;">Student Dashboard</a></li>
+          <li><a href="selftest.html" style="color:#94a3b8;">Stress Assessment (DASS-21)</a></li>
+          <li><a href="journal.html" style="color:#94a3b8;">Daily Reflection Journal</a></li>
+          <li><a href="groups.html" style="color:#94a3b8;">Confidential Counseling</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="font-size:1rem; color:#fff; margin-bottom:1rem;">Emergency Contacts</h4>
+        <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:6px;">National Mental Health Helpline: 14416</p>
+        <p style="font-size:0.85rem; color:#94a3b8;">100% Free & Confidential</p>
+      </div>
+    </div>
+
+    <div class="serene-footer-copy">
+      © 2026 SereneCampus Ecosystem. Built for Student Wellness, Academic Resilience & Adaptive Stress Coping.
+    </div>
+  </footer>
+
+  <!-- Coping Studio Scripts -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const studentName = user.nickname || user.name || "Student";
+      document.getElementById("navUserName").textContent = studentName;
+    });
+
+    let currentTechnique = "BoxBreathing";
+
+    function selectTechnique(techId, title, subtitle, desc) {
+      currentTechnique = techId;
+      document.querySelectorAll(".serene-tech-item").forEach(item => item.classList.remove("active"));
+      const selectedItem = document.getElementById("item-" + techId);
+      if (selectedItem) selectedItem.classList.add("active");
+
+      document.getElementById("stageTitle").textContent = title;
+      document.getElementById("stageSubtitle").textContent = subtitle;
+      document.getElementById("stageDesc").textContent = desc;
+
+      const iframe = document.getElementById("techniqueFrame");
+      iframe.src = `./copingtechs/${techId}/`;
+    }
+
+    function markCompleted() {
+      const toast = document.getElementById("copingToast");
+      toast.style.display = "flex";
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, 3500);
+
+      // Increment points
+      const pointsEl = document.getElementById("wellnessPoints");
+      let currentPts = parseInt(pointsEl.textContent) || 180;
+      pointsEl.textContent = (currentPts + 50) + " Pts";
+
+      const countEl = document.getElementById("completedCount");
+      let currentCount = parseInt(countEl.textContent) || 2;
+      countEl.textContent = (currentCount + 1) + " Sessions";
+    }
+
+    function logoutStudent() {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = "landing.html";
+    }
+  </script>
+</body>
+</html>

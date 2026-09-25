@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SereneCampus - Psychologist Community Feed" />
+  <title>SereneCampus - Counselor Community Feed</title>
+  <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16" />
+
+  <!-- Google Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/themify-icons/0.1.2/css/themify-icons.css" />
+  
+  <!-- Serene Modern Unified Design System -->
+  <link rel="stylesheet" href="css/serene-modern.css" />
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="./js/doctor/unauth.js"></script>
+  <script src="./js/doctor/community.js" defer></script>
+</head>
+<body>
+
+  <!-- Modern Serene Global Navigation (Psychologist Mode) -->
+  <nav class="serene-nav">
+    <div class="serene-nav-inner">
+      <a href="index2.html" class="serene-brand">
+        <div class="serene-brand-icon" style="background:var(--gradient-violet);">🩺</div>
+        <div>
+          <span class="serene-brand-title">SereneCampus</span>
+          <span class="serene-brand-tag" style="background:rgba(192,132,252,0.15); color:#c084fc; border-color:rgba(192,132,252,0.3);">Psychologist</span>
+        </div>
+      </a>
+
+      <ul class="serene-menu">
+        <li><a href="index2.html" class="serene-link"><i class="fa fa-calendar-check"></i> Appointments</a></li>
+        <li><a href="community.html" class="serene-link active"><i class="fa fa-users"></i> Community Feed</a></li>
+        <li><a href="clients.html" class="serene-link"><i class="fa fa-user-graduate"></i> Students</a></li>
+        <li><a href="chatting.html" class="serene-link"><i class="fa fa-comments"></i> Messages</a></li>
+        <li><a href="inbox.html" class="serene-link"><i class="fa fa-bell"></i> Reminders</a></li>
+      </ul>
+
+      <div class="serene-user-area">
+        <div class="serene-user-chip" onclick="window.location.href='account.html'">
+          <img src="images/resources/defaultpic.jpg" alt="Avatar" class="serene-user-avatar" style="border-color:#c084fc;" />
+          <span class="serene-user-name" id="docName">Dr. Counselor</span>
+        </div>
+        <button class="serene-logout-btn" onclick="logoutDoctor()">
+          <i class="fa fa-arrow-right-from-bracket"></i> Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Notification Toast -->
+  <div id="messageToast" style="display:none; position:fixed; bottom:24px; right:24px; z-index:9999; background:rgba(15,23,42,0.95); border:1px solid #10b981; color:#fff; padding:14px 22px; border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,0.5); backdrop-filter:blur(10px); font-weight:600;">
+    Clinical note shared
+  </div>
+
+  <!-- Main Container -->
+  <main class="serene-page">
+
+    <!-- Hero Header -->
+    <section class="serene-hero" style="margin-bottom: 2rem; background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(24, 18, 43, 0.95) 100%);">
+      <div class="serene-hero-content">
+        <div class="serene-hero-badge" style="background:rgba(192,132,252,0.15); color:#c084fc; border-color:rgba(192,132,252,0.3);">
+          <i class="fa fa-comments-medical"></i> Professional Guidance Forum
+        </div>
+        <h1 class="serene-hero-title">Campus Wellness Discussion Feed</h1>
+        <p class="serene-hero-desc">
+          Share clinical coping recommendations, provide compassionate responses to student posts, and address common academic stressors and burnout questions.
+        </p>
+      </div>
+    </section>
+
+    <!-- 3-Column Layout -->
+    <div class="serene-feed-layout">
+
+      <!-- Left Sidebar -->
+      <aside class="serene-feed-sidebar-left">
+        <div class="serene-panel" style="padding: 1.25rem; margin-bottom: 1.25rem;">
+          <h4 style="margin: 0 0 1rem; font-size: 0.95rem; color: #fff;">Clinical Navigation</h4>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <a href="index2.html" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 8px; font-size: 0.85rem; text-decoration: none;">
+              <i class="fa fa-calendar-check" style="color: #c084fc;"></i>
+              <span>Consultations</span>
+            </a>
+            <a href="clients.html" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 8px; font-size: 0.85rem; text-decoration: none;">
+              <i class="fa fa-user-graduate" style="color: #38bdf8;"></i>
+              <span>Student Registry</span>
+            </a>
+            <a href="chatting.html" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 8px; font-size: 0.85rem; text-decoration: none;">
+              <i class="fa fa-comments" style="color: #10b981;"></i>
+              <span>Direct Chat</span>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Feed -->
+      <section>
+        <!-- Post Composer for Counselor -->
+        <div class="serene-post-composer">
+          <form id="createPostForm">
+            <div class="serene-composer-top">
+              <img src="images/resources/defaultpic.jpg" alt="Avatar" class="serene-composer-avatar" style="border-color:#c084fc;" />
+              <div class="serene-composer-inputs">
+                <input type="text" id="title" name="title" class="serene-input" placeholder="Title: Post a clinical advice tip, breathing guide, or coping strategy..." required />
+                <textarea id="description" name="description" class="serene-input serene-textarea" placeholder="Share evidence-based coping advice for students facing exams, sleep issues, or anxiety..." required></textarea>
+                <input type="hidden" name="uid" id="uid" value="" />
+              </div>
+            </div>
+
+            <img id="imagePreview" alt="Preview" style="display:none; max-width:100%; max-height:220px; object-fit:cover; border-radius:10px; margin-bottom:12px; border:1px solid var(--border-subtle);" />
+
+            <div class="serene-composer-actions">
+              <div class="serene-composer-tags">
+                <label style="cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; color: #94a3b8; background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 9999px; border: 1px solid var(--border-subtle);">
+                  <i class="fa fa-image" style="color: #c084fc;"></i> Photo
+                  <input type="file" id="image" name="image" accept="image/*" style="display: none;" onchange="previewPostImage(event)" />
+                </label>
+                <button type="button" class="serene-tag-btn" onclick="addTag('#CounselorTip')">#CounselorTip</button>
+                <button type="button" class="serene-tag-btn" onclick="addTag('#ExamResilience')">#ExamResilience</button>
+              </div>
+
+              <button type="submit" class="serene-btn-primary" style="background:var(--gradient-violet);">
+                <i class="fa fa-paper-plane"></i> Publish Advice
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Dynamic Feed -->
+        <div id="posts-container"></div>
+
+        <!-- Loading -->
+        <div id="loading" style="display:none; text-align:center; padding:2rem;">
+          <i class="fa fa-spinner fa-spin fa-2x" style="color:#c084fc;"></i>
+          <p style="color:#94a3b8; font-size:0.9rem; margin-top:8px;">Loading community discussions...</p>
+        </div>
+      </section>
+
+      <!-- Right Sidebar -->
+      <aside class="serene-feed-sidebar-right">
+        <div class="serene-panel" style="padding: 1.25rem;">
+          <h4 style="margin: 0 0 1rem; font-size: 0.95rem; color: #fff;">Counselor Guidelines</h4>
+          <p style="font-size: 0.82rem; color: #94a3b8; line-height: 1.6; margin-bottom: 10px;">
+            Please ensure all advice posted adheres to university clinical guidelines and confidentiality standards. Avoid diagnosing individual students in public comments.
+          </p>
+          <div style="font-size: 0.8rem; color: #10b981; font-weight: 600;">
+            ✓ Campus Verified Counselor
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- Modern Serene Footer -->
+  <footer class="serene-footer">
+    <div class="serene-footer-inner">
+      <div class="serene-footer-brand">
+        <h3>🌿 SereneCampus</h3>
+        <p style="font-size:0.9rem; line-height:1.6;">
+          Psychologist and student clinical peer support ecosystem.
+        </p>
+      </div>
+
+      <div>
+        <h4 style="font-size:1rem; color:#fff; margin-bottom:1rem;">Clinical Tools</h4>
+        <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; font-size:0.9rem;">
+          <li><a href="index2.html" style="color:#94a3b8;">Appointments</a></li>
+          <li><a href="clients.html" style="color:#94a3b8;">Students</a></li>
+          <li><a href="chatting.html" style="color:#94a3b8;">Messages</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="font-size:1rem; color:#fff; margin-bottom:1rem;">Campus Support</h4>
+        <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:6px;">National Mental Health Helpline: 14416</p>
+        <p style="font-size:0.85rem; color:#94a3b8;">100% Free & Confidential</p>
+      </div>
+    </div>
+
+    <div class="serene-footer-copy">
+      © 2026 SereneCampus Ecosystem. Built for Student Wellness, Academic Resilience & Adaptive Stress Coping.
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const doc = JSON.parse(localStorage.getItem("doctor") || "{}");
+      const name = doc.nickname || doc.name || "Dr. Counselor";
+      const docNameEl = document.getElementById("docName");
+      if (docNameEl) docNameEl.textContent = name;
+      document.getElementById("uid").value = localStorage.getItem("puid") || "doc_001";
+
+      if (typeof getNewsFeed === "function") {
+        getNewsFeed(1);
+      }
+    });
+
+    function previewPostImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = document.getElementById("imagePreview");
+          img.src = e.target.result;
+          img.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function addTag(tag) {
+      const desc = document.getElementById("description");
+      desc.value = desc.value + (desc.value.endsWith(" ") || desc.value === "" ? "" : " ") + tag + " ";
+      desc.focus();
+    }
+
+    function logoutDoctor() {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = "landing.html";
+    }
+  </script>
+</body>
+</html>

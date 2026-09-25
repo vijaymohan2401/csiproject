@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SereneCampus - Student Wellness & Coping Community" />
+  <title>SereneCampus - Wellness & Coping Community</title>
+  <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16" />
+
+  <!-- Google Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/themify-icons/0.1.2/css/themify-icons.css" />
+  
+  <!-- Serene Modern Unified Design System -->
+  <link rel="stylesheet" href="css/serene-modern.css" />
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/protected.js"></script>
+  <script src="js/feed.js" defer></script>
+</head>
+<body>
+
+  <!-- Modern Serene Global Navigation -->
+  <nav class="serene-nav">
+    <div class="serene-nav-inner">
+      <a href="index.html" class="serene-brand">
+        <div class="serene-brand-icon">🌿</div>
+        <div>
+          <span class="serene-brand-title">SereneCampus</span>
+          <span class="serene-brand-tag">Community</span>
+        </div>
+      </a>
+
+      <ul class="serene-menu">
+        <li><a href="index.html" class="serene-link"><i class="fa fa-house"></i> Home</a></li>
+        <li><a href="newsfeed.html" class="serene-link active"><i class="fa fa-users"></i> Community</a></li>
+        <li><a href="coping.html" class="serene-link"><i class="fa fa-spa"></i> Coping Tools</a></li>
+        <li><a href="selftest.html" class="serene-link"><i class="fa fa-clipboard-check"></i> Self Test</a></li>
+        <li><a href="journal.html" class="serene-link"><i class="fa fa-book-journal-whills"></i> Daily Journal</a></li>
+        <li><a href="groups.html" class="serene-link"><i class="fa fa-user-doctor"></i> Counselors</a></li>
+      </ul>
+
+      <div class="serene-user-area">
+        <div class="serene-user-chip" onclick="window.location.href='index.html'">
+          <img src="images/resources/defaultpic.jpg" alt="Avatar" class="serene-user-avatar" id="navAvatar" />
+          <span class="serene-user-name" id="navUserName">Student</span>
+        </div>
+        <button class="serene-logout-btn" onclick="logoutStudent()">
+          <i class="fa fa-arrow-right-from-bracket"></i> Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Notification Toast -->
+  <div id="messageToast" style="display:none; position:fixed; bottom:24px; right:24px; z-index:9999; background:rgba(15,23,42,0.95); border:1px solid #10b981; color:#fff; padding:14px 22px; border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,0.5); backdrop-filter:blur(10px); font-weight:600;">
+    <span id="toastMsg">Post shared successfully</span>
+  </div>
+
+  <!-- Main Container -->
+  <main class="serene-page">
+
+    <!-- Community Header Banner (Zero Gap) -->
+    <section class="serene-hero" style="padding: 1.75rem 2rem; margin-bottom: 1.75rem;">
+      <div class="serene-hero-content">
+        <div class="serene-hero-badge">
+          <i class="fa fa-comments"></i> Safe & Supportive Peer Discussion
+        </div>
+        <h1 class="serene-hero-title" style="font-size: 1.85rem;">Campus Wellness Community</h1>
+        <p class="serene-hero-desc" style="margin-bottom: 0; font-size: 0.95rem;">
+          Exchange proven coping rituals, discuss exam pressure openly, and receive insights from certified college psychologists in a respectful space.
+        </p>
+      </div>
+    </section>
+
+    <!-- 3-Column Community Layout -->
+    <div class="serene-feed-layout">
+
+      <!-- Left Sidebar: Profile & Quick Links -->
+      <aside class="serene-feed-sidebar-left">
+        <!-- Student Profile Card -->
+        <div class="serene-panel" style="padding: 1.25rem; margin-bottom: 1.25rem;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <img src="images/resources/defaultpic.jpg" alt="Student" style="width: 48px; height: 48px; border-radius: 50%; border: 2px solid #6366f1;" />
+            <div>
+              <h4 style="margin: 0; font-size: 1rem; color: #fff;" id="sidebarName">Student</h4>
+              <span style="font-size: 0.75rem; color: #10b981; font-weight: 600;">Active Peer</span>
+            </div>
+          </div>
+          <div style="font-size: 0.82rem; color: #94a3b8; display: flex; flex-direction: column; gap: 6px; padding-top: 8px; border-top: 1px solid var(--border-subtle);">
+            <div>College: <strong style="color: #fff;" id="sidebarCollege">COL001</strong></div>
+            <div>Wellness Status: <strong style="color: #10b981;">Resilient</strong></div>
+          </div>
+        </div>
+
+        <!-- Shortcuts Card -->
+        <div class="serene-panel" style="padding: 1.25rem;">
+          <h4 style="font-size: 0.95rem; margin-top: 0; margin-bottom: 1rem; color: #fff;">Wellness Tools</h4>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <a href="coping.html" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 8px; font-size: 0.85rem;">
+              <i class="fa fa-spa" style="color: #10b981;"></i>
+              <span>Coping Studio</span>
+            </a>
+            <a href="selftest.html" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 8px; font-size: 0.85rem;">
+              <i class="fa fa-clipboard-check" style="color: #6366f1;"></i>
+              <span>Stress Self-Test</span>
+            </a>
+            <a href="journal.html" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 8px; font-size: 0.85rem;">
+              <i class="fa fa-book-journal-whills" style="color: #f59e0b;"></i>
+              <span>Daily Journal</span>
+            </a>
+            <a href="groups.html" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 8px; font-size: 0.85rem;">
+              <i class="fa fa-user-doctor" style="color: #c084fc;"></i>
+              <span>Book Counselor</span>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Column: Post Composer & Dynamic Feed -->
+      <section>
+        <!-- Modern Post Composer -->
+        <div class="serene-post-composer">
+          <form id="createPostForm">
+            <div class="serene-composer-top">
+              <img src="images/resources/defaultpic.jpg" alt="Avatar" class="serene-composer-avatar" />
+              <div class="serene-composer-inputs">
+                <input type="text" id="title" name="title" class="serene-input" placeholder="Title: What coping mechanism or experience are you sharing?" required />
+                <textarea id="description" name="description" class="serene-input serene-textarea" placeholder="Write your thoughts, tips, or questions here..." required></textarea>
+                <input type="hidden" name="uid" id="uid" value="" />
+              </div>
+            </div>
+
+            <!-- Image Preview if chosen -->
+            <img id="imagePreview" alt="Preview" style="display:none; max-width:100%; max-height:220px; object-fit:cover; border-radius:10px; margin-bottom:12px; border:1px solid var(--border-subtle);" />
+
+            <div class="serene-composer-actions">
+              <div class="serene-composer-tags">
+                <label style="cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; color: #94a3b8; background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 9999px; border: 1px solid var(--border-subtle);">
+                  <i class="fa fa-image" style="color: #38bdf8;"></i> Photo
+                  <input type="file" id="image" name="image" accept="image/*" style="display: none;" onchange="previewPostImage(event)" />
+                </label>
+                <button type="button" class="serene-tag-btn" onclick="addTag('#ExamStress')">#ExamStress</button>
+                <button type="button" class="serene-tag-btn" onclick="addTag('#BoxBreathing')">#BoxBreathing</button>
+                <button type="button" class="serene-tag-btn" onclick="addTag('#Mindfulness')">#Mindfulness</button>
+              </div>
+
+              <button type="submit" class="serene-btn-primary">
+                <i class="fa fa-paper-plane"></i> Share Post
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Dynamic Post Feed -->
+        <div id="posts-container">
+          <!-- Populated dynamically by feed.js -->
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loading" style="display:none; text-align:center; padding:2rem;">
+          <i class="fa fa-spinner fa-spin fa-2x" style="color:#6366f1;"></i>
+          <p style="color:#94a3b8; font-size:0.9rem; margin-top:8px;">Loading community discussions...</p>
+        </div>
+      </section>
+
+      <!-- Right Sidebar: Coping Mechanisms & Crisis Helpline -->
+      <aside class="serene-feed-sidebar-right">
+        <!-- Recommended Coping Techniques -->
+        <div class="serene-panel" style="padding: 1.25rem; margin-bottom: 1.25rem;">
+          <h4 style="font-size: 0.95rem; margin-top: 0; margin-bottom: 1rem; color: #fff; display: flex; align-items: center; gap: 8px;">
+            <i class="fa fa-wind" style="color: #06b6d4;"></i> Active Coping Tools
+          </h4>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.25); border-radius: 10px; padding: 10px 12px;">
+              <strong style="font-size: 0.85rem; color: #fff;">📦 Box Breathing (4-4-4-4)</strong>
+              <p style="margin: 3px 0 6px; font-size: 0.78rem; color: #94a3b8;">Instant vagal nerve stimulation for rapid panic reduction.</p>
+              <a href="coping.html" style="font-size: 0.78rem; color: #38bdf8; font-weight: 700;">Try Exercise →</a>
+            </div>
+            <div style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); border-radius: 10px; padding: 10px 12px;">
+              <strong style="font-size: 0.85rem; color: #fff;">🖐️ 5-4-3-2-1 Sensory Grounding</strong>
+              <p style="margin: 3px 0 6px; font-size: 0.78rem; color: #94a3b8;">Anchors your senses away from racing negative thoughts.</p>
+              <a href="coping.html" style="font-size: 0.78rem; color: #34d399; font-weight: 700;">Try Exercise →</a>
+            </div>
+            <div style="background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.25); border-radius: 10px; padding: 10px 12px;">
+              <strong style="font-size: 0.85rem; color: #fff;">🌬️ 4-7-8 Relaxing Breath</strong>
+              <p style="margin: 3px 0 6px; font-size: 0.78rem; color: #94a3b8;">Natural tranquilizer for sleep disturbance and burnout.</p>
+              <a href="coping.html" style="font-size: 0.78rem; color: #818cf8; font-weight: 700;">Try Exercise →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Crisis & Support Helpline Card -->
+        <div class="serene-panel" style="padding: 1.25rem; background: linear-gradient(135deg, rgba(244,63,94,0.08) 0%, rgba(15,23,42,0.9) 100%); border-color: rgba(244,63,94,0.25);">
+          <h4 style="font-size: 0.95rem; margin-top: 0; margin-bottom: 0.5rem; color: #fb7185; display: flex; align-items: center; gap: 8px;">
+            <i class="fa fa-phone-volume"></i> 24/7 Crisis Support
+          </h4>
+          <p style="font-size: 0.82rem; color: #94a3b8; line-height: 1.5; margin-bottom: 10px;">
+            If you or a fellow student are experiencing severe emotional distress, free and confidential support is available around the clock.
+          </p>
+          <div style="font-size: 0.85rem; font-weight: 700; color: #fff; margin-bottom: 4px;">
+            Tele-MANAS: <span style="color: #38bdf8;">14416</span>
+          </div>
+          <div style="font-size: 0.85rem; font-weight: 700; color: #fff;">
+            Campus Cell: <span style="color: #38bdf8;">+91 91214 22554</span>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- Modern Serene Footer -->
+  <footer class="serene-footer">
+    <div class="serene-footer-inner">
+      <div class="serene-footer-brand">
+        <h3>🌿 SereneCampus</h3>
+        <p style="font-size:0.9rem; line-height:1.6;">
+          Peer support and collective coping mechanisms for student stress and emotional wellness.
+        </p>
+      </div>
+
+      <div>
+        <h4 style="font-size:1rem; color:#fff; margin-bottom:1rem;">Campus Resources</h4>
+        <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; font-size:0.9rem;">
+          <li><a href="coping.html" style="color:#94a3b8;">Coping Mechanisms</a></li>
+          <li><a href="selftest.html" style="color:#94a3b8;">Stress Assessment (DASS-21)</a></li>
+          <li><a href="journal.html" style="color:#94a3b8;">Daily Reflection Journal</a></li>
+          <li><a href="groups.html" style="color:#94a3b8;">Confidential Counseling</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="font-size:1rem; color:#fff; margin-bottom:1rem;">Emergency Contacts</h4>
+        <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:6px;">National Mental Health Helpline: 14416</p>
+        <p style="font-size:0.85rem; color:#94a3b8;">100% Free & Confidential</p>
+      </div>
+    </div>
+
+    <div class="serene-footer-copy">
+      © 2026 SereneCampus Ecosystem. Built for Student Wellness, Academic Resilience & Adaptive Stress Coping.
+    </div>
+  </footer>
+
+  <!-- Page Logic -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const studentName = user.nickname || user.name || "Student";
+      document.getElementById("navUserName").textContent = studentName;
+      document.getElementById("sidebarName").textContent = studentName;
+      if (user.collegeCode) {
+        document.getElementById("sidebarCollege").textContent = user.collegeCode;
+      }
+      document.getElementById("uid").value = localStorage.getItem("uid") || "stu_001";
+
+      // Load initial feed
+      if (typeof getNewsFeed === "function") {
+        getNewsFeed(1);
+      }
+    });
+
+    function previewPostImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = document.getElementById("imagePreview");
+          img.src = e.target.result;
+          img.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function addTag(tag) {
+      const desc = document.getElementById("description");
+      desc.value = desc.value + (desc.value.endsWith(" ") || desc.value === "" ? "" : " ") + tag + " ";
+      desc.focus();
+    }
+
+    function logoutStudent() {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = "landing.html";
+    }
+  </script>
+</body>
+</html>

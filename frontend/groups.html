@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SereneCampus - Book Confidential Campus Counselor Session" />
+  <title>SereneCampus - Campus Counselors & Consultations</title>
+  <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16" />
+
+  <!-- Google Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/themify-icons/0.1.2/css/themify-icons.css" />
+  
+  <!-- Serene Modern Unified Design System -->
+  <link rel="stylesheet" href="css/serene-modern.css" />
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/protected.js"></script>
+  <script src="js/find.js" defer></script>
+  <script src="js/book.js" defer></script>
+</head>
+<body>
+
+  <!-- Modern Serene Global Navigation -->
+  <nav class="serene-nav">
+    <div class="serene-nav-inner">
+      <a href="index.html" class="serene-brand">
+        <div class="serene-brand-icon">🌿</div>
+        <div>
+          <span class="serene-brand-title">SereneCampus</span>
+          <span class="serene-brand-tag">Counselors</span>
+        </div>
+      </a>
+
+      <ul class="serene-menu">
+        <li><a href="index.html" class="serene-link"><i class="fa fa-house"></i> Home</a></li>
+        <li><a href="newsfeed.html" class="serene-link"><i class="fa fa-users"></i> Community</a></li>
+        <li><a href="coping.html" class="serene-link"><i class="fa fa-spa"></i> Coping Tools</a></li>
+        <li><a href="selftest.html" class="serene-link"><i class="fa fa-clipboard-check"></i> Self Test</a></li>
+        <li><a href="journal.html" class="serene-link"><i class="fa fa-book-journal-whills"></i> Daily Journal</a></li>
+        <li><a href="groups.html" class="serene-link active"><i class="fa fa-user-doctor"></i> Counselors</a></li>
+      </ul>
+
+      <div class="serene-user-area">
+        <div class="serene-user-chip" onclick="window.location.href='index.html'">
+          <img src="images/resources/defaultpic.jpg" alt="Avatar" class="serene-user-avatar" id="navAvatar" />
+          <span class="serene-user-name" id="navUserName">Student</span>
+        </div>
+        <button class="serene-logout-btn" onclick="logoutStudent()">
+          <i class="fa fa-arrow-right-from-bracket"></i> Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Notification Toast -->
+  <div id="messageToast" style="display:none; position:fixed; bottom:24px; right:24px; z-index:9999; background:rgba(15,23,42,0.95); border:1px solid #10b981; color:#fff; padding:14px 22px; border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,0.5); backdrop-filter:blur(10px); font-weight:600;">
+    Appointment updated
+  </div>
+
+  <!-- Main Container -->
+  <main class="serene-page">
+
+    <!-- Hero Header -->
+    <section class="serene-hero" style="margin-bottom: 2rem;">
+      <div class="serene-hero-content">
+        <div class="serene-hero-badge">
+          <i class="fa fa-hand-holding-heart"></i> Confidential 1-on-1 Guidance
+        </div>
+        <h1 class="serene-hero-title">Campus Counselors & Consultations</h1>
+        <p class="serene-hero-desc">
+          Speak with licensed campus psychologists for confidential guidance on academic anxiety, exam stress, burnout, and emotional wellness. All sessions are 100% free and confidential for enrolled students.
+        </p>
+        <div class="serene-hero-stats">
+          <div class="serene-stat-pill">
+            <i class="fa fa-shield-halved" style="color:#10b981;"></i>
+            <span>Privacy: <strong>Protected & Confidential</strong></span>
+          </div>
+          <div class="serene-stat-pill">
+            <i class="fa fa-bolt" style="color:#38bdf8;"></i>
+            <span>Mode: <strong>In-Person or Digital Call</strong></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2-Column Booking Layout -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;" class="booking-grid">
+
+      <!-- Left: Certified Doctors List -->
+      <section>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+          <h3 style="margin: 0; font-size: 1.25rem; color: #fff;">Certified Campus Psychologists</h3>
+          <span style="font-size: 0.8rem; color: #94a3b8;">Select a counselor to book</span>
+        </div>
+        <div id="people-list">
+          <!-- Populated dynamically by find.js -->
+        </div>
+      </section>
+
+      <!-- Right: Booking Form & Slots -->
+      <section id="appoint">
+        <div class="serene-panel" style="padding: 2rem; position: sticky; top: 90px;">
+          <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-subtle);">
+            <img src="images/resources/defaultpic.jpg" id="imageselcted" alt="Doctor" style="width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2px solid #6366f1;" />
+            <div>
+              <h4 id="card-title" style="margin: 0 0 4px; font-size: 1.2rem; color: #fff;">Select a Counselor</h4>
+              <span style="font-size: 0.85rem; color: #38bdf8;">Certified Student Wellness Specialist</span>
+            </div>
+            <a href="#" id="chat-btn" class="serene-btn-primary" style="margin-left: auto; padding: 0.45rem 0.95rem; font-size: 0.82rem; background: rgba(99,102,241,0.2); border: 1px solid rgba(99,102,241,0.4); text-decoration: none;">
+              <i class="fa fa-comments"></i> Direct Message
+            </a>
+          </div>
+
+          <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #cbd5e1; margin-bottom: 8px;">
+              Select Consultation Date:
+            </label>
+            <input type="date" id="date" name="date" class="serene-input" style="width: 100%; color-scheme: dark;" />
+          </div>
+
+          <div id="nomessage" style="color: #fb7185; font-size: 0.85rem; margin-bottom: 8px;"></div>
+
+          <div style="margin-bottom: 1rem;">
+            <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #cbd5e1; margin-bottom: 8px;">
+              Available Time Slots (30 min):
+            </label>
+            <div class="time-slots">
+              <p style="color: #94a3b8; font-size: 0.85rem;">Please select a counselor and date to view time slots.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Modern Serene Footer -->
+  <footer class="serene-footer">
+    <div class="serene-footer-inner">
+      <div class="serene-footer-brand">
+        <h3>🌿 SereneCampus</h3>
+        <p style="font-size:0.9rem; line-height:1.6;">
+          Professional student counseling and clinical crisis intervention network.
+        </p>
+      </div>
+
+      <div>
+        <h4 style="font-size:1rem; color:#fff; margin-bottom:1rem;">Campus Resources</h4>
+        <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; font-size:0.9rem;">
+          <li><a href="index.html" style="color:#94a3b8;">Student Home</a></li>
+          <li><a href="coping.html" style="color:#94a3b8;">Coping Mechanisms</a></li>
+          <li><a href="selftest.html" style="color:#94a3b8;">Stress Assessment</a></li>
+          <li><a href="journal.html" style="color:#94a3b8;">Daily Journal</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="font-size:1rem; color:#fff; margin-bottom:1rem;">Emergency Contacts</h4>
+        <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:6px;">National Mental Health Helpline: 14416</p>
+        <p style="font-size:0.85rem; color:#94a3b8;">100% Free & Confidential</p>
+      </div>
+    </div>
+
+    <div class="serene-footer-copy">
+      © 2026 SereneCampus Ecosystem. Built for Student Wellness, Academic Resilience & Adaptive Stress Coping.
+    </div>
+  </footer>
+
+  <style>
+    @media (max-width: 900px) {
+      .booking-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const studentName = user.nickname || user.name || "Student";
+      document.getElementById("navUserName").textContent = studentName;
+    });
+
+    function logoutStudent() {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = "landing.html";
+    }
+  </script>
+</body>
+</html>

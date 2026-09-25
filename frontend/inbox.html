@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+	<title>PsyShell - Bridge gap to inner peace</title>
+    <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16"> 
+    
+    <link rel="stylesheet" href="css/main.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/color.css">
+    <link rel="stylesheet" href="css/responsive.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js" integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./js/doctor/unauth.js"></script>
+
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="./js/network.js" defer></script>
+	<script>navigator.serviceWorker.register("js/service-worker.js")</script> 
+	<link rel="manifest" href="manifest.json" />
+</head>
+<body>
+<!--<div class="se-pre-con"></div>-->
+<div class="theme-layout">
+	<div class="message-toast" id="messageToast">
+		<button class="close-btn" onclick="closeToast()">X</button>
+	</div>
+	<div class="responsive-header">
+		<div class="mh-head first Sticky">
+			<span class="mh-btns-left">
+				<a class="" href="#menu"><i class="fa fa-align-justify"></i></a>
+			</span>
+			<span class="mh-text">
+				<a href="community.html" title=""><img src="images/logo.png" alt="" style="width: 70px;height: auto;"></a>
+			</span>
+			
+		</div>
+		
+		<nav id="menu" class="res-menu">
+			<ul>
+				<li><a href="index2.html" title="">Home</a></li>
+				<li><a href="community.html" title="">Community</a></li>
+				<li><a href="chatting.html" title="">Messages</a></li>
+				<li><a href="clients.html" title="">Students</a></li>
+
+				<li><a href="doctorlogout.html" title="">Logout</a></li>
+	</ul>
+		</nav>
+		
+	</div><!-- responsive header -->
+	
+	<div class="topbar stick">
+		<div class="logo">
+			<a title="" href="community.html"><img src="images/logo.png" alt="" style="width: 70px;height: auto;"></a>
+		</div>
+		
+		<div class="top-area">
+			<ul class="main-menu">
+				
+				<li><a href="index2.html" title="">Home</a></li>
+				<li><a href="community.html" title="">Community</a></li>
+				<li><a href="chatting.html" title="">Messages</a></li>
+				<li><a href="clients.html" title="">Students</a></li>
+				<li><a href="inbox.html" title="">send reminder</a></li>
+				<li><a href="doctorlogout.html" title="">Logout</a></li>
+
+			</ul>
+			<ul class="setting-area">
+				
+				<li><a href="community.html" title="Home" data-ripple><i
+							class="ti-home"></i></a></li>
+
+			
+			</ul>
+			<div class="user-img">
+				  <img src="images/resources/defaultpic.jpg" alt 
+ class="adminlogo">
+				<span class="status f-online"></span>
+				<div class="user-setting ">
+
+					<a href="#" title><i class="ti-pencil-alt"></i>edit profile</a>
+					<a href="#" title><i class="ti-settings"></i>account setting</a>
+					<a title id="logout"><i class="ti-power-off"></i>log out</a>
+				</div>
+			</div>
+		</div>
+	</div><!-- topbar -->		
+	<section>
+		<div class="gap gray-bg">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="row" id="page-contents">
+							<div class="col-lg-6">
+								<div class="inbox-sec">
+									<div class="row">
+									
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<div class="inbox-lists">
+												
+												<div class="mesages-lists">
+													<form>
+														<input type="text" placeholder="Search nick name" id="search-user">
+													</form>
+													<div class="inbox-action">
+														<ul>
+															<li><label><input type="checkbox" name="select-all" id="select_all" /> Select all</label></li>
+															
+														</ul>
+													</div>
+													<ul id="message-list" class="message-list">
+														<li>
+															No Appointment loading...
+														</li>
+													</ul>
+												</div>
+											</div><!-- Inbox lists -->
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<aside class="sidebar static">	
+									<div class="widget friend-list stick-widget">
+										<h4 class="widget-title">Send Reminder</h4>
+										<div class="container-fluid">
+											<p> write a message....</p>
+											<textarea placeholder="write a message"  rows="12" id="message-reminder">
+	
+											</textarea>
+											<div class="d-flex justify-content-center p-3 ">
+												<button type="button"  class="reminder-btn btn pl-5 pr-5" id="send-reminder">Send Reminder</button>
+											</div>
+											
+										</div>
+									</div><!-- friends list sidebar -->
+								</aside>
+							</div><!-- sidebar -->
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>	
+	</section>
+
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-4">
+					<div class="widget">
+						<div class="foot-logo">
+							<div class="logo">
+								<a href="index-2.html" title=""><img src="images/logo.png" alt="" class="logo-img"></a>
+							</div>	
+							<p>
+									
+									We're always on the lookout to work with new colleges. If you're interested in working with us, please get in touch in one of the following ways
+								</p>
+						</div>
+						<ul class="location">
+							<li>
+								<i class="ti-map-alt"></i>
+								<p>33 new montgomery st.750 san francisco, CA USA 94105.</p>
+							</li>
+							<li>
+								<i class="ti-mobile"></i>
+								<p>+91 91214 22554</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-4">
+					<div class="widget">
+						<div class="widget-title"><h4>follow</h4></div>
+						<ul class="list-style">
+							<li><i class="fa fa-facebook-square"></i> <a href="https://web.facebook.com/shopcircut/" title="">facebook</a></li>
+							<li><i class="fa fa-twitter-square"></i><a href="https://twitter.com/login?lang=en" title="">twitter</a></li>
+							<li><i class="fa fa-instagram"></i><a href="https://www.instagram.com/?hl=en" title="">instagram</a></li>
+						</ul>
+					</div>
+				</div>
+				  
+				 
+				<div class="col-lg-2 col-md-4">
+					<div class="widget">
+						<div class="widget-title"><h4>download apps</h4></div>
+						<ul class="colla-apps">
+							<li><a href="https://play.google.com/store?hl=en" title=""><i class="fa fa-android"></i>android</a></li>
+							<li><a href="https://www.apple.com/lae/ios/app-store/" title=""><i class="ti-apple"></i>iPhone</a></li>
+							<li><a href="https://www.microsoft.com/store/apps" title=""><i class="fa fa-windows"></i>Windows</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer><!-- footer -->
+	
+</div>
+		
+	
+	<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/main.min.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/map-init.js"></script>
+	<script src="./js/doctor/reminder.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
+
+</body>	
+
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SereneCampus - Student Stress & Anxiety Clinical Assessment (DASS-21)" />
+  <title>SereneCampus - Stress Self-Assessment</title>
+  <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16" />
+
+  <!-- Google Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/themify-icons/0.1.2/css/themify-icons.css" />
+  
+  <!-- Serene Modern Unified Design System -->
+  <link rel="stylesheet" href="css/serene-modern.css" />
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/protected.js"></script>
+  <script src="js/selftest.js"></script>
+</head>
+<body>
+
+  <!-- Modern Serene Global Navigation -->
+  <nav class="serene-nav">
+    <div class="serene-nav-inner">
+      <a href="index.html" class="serene-brand">
+        <div class="serene-brand-icon">🌿</div>
+        <div>
+          <span class="serene-brand-title">SereneCampus</span>
+          <span class="serene-brand-tag">Self-Test</span>
+        </div>
+      </a>
+
+      <ul class="serene-menu">
+        <li><a href="index.html" class="serene-link"><i class="fa fa-house"></i> Home</a></li>
+        <li><a href="newsfeed.html" class="serene-link"><i class="fa fa-users"></i> Community</a></li>
+        <li><a href="coping.html" class="serene-link"><i class="fa fa-spa"></i> Coping Tools</a></li>
+        <li><a href="selftest.html" class="serene-link active"><i class="fa fa-clipboard-check"></i> Self Test</a></li>
+        <li><a href="journal.html" class="serene-link"><i class="fa fa-book-journal-whills"></i> Daily Journal</a></li>
+        <li><a href="groups.html" class="serene-link"><i class="fa fa-user-doctor"></i> Counselors</a></li>
+      </ul>
+
+      <div class="serene-user-area">
+        <div class="serene-user-chip" onclick="window.location.href='index.html'">
+          <img src="images/resources/defaultpic.jpg" alt="Avatar" class="serene-user-avatar" id="navAvatar" />
+          <span class="serene-user-name" id="navUserName">Student</span>
+        </div>
+        <button class="serene-logout-btn" onclick="logoutStudent()">
+          <i class="fa fa-arrow-right-from-bracket"></i> Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="serene-page">
+
+    <!-- Assessment Hero Banner -->
+    <section class="serene-hero" style="margin-bottom: 2rem;">
+      <div class="serene-hero-content">
+        <div class="serene-hero-badge">
+          <i class="fa fa-clipboard-check"></i> Standardized Psychometric Diagnostic
+        </div>
+        <h1 class="serene-hero-title">Stress, Anxiety & Depression Assessment</h1>
+        <p class="serene-hero-desc">
+          Based on the internationally recognized DASS-21 scale, this assessment helps quantify emotional tension, physical stress reactions, and cognitive burnout. Take 3 minutes to evaluate how you've been feeling recently.
+        </p>
+        <div class="serene-hero-stats">
+          <div class="serene-stat-pill">
+            <i class="fa fa-clock" style="color:#38bdf8;"></i>
+            <span>Est. Duration: <strong>~3 Minutes</strong></span>
+          </div>
+          <div class="serene-stat-pill">
+            <i class="fa fa-user-shield" style="color:#10b981;"></i>
+            <span>Privacy: <strong>100% Confidential</strong></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quiz App Container (Rendered dynamically by selftest.js) -->
+    <div style="max-width: 780px; margin: 0 auto;" id="quizWrapper">
+      <!-- Hidden input for college test code if any -->
+      <input type="hidden" id="testname" value="" />
+
+      <!-- Start Card -->
+      <div id="startCard" class="serene-panel" style="text-align: center; padding: 2.5rem 2rem;">
+        <div style="width: 72px; height: 72px; border-radius: 50%; background: rgba(99,102,241,0.15); color: #818cf8; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; margin: 0 auto 1.25rem; border: 1px solid rgba(99,102,241,0.3);">
+          📝
+        </div>
+        <h2 style="font-size: 1.6rem; color: #fff; margin-bottom: 0.75rem;">Check Your Stress Baseline</h2>
+        <p style="color: var(--text-muted); max-width: 580px; margin: 0 auto 1.75rem; font-size: 0.95rem; line-height: 1.6;">
+          There are no right or wrong answers. Do not spend too much time on any statement. Answer according to how much the statement applied to you over the past week.
+        </p>
+        <button class="serene-btn-primary" onclick="beginQuiz()">
+          <i class="fa fa-play"></i> Start Self-Assessment
+        </button>
+      </div>
+
+      <!-- Target App Container -->
+      <div id="app"></div>
+    </div>
+
+  </main>
+
+  <!-- Modern Serene Footer -->
+  <footer class="serene-footer">
+    <div class="serene-footer-inner">
+      <div class="serene-footer-brand">
+        <h3>🌿 SereneCampus</h3>
+        <p style="font-size:0.9rem; line-height:1.6;">
+          Psychometric clinical assessments and personalized coping feedback for university students.
+        </p>
+      </div>
+
+      <div>
+        <h4 style="font-size:1rem; color:#fff; margin-bottom:1rem;">Campus Resources</h4>
+        <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; font-size:0.9rem;">
+          <li><a href="index.html" style="color:#94a3b8;">Student Home</a></li>
+          <li><a href="coping.html" style="color:#94a3b8;">Coping Mechanisms</a></li>
+          <li><a href="journal.html" style="color:#94a3b8;">Daily Journal</a></li>
+          <li><a href="groups.html" style="color:#94a3b8;">Counselor Sessions</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="font-size:1rem; color:#fff; margin-bottom:1rem;">Emergency Contacts</h4>
+        <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:6px;">National Mental Health Helpline: 14416</p>
+        <p style="font-size:0.85rem; color:#94a3b8;">100% Free & Confidential</p>
+      </div>
+    </div>
+
+    <div class="serene-footer-copy">
+      © 2026 SereneCampus Ecosystem. Built for Student Wellness, Academic Resilience & Adaptive Stress Coping.
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const studentName = user.nickname || user.name || "Student";
+      document.getElementById("navUserName").textContent = studentName;
+      if (user.collegeCode) {
+        document.getElementById("testname").value = user.collegeCode;
+      }
+    });
+
+    function beginQuiz() {
+      document.getElementById("startCard").style.display = "none";
+      startQuiz();
+    }
+
+    function logoutStudent() {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = "landing.html";
+    }
+  </script>
+</body>
+</html>

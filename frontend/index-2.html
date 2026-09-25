@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="SereneCampus - College Student Stress Levels & Adaptive Coping Mechanisms System" />
+	<title>SereneCampus - Student Stress Levels & Coping Mechanisms Dashboard</title>
+	<link rel="icon" href="images/fav.png" type="image/png" sizes="16x16">
+
+	<!-- Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="css/main.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/color.css">
+	<link rel="stylesheet" href="css/responsive.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+	<!-- Modern CSS Overrides for a Clean, Executive Dashboard -->
+	<style>
+		:root {
+			--primary-gradient: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+			--stress-low: #10b981;
+			--stress-mod: #f59e0b;
+			--stress-high: #ef4444;
+			--stress-severe: #b91c1c;
+			--bg-card: #ffffff;
+			--card-border: #e2e8f0;
+			--text-main: #0f172a;
+			--text-muted: #64748b;
+		}
+
+		body {
+			font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+			background-color: #f8fafc;
+			color: var(--text-main);
+		}
+
+		/* KPI Summary Stat Cards */
+		.kpi-card {
+			background: #ffffff;
+			border: 1px solid #e2e8f0;
+			border-radius: 14px;
+			padding: 20px 24px;
+			box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			transition: all 0.25s ease;
+			margin-bottom: 20px;
+		}
+		.kpi-card:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+			border-color: #cbd5e1;
+		}
+		.kpi-icon {
+			width: 52px;
+			height: 52px;
+			border-radius: 12px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 24px;
+		}
+		.kpi-val {
+			font-size: 1.85rem;
+			font-weight: 800;
+			color: #0f172a;
+			line-height: 1.2;
+		}
+		.kpi-label {
+			font-size: 0.85rem;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 0.04em;
+			color: #64748b;
+		}
+
+		/* Badges */
+		.badge-stress-low { background-color: #d1fae5; color: #065f46; font-weight: 700; border-radius: 6px; padding: 4px 8px; }
+		.badge-stress-mod { background-color: #fef3c7; color: #92400e; font-weight: 700; border-radius: 6px; padding: 4px 8px; }
+		.badge-stress-high { background-color: #fee2e2; color: #991b1b; font-weight: 700; border-radius: 6px; padding: 4px 8px; }
+		.badge-stress-severe { background-color: #7f1d1d; color: #ffffff; font-weight: 700; border-radius: 6px; padding: 4px 8px; }
+
+		/* Analytics Cards */
+		.analytics-panel {
+			background: #ffffff;
+			border: 1px solid #e2e8f0;
+			border-radius: 14px;
+			padding: 20px;
+			margin-bottom: 24px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+		}
+		.analytics-panel-title {
+			font-size: 1.05rem;
+			font-weight: 700;
+			color: #1e293b;
+			margin-bottom: 16px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		/* Student Scorecard Header */
+		.student-header-banner {
+			background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+			border: 1px solid #cbd5e1;
+			border-radius: 12px;
+			padding: 16px 20px;
+			margin-bottom: 18px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			gap: 12px;
+		}
+
+		.score-metric-bar {
+			height: 8px;
+			border-radius: 4px;
+			background: #e2e8f0;
+			overflow: hidden;
+			margin-top: 6px;
+		}
+		.score-metric-fill {
+			height: 100%;
+			border-radius: 4px;
+			transition: width 0.6s ease;
+		}
+
+		/* Table Styling */
+		#studentsTable, #doctorsTable {
+			width: 100% !important;
+			border-collapse: separate;
+			border-spacing: 0;
+			border: 1px solid #e2e8f0;
+			border-radius: 10px;
+			overflow: hidden;
+		}
+		#studentsTable th, #doctorsTable th {
+			background-color: #f1f5f9;
+			color: #334155;
+			font-weight: 700;
+			font-size: 0.82rem;
+			text-transform: uppercase;
+			letter-spacing: 0.04em;
+			padding: 12px 14px;
+			border-bottom: 1px solid #cbd5e1;
+		}
+		#studentsTable td, #doctorsTable td {
+			padding: 12px 14px;
+			border-bottom: 1px solid #f1f5f9;
+			font-size: 0.88rem;
+			vertical-align: middle;
+		}
+		#studentsTable tbody tr:hover, #doctorsTable tbody tr:hover {
+			background-color: #f8fafc;
+			cursor: pointer;
+		}
+
+		/* Button enhancements */
+		.btn-custom-action {
+			background: #4f46e5;
+			color: white;
+			border: none;
+			border-radius: 8px;
+			padding: 8px 16px;
+			font-weight: 600;
+			font-size: 0.88rem;
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			transition: all 0.2s ease;
+		}
+		.btn-custom-action:hover {
+			background: #4338ca;
+			color: white;
+			transform: translateY(-1px);
+		}
+	</style>
+
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.1/xlsx.full.min.js"></script>
+	<script src="./js/config.js"></script>
+	<script src="./js/network.js" defer></script>
+</head>
+
+<body>
+	<div class="theme-layout">
+
+		<!-- Top Header Bar -->
+		<div class="topbar stick" style="background: #ffffff; border-bottom: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); padding: 10px 0;">
+			<div class="container-fluid d-flex align-items-center justify-content-between px-4">
+				<div class="logo d-flex align-items-center gap-3">
+					<a title="SereneCampus" href="./index-2.html" class="d-flex align-items-center text-decoration-none">
+						<img src="images/logo.png" alt="SereneCampus" class="logo-img" style="height: 38px; width: auto;">
+						<span style="font-weight: 800; font-size: 1.15rem; color: #1e293b; margin-left: 10px; letter-spacing: -0.02em;">SereneCampus</span>
+						<span class="badge ml-2" style="background: #e0e7ff; color: #3730a3; font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 6px;">COLLEGE PORTAL</span>
+					</a>
+				</div>
+
+				<div class="d-flex align-items-center">
+					<span id="collegeTitleDisplay" class="badge mr-3" style="background: #f1f5f9; color: #334155; font-size: 0.85rem; font-weight: 600; padding: 6px 12px; border: 1px solid #cbd5e1;">
+						🏛️ Apex Institute of Engineering & Technology (COL001)
+					</span>
+					<a href="collegefeed.html" class="btn btn-sm btn-outline-secondary mr-2" style="border-radius: 6px; font-weight: 600;">Feed</a>
+					<a href="newsfeed.html" class="btn btn-sm btn-outline-secondary mr-2" style="border-radius: 6px; font-weight: 600;">Community</a>
+					<a href="logout.html" class="btn btn-sm btn-outline-danger" style="border-radius: 6px; font-weight: 600;">Logout</a>
+				</div>
+			</div>
+		</div>
+
+		<section class="py-4">
+			<div class="container-fluid px-4">
+
+				<!-- Problem Statement Header & Mission Banner -->
+				<div class="mb-4 p-4" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%); border-radius: 16px; color: white; box-shadow: 0 10px 25px -5px rgba(49, 46, 129, 0.25);">
+					<div class="row align-items-center">
+						<div class="col-lg-8">
+							<span class="badge" style="background: rgba(255,255,255,0.2); color: #e0e7ff; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 8px;">MONITORING & INTERVENTION INITIATIVE</span>
+							<h2 style="font-weight: 800; font-size: 1.85rem; margin-top: 4px; margin-bottom: 8px; color: #ffffff;">Student Stress Levels & Coping Mechanisms Portal</h2>
+							<p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 0; max-width: 780px;">
+								Real-time mental wellness intelligence for university administration. Track student academic pressure, anxiety patterns, sleep disruptions, and proactive adoption of coping mechanisms (Box Breathing, Grounding, Journaling) with direct counselor escalation.
+							</p>
+						</div>
+						<div class="col-lg-4 text-right">
+							<button class="btn btn-light" id="refresh-list" style="font-weight: 700; border-radius: 8px; color: #312e81; padding: 10px 18px;">
+								<i class="ti ti-reload"></i> Refresh Analytics
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- Executive KPI Stat Banner -->
+				<div class="row" id="kpi-banner">
+					<div class="col-xl-3 col-md-6">
+						<div class="kpi-card">
+							<div>
+								<div class="kpi-label">Monitored Students</div>
+								<div class="kpi-val" id="kpi-total-students">8 Active</div>
+								<small class="text-success" style="font-weight: 600;"><i class="fa fa-arrow-up"></i> 100% Onboarded</small>
+							</div>
+							<div class="kpi-icon" style="background: #e0e7ff; color: #4338ca;">🎓</div>
+						</div>
+					</div>
+
+					<div class="col-xl-3 col-md-6">
+						<div class="kpi-card">
+							<div>
+								<div class="kpi-label">High Stress Alerts</div>
+								<div class="kpi-val" id="kpi-high-stress" style="color: #dc2626;">3 Students</div>
+								<small class="text-danger" style="font-weight: 600;">Counselor Priority</small>
+							</div>
+							<div class="kpi-icon" style="background: #fee2e2; color: #dc2626;">🚨</div>
+						</div>
+					</div>
+
+					<div class="col-xl-3 col-md-6">
+						<div class="kpi-card">
+							<div>
+								<div class="kpi-label">Top Coping Mechanism</div>
+								<div class="kpi-val" style="font-size: 1.35rem;" id="kpi-top-coping">Box Breathing</div>
+								<small class="text-primary" style="font-weight: 600;">42% Campus Adoption</small>
+							</div>
+							<div class="kpi-icon" style="background: #dbeafe; color: #2563eb;">🧘</div>
+						</div>
+					</div>
+
+					<div class="col-xl-3 col-md-6">
+						<div class="kpi-card">
+							<div>
+								<div class="kpi-label">Active Psychologists</div>
+								<div class="kpi-val" id="kpi-total-doctors">3 Available</div>
+								<small class="text-success" style="font-weight: 600;">On Campus / Online</small>
+							</div>
+							<div class="kpi-icon" style="background: #d1fae5; color: #059669;">🩺</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Visual Charts Grid (College Overview) -->
+				<div class="row mb-4">
+					<div class="col-lg-3 col-md-6">
+						<div class="analytics-panel">
+							<div class="analytics-panel-title">
+								<span>Campus Stress Levels</span>
+								<small class="text-muted">Severity</small>
+							</div>
+							<div style="height: 220px; position: relative;">
+								<canvas id="stressDistributionChart"></canvas>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-md-6">
+						<div class="analytics-panel">
+							<div class="analytics-panel-title">
+								<span>Coping Mechanism Adoption</span>
+								<small class="text-muted">Frequency</small>
+							</div>
+							<div style="height: 220px; position: relative;">
+								<canvas id="copingAdoptionChart"></canvas>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-md-6">
+						<div class="analytics-panel">
+							<div class="analytics-panel-title">
+								<span>Students by Department</span>
+								<small class="text-muted">Depts</small>
+							</div>
+							<div style="height: 220px; position: relative;">
+								<canvas id="deptCanvasChart"></canvas>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-md-6">
+						<div class="analytics-panel">
+							<div class="analytics-panel-title">
+								<span>Students by Age Group</span>
+								<small class="text-muted">Demographics</small>
+							</div>
+							<div style="height: 220px; position: relative;">
+								<canvas id="ageCanvasChart"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Hidden flex div preserved for compatibility -->
+				<div class="card d-none"><div class="flex"></div></div>
+
+				<!-- Main Dashboard Workspace -->
+				<div class="row" id="page-contents">
+
+					<!-- Left Column: Registry & Filters -->
+					<div class="col-lg-5">
+						<div class="analytics-panel" style="padding: 24px;">
+							<div class="d-flex align-items-center justify-content-between mb-3">
+								<ul class="nav nav-pills" style="gap: 6px;">
+									<li class="nav-item">
+										<a class="nav-link active" data-toggle="tab" href="#students-list" style="font-weight: 700; border-radius: 8px; padding: 8px 16px;">Students Stress Registry</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" data-toggle="tab" href="#psychologist-list" style="font-weight: 700; border-radius: 8px; padding: 8px 16px;">Campus Psychologists</a>
+									</li>
+								</ul>
+							</div>
+
+							<div class="tab-content">
+								<!-- Students List Tab -->
+								<div id="students-list" class="tab-pane fade show active">
+									<div class="d-flex align-items-center justify-content-between mb-3 gap-2">
+										<input type="text" id="searchstudent" placeholder="🔍 Search student name, email, department..." class="form-control" style="border-radius: 8px; font-size: 0.9rem;">
+										<button type="button" class="btn btn-outline-success text-nowrap ml-2" id="convertToExcel" style="font-weight: 600; border-radius: 8px;">
+											📥 Export Excel
+										</button>
+									</div>
+
+									<div class="table-responsive" style="max-height: 520px; overflow-y: auto;">
+										<table id="studentsTable" class="table">
+											<thead>
+												<tr>
+													<th>Student</th>
+													<th>Stress Level</th>
+													<th>Coping Technique</th>
+													<th>Dept</th>
+													<th>Status</th>
+												</tr>
+											</thead>
+											<tbody></tbody>
+										</table>
+									</div>
+								</div>
+
+								<!-- Psychologists List Tab -->
+								<div id="psychologist-list" class="tab-pane fade">
+									<p class="text-muted small mb-3">Click on any psychologist to view their approved and pending student appointments.</p>
+									<div class="table-responsive" style="max-height: 520px; overflow-y: auto;">
+										<table id="doctorsTable" class="table">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Specialization</th>
+													<th>Contact</th>
+												</tr>
+											</thead>
+											<tbody></tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Right Column: Detailed Stress & Coping Insights for Selected Student -->
+					<div class="col-lg-7">
+						<div id="togglepsystu">
+							<div class="analytics-panel" style="padding: 24px;">
+
+								<!-- Student Header Banner -->
+								<div id="selectedStudentBanner" class="student-header-banner">
+									<div class="d-flex align-items-center gap-3">
+										<img id="detailStudentAvatar" src="images/resources/defaultpic.jpg" class="rounded-circle border" style="width: 54px; height: 54px; object-fit: cover; margin-right: 12px;">
+										<div>
+											<h4 id="detailStudentName" style="font-weight: 800; margin: 0; font-size: 1.25rem;">Select a student from the registry</h4>
+											<small id="detailStudentDept" class="text-muted">Click any student row on the left to view comprehensive stress breakdown</small>
+										</div>
+									</div>
+									<div id="detailStudentStressBadge">
+										<span class="badge badge-light border">Select Student</span>
+									</div>
+								</div>
+
+								<!-- Student Stress Scorecard Progress Bars -->
+								<div id="stressScorecardGrid" class="mb-4 p-3 border rounded bg-light" style="display: none;">
+									<h6 style="font-weight: 700; color: #1e293b; margin-bottom: 12px;">Diagnostic Stress & Resilience Scorecard</h6>
+									<div class="row">
+										<div class="col-md-4 mb-2">
+											<div class="d-flex justify-content-between small font-weight-bold">
+												<span>Academic Stress:</span>
+												<span id="scoreAcademicVal">18 / 30</span>
+											</div>
+											<div class="score-metric-bar">
+												<div id="scoreAcademicBar" class="score-metric-fill" style="width: 60%; background: #f59e0b;"></div>
+											</div>
+										</div>
+
+										<div class="col-md-4 mb-2">
+											<div class="d-flex justify-content-between small font-weight-bold">
+												<span>Anxiety Level:</span>
+												<span id="scoreAnxietyVal">14 / 24</span>
+											</div>
+											<div class="score-metric-bar">
+												<div id="scoreAnxietyBar" class="score-metric-fill" style="width: 58%; background: #ef4444;"></div>
+											</div>
+										</div>
+
+										<div class="col-md-4 mb-2">
+											<div class="d-flex justify-content-between small font-weight-bold">
+												<span>Sleep Disruption:</span>
+												<span id="scoreSleepVal">11 / 24</span>
+											</div>
+											<div class="score-metric-bar">
+												<div id="scoreSleepBar" class="score-metric-fill" style="width: 45%; background: #6366f1;"></div>
+											</div>
+										</div>
+									</div>
+
+									<div class="mt-2 pt-2 border-top d-flex justify-content-between align-items-center flex-wrap">
+										<span class="small font-weight-bold">
+											🧘 Primary Coping Practice: <span id="scoreCopingName" class="text-primary font-weight-bold">Box Breathing & 21/90 Routine</span>
+										</span>
+										<span class="badge badge-success font-weight-bold px-2 py-1">
+											🌟 Resilience Points: <span id="scorePointsVal">95</span>
+										</span>
+									</div>
+								</div>
+
+								<!-- Nav Tabs for Details -->
+								<ul class="nav nav-tabs mb-3" style="border-bottom: 2px solid #e2e8f0;">
+									<li class="nav-item">
+										<a class="nav-link active font-weight-bold" data-toggle="tab" href="#graphdata" style="border: none; border-bottom: 2px solid #4f46e5; color: #4f46e5;">
+											📈 Mood & Resilience Tracker
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link font-weight-bold text-muted" data-toggle="tab" href="#table-view" style="border: none;">
+											📋 Full Student Profile
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link font-weight-bold text-muted" data-toggle="tab" href="#posts-view" style="border: none;">
+											💬 Reflections & Community Posts
+										</a>
+									</li>
+								</ul>
+
+								<div class="tab-content">
+									<!-- Mood Chart Tab -->
+									<div id="graphdata" class="tab-pane fade show active">
+										<div id="feature">
+											<div id="moodChartSelect"></div>
+											<div style="height: 300px; width: 100%;">
+												<canvas id="moodChart"></canvas>
+											</div>
+											<div id="moodChartControl" class="d-flex justify-content-center align-items-center mt-3 gap-2"></div>
+											<div id="no-graph-message" class="text-center text-muted font-weight-bold py-3"></div>
+
+											<div class="row mt-3">
+												<div class="col-md-6" id="averagemoodscore"></div>
+												<div class="col-md-6" id="analytics"></div>
+											</div>
+										</div>
+									</div>
+
+									<!-- User Details Table Tab -->
+									<div id="table-view" class="tab-pane fade">
+										<div class="table-responsive">
+											<table id="dataTable" class="table table-bordered">
+												<tbody></tbody>
+											</table>
+										</div>
+									</div>
+
+									<!-- Posts Tab -->
+									<div id="posts-view" class="tab-pane fade">
+										<div id="posts-container" class="row"></div>
+										<div id="load-more-trigger"></div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- Psychologist Appointments Container -->
+						<div id="psydata" class="analytics-panel d-none" style="padding: 24px;"></div>
+
+					</div>
+				</div>
+
+			</div>
+		</section>
+
+		<!-- Footer -->
+		<footer style="background: #ffffff; border-top: 1px solid #e2e8f0; padding: 24px 0; margin-top: 40px;">
+			<div class="container text-center text-muted small">
+				<p class="mb-0">PsyShell &bull; Student Stress Levels & Coping Mechanisms Monitoring System &bull; Active Academic Year 2026</p>
+			</div>
+		</footer>
+
+	</div>
+
+	<script src="js/main.min.js"></script>
+	<script src="js/script.js"></script>
+	<script src="./js/college.js"></script>
+
+</body>
+
+</html>
