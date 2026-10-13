@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SereneCampus - Coping Rituals & Stress Management</title>
+  <link rel="icon" href="../images/fav.png" type="image/png" sizes="16x16" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(180deg, #f0f7ff 0%, #f4fbf7 35%, #fff9f2 70%, #f0fdf4 100%);
+      --primary: #0284c7;
+      --mint: #10b981;
+      --orange: #f97316;
+      --card-bg: #ffffff;
+      --border-subtle: #bae6fd;
+      --text-heading: #0c4a6e;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-gradient) fixed;
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header-banner {
+      background: linear-gradient(135deg, #e0f2fe 0%, #ecfdf5 55%, #fff7ed 100%);
+      border: 1px solid #bae6fd;
+      border-radius: 24px;
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+      text-align: center;
+      box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.08);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: var(--text-heading);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    p.subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 720px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.6;
+    }
+
+    .nav-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7 0%, #10b981 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(2, 132, 199, 0.35);
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: #0284c7;
+      border: 1.5px solid #bae6fd;
+    }
+
+    .btn-outline:hover {
+      background: #f0f9ff;
+      border-color: #38bdf8;
+    }
+
+    .rituals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .ritual-card {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.04);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .ritual-card:hover {
+      transform: translateY(-5px);
+      border-color: #38bdf8;
+      box-shadow: 0 16px 30px -6px rgba(2, 132, 199, 0.15);
+    }
+
+    .ritual-card-img-wrap {
+      width: 100%;
+      height: 175px;
+      background: linear-gradient(135deg, #f0f9ff 0%, #ecfdf5 50%, #fff7ed 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .ritual-card-img-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.06));
+      transition: transform 0.3s ease;
+    }
+
+    .ritual-card:hover .ritual-card-img-wrap img {
+      transform: scale(1.05);
+    }
+
+    .ritual-body {
+      padding: 1.25rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .ritual-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #0284c7;
+      margin-bottom: 6px;
+    }
+
+    .ritual-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      margin-bottom: 8px;
+    }
+
+    .ritual-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+
+    .ritual-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid #f1f5f9;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #0284c7;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 3.5rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header Banner -->
+    <header class="header-banner">
+      <div class="badge">
+        <i class="fa fa-spa"></i> Serene Campus Coping Suite
+      </div>
+      <h1>Select Your Coping Ritual</h1>
+      <p class="subtitle">
+        Clinical and evidence-based exercises designed to quickly calm autonomic nervous system activation, break panic cycles, and rebuild cognitive focus.
+      </p>
+      <div class="nav-actions">
+        <a href="../coping.html" class="btn btn-primary">
+          <i class="fa fa-tv"></i> Open Interactive Coping Studio
+        </a>
+        <a href="../index.html" class="btn btn-outline">
+          <i class="fa fa-house"></i> Student Dashboard
+        </a>
+      </div>
+    </header>
+
+    <!-- 8 Visual Coping Ritual Cards -->
+    <div class="rituals-grid">
+
+      <!-- 1. Box Breathing -->
+      <a href="BoxBreathing/" class="ritual-card">
+        <div class="ritual-card-img-wrap">
+          <img src="images/box_breathing.png" alt="Box Breathing" />
+        </div>
+        <div class="ritual-body">
+          <span class="ritual-tag">4 min • Autonomic Reset</span>
+          <h3 class="ritual-title">Box Breathing</h3>
+          <p class="ritual-desc">
+            Inhale 4s, hold 4s, exhale 4s, and hold 4s. A tactical breathing rhythm to regain composure during exam stress.
+          </p>
+          <div class="ritual-footer">
+            <span>Launch Exercise</span>
+            <i class="fa fa-arrow-right"></i>
+          </div>
+        </div>
+      </a>
+
+      <!-- 2. 4-7-8 Technique -->
+      <a href="4-7-8_technique/" class="ritual-card">
+        <div class="ritual-card-img-wrap">
+          <img src="images/478_breathing.png" alt="4-7-8 Technique" />
+        </div>
+        <div class="ritual-body">
+          <span class="ritual-tag">5 min • Deep Calm & Sleep</span>
+          <h3 class="ritual-title">4-7-8 Relaxation</h3>
+          <p class="ritual-desc">
+            A natural tranquilizer for your nervous system. Inhale 4s, hold 7s, exhale 8s to dissolve study tension.
+          </p>
+          <div class="ritual-footer">
+            <span>Launch Exercise</span>
+            <i class="fa fa-arrow-right"></i>
+          </div>
+        </div>
+      </a>
+
+      <!-- 3. 5-4-3-2-1 Sensory Grounding -->
+      <a href="5-4-3-2-1/" class="ritual-card">
+        <div class="ritual-card-img-wrap">
+          <img src="images/54321_grounding.png" alt="5-4-3-2-1 Grounding" />
+        </div>
+        <div class="ritual-body">
+          <span class="ritual-tag">3 min • Panic Interruption</span>
+          <h3 class="ritual-title">5-4-3-2-1 Grounding</h3>
+          <p class="ritual-desc">
+            Acknowledge 5 things you see, 4 you feel, 3 you hear, 2 you smell, and 1 you taste to interrupt anxiety spirals.
+          </p>
+          <div class="ritual-footer">
+            <span>Launch Exercise</span>
+            <i class="fa fa-arrow-right"></i>
+          </div>
+        </div>
+      </a>
+
+      <!-- 4. Alternate Nostril Breathing -->
+      <a href="alternate_nostril/" class="ritual-card">
+        <div class="ritual-card-img-wrap">
+          <img src="images/alternate_nostril.png" alt="Alternate Nostril" />
+        </div>
+        <div class="ritual-body">
+          <span class="ritual-tag">5 min • Focus & Balance</span>
+          <h3 class="ritual-title">Alternate Nostril</h3>
+          <p class="ritual-desc">
+            Nadi Shodhana Pranayama harmonizes both cerebral hemispheres, fostering calm alertness before exams.
+          </p>
+          <div class="ritual-footer">
+            <span>Launch Exercise</span>
+            <i class="fa fa-arrow-right"></i>
+          </div>
+        </div>
+      </a>
+
+      <!-- 5. Affirmations Ritual -->
+      <a href="affrimation/" class="ritual-card">
+        <div class="ritual-card-img-wrap">
+          <img src="images/affirmation.png" alt="Positive Affirmations" />
+        </div>
+        <div class="ritual-body">
+          <span class="ritual-tag">2 min • Confidence Boost</span>
+          <h3 class="ritual-title">Positive Affirmations</h3>
+          <p class="ritual-desc">
+            Cognitive reframing against imposter syndrome. Build academic self-compassion and gentle confidence.
+          </p>
+          <div class="ritual-footer">
+            <span>Launch Exercise</span>
+            <i class="fa fa-arrow-right"></i>
+          </div>
+        </div>
+      </a>
+
+      <!-- 6. Belly Breathing -->
+      <a href="belly_breathing/" class="ritual-card">
+        <div class="ritual-card-img-wrap">
+          <img src="images/belly_breathing.png" alt="Belly Breathing" />
+        </div>
+        <div class="ritual-body">
+          <span class="ritual-tag">4 min • Tension Release</span>
+          <h3 class="ritual-title">Belly Breathing</h3>
+          <p class="ritual-desc">
+            Diaphragmatic abdominal breathing to reverse shallow chest breathing caused by prolonged desk study.
+          </p>
+          <div class="ritual-footer">
+            <span>Launch Exercise</span>
+            <i class="fa fa-arrow-right"></i>
+          </div>
+        </div>
+      </a>
+
+      <!-- 7. 8-4-7 Calm Method -->
+      <a href="8-4-7_technique/" class="ritual-card">
+        <div class="ritual-card-img-wrap">
+          <img src="images/847_technique.png" alt="8-4-7 Technique" />
+        </div>
+        <div class="ritual-body">
+          <span class="ritual-tag">3 min • Rapid Relief</span>
+          <h3 class="ritual-title">8-4-7 Calm Method</h3>
+          <p class="ritual-desc">
+            Rhythmic pacing sequence engineered for fast decompression from acute study fatigue and burnout.
+          </p>
+          <div class="ritual-footer">
+            <span>Launch Exercise</span>
+            <i class="fa fa-arrow-right"></i>
+          </div>
+        </div>
+      </a>
+
+      <!-- 8. Backward Counting Focus -->
+      <a href="counting_backwards/" class="ritual-card">
+        <div class="ritual-card-img-wrap">
+          <img src="images/counting_backwards.png" alt="Counting Backwards" />
+        </div>
+        <div class="ritual-body">
+          <span class="ritual-tag">3 min • Mental Clarity</span>
+          <h3 class="ritual-title">Backward Counting</h3>
+          <p class="ritual-desc">
+            Step backwards by 7s to stimulate the prefrontal cortex, quieting anxiety centers and clearing mental fog.
+          </p>
+          <div class="ritual-footer">
+            <span>Launch Exercise</span>
+            <i class="fa fa-arrow-right"></i>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="footer-note">
+      🌿 SereneCampus Ecosystem • Built for Student Mental Well-Being & Academic Resilience
+    </div>
+  </div>
+
+</body>
+</html>

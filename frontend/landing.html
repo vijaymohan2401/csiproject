@@ -22,14 +22,14 @@
 
 	<style>
 		:root {
-			--primary: #4f46e5;
-			--primary-hover: #4338ca;
-			--primary-light: #e0e7ff;
-			--accent: #06b6d4;
-			--bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
-			--card-bg: rgba(255, 255, 255, 0.95);
+			--primary: #0284c7;
+			--primary-hover: #0369a1;
+			--primary-light: #e0f2fe;
+			--accent: #10b981;
+			--bg-gradient: linear-gradient(180deg, #f0f7ff 0%, #ecfdf5 45%, #fff7ed 85%, #f0fdf4 100%);
+			--card-bg: rgba(255, 255, 255, 0.96);
 			--text-main: #0f172a;
-			--text-muted: #64748b;
+			--text-muted: #475569;
 		}
 
 		* {
@@ -53,7 +53,7 @@
 			left: -10%;
 			width: 600px;
 			height: 600px;
-			background: radial-gradient(circle, rgba(79, 70, 229, 0.25) 0%, transparent 70%);
+			background: radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, transparent 70%);
 			pointer-events: none;
 			z-index: 0;
 		}
@@ -63,16 +63,17 @@
 			right: -10%;
 			width: 600px;
 			height: 600px;
-			background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 70%);
+			background: radial-gradient(circle, rgba(52, 211, 153, 0.2) 0%, transparent 70%);
 			pointer-events: none;
 			z-index: 0;
 		}
 
 		/* Navbar */
 		.custom-navbar {
-			background: rgba(15, 23, 42, 0.85);
-			backdrop-filter: blur(12px);
-			border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+			background: rgba(255, 255, 255, 0.94);
+			backdrop-filter: blur(14px);
+			border-bottom: 1px solid #bae6fd;
+			box-shadow: 0 4px 20px -2px rgba(2, 132, 199, 0.06);
 			padding: 16px 0;
 			position: relative;
 			z-index: 10;
@@ -80,7 +81,7 @@
 		.nav-brand-title {
 			font-size: 1.45rem;
 			font-weight: 800;
-			color: #ffffff;
+			color: #0c4a6e;
 			letter-spacing: -0.02em;
 			display: flex;
 			align-items: center;
@@ -88,9 +89,9 @@
 			text-decoration: none;
 		}
 		.nav-brand-tag {
-			background: rgba(79, 70, 229, 0.35);
-			border: 1px solid rgba(129, 140, 248, 0.4);
-			color: #c7d2fe;
+			background: #ecfdf5;
+			border: 1px solid #a7f3d0;
+			color: #059669;
 			font-size: 0.72rem;
 			font-weight: 700;
 			padding: 4px 10px;
@@ -121,33 +122,34 @@
 			gap: 8px;
 			font-size: 0.85rem;
 			font-weight: 700;
-			color: #94a3b8;
+			color: #64748b;
 			transition: all 0.3s ease;
 		}
 		.flow-step.active {
-			color: #ffffff;
+			color: #0284c7;
 		}
 		.flow-step-num {
 			width: 28px;
 			height: 28px;
 			border-radius: 50%;
-			background: rgba(255, 255, 255, 0.1);
-			border: 1px solid rgba(255, 255, 255, 0.2);
+			background: #ffffff;
+			border: 1px solid #cbd5e1;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			font-size: 0.8rem;
+			color: #64748b;
 		}
 		.flow-step.active .flow-step-num {
-			background: var(--primary);
-			border-color: #818cf8;
+			background: #0284c7;
+			border-color: #0284c7;
 			color: #ffffff;
-			box-shadow: 0 0 15px rgba(79, 70, 229, 0.6);
+			box-shadow: 0 0 12px rgba(2, 132, 199, 0.4);
 		}
 		.flow-divider {
 			width: 40px;
 			height: 2px;
-			background: rgba(255, 255, 255, 0.15);
+			background: #cbd5e1;
 		}
 
 		/* Section Headings */
@@ -158,12 +160,12 @@
 		.hero-header h1 {
 			font-weight: 800;
 			font-size: 2.35rem;
-			color: #ffffff;
+			color: #0c4a6e;
 			letter-spacing: -0.02em;
 			margin-bottom: 12px;
 		}
 		.hero-header p {
-			color: #94a3b8;
+			color: #475569;
 			font-size: 1.05rem;
 			max-width: 650px;
 			margin: 0 auto;
@@ -171,10 +173,10 @@
 
 		/* Role Cards (Step 1) */
 		.role-card {
-			background: rgba(255, 255, 255, 0.05);
-			border: 1px solid rgba(255, 255, 255, 0.12);
+			background: #ffffff;
+			border: 1px solid #e2e8f0;
 			border-radius: 20px;
-			backdrop-filter: blur(16px);
+			box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
 			overflow: hidden;
 			transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 			cursor: pointer;
@@ -184,9 +186,8 @@
 		}
 		.role-card:hover {
 			transform: translateY(-8px);
-			border-color: rgba(129, 140, 248, 0.6);
-			box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.5), 0 0 25px rgba(79, 70, 229, 0.35);
-			background: rgba(255, 255, 255, 0.08);
+			border-color: #0284c7;
+			box-shadow: 0 20px 35px -10px rgba(2, 132, 199, 0.18);
 		}
 		.role-card-img-wrapper {
 			position: relative;
@@ -206,14 +207,15 @@
 			position: absolute;
 			top: 14px;
 			left: 14px;
-			background: rgba(15, 23, 42, 0.8);
+			background: rgba(255, 255, 255, 0.94);
 			backdrop-filter: blur(8px);
-			border: 1px solid rgba(255, 255, 255, 0.2);
-			color: #ffffff;
+			border: 1px solid #e2e8f0;
+			color: #0c4a6e;
 			font-size: 0.75rem;
 			font-weight: 700;
 			padding: 5px 12px;
 			border-radius: 20px;
+			box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 		}
 		.role-card-body {
 			padding: 24px;
@@ -224,18 +226,18 @@
 		.role-card-title {
 			font-weight: 800;
 			font-size: 1.35rem;
-			color: #ffffff;
+			color: #0f172a;
 			margin-bottom: 8px;
 		}
 		.role-card-desc {
-			color: #cbd5e1;
+			color: #475569;
 			font-size: 0.9rem;
 			line-height: 1.5;
 			margin-bottom: 20px;
 			flex-grow: 1;
 		}
 		.role-card-btn {
-			background: var(--primary);
+			background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
 			color: #ffffff;
 			border: none;
 			border-radius: 12px;
@@ -250,15 +252,16 @@
 			transition: all 0.2s ease;
 		}
 		.role-card:hover .role-card-btn {
-			background: #6366f1;
-			box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+			background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+			box-shadow: 0 4px 15px rgba(2, 132, 199, 0.35);
 		}
 
 		/* Form Container Box (Step 2 & 3) */
 		.auth-box-container {
 			background: #ffffff;
 			border-radius: 24px;
-			box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+			box-shadow: 0 20px 45px -10px rgba(2, 132, 199, 0.15);
+			border: 1px solid #e0f2fe;
 			overflow: hidden;
 			max-width: 980px;
 			margin: 0 auto;
@@ -435,7 +438,7 @@
 				<span class="nav-brand-tag">MENTAL HEALTH PORTAL</span>
 			</a>
 			<div class="d-flex align-items-center gap-3">
-				<a href="coping.html" class="btn btn-sm btn-outline-light d-none d-md-inline-block" style="border-radius: 8px; font-weight: 600;">
+				<a href="coping.html" class="btn btn-sm d-none d-md-inline-block" style="background:#e0f2fe; color:#0284c7; border:1px solid #bae6fd; border-radius: 8px; font-weight: 700;">
 					<i class="fa fa-spa me-1"></i> Coping Techniques
 				</a>
 			</div>
@@ -496,7 +499,7 @@
 						<div class="role-card-body">
 							<h3 class="role-card-title">Campus Psychologist</h3>
 							<p class="role-card-desc">Manage student counseling appointments, review high-risk stress scorecards, prescribe tailored breathwork techniques, and provide compassionate guidance.</p>
-							<button type="button" class="role-card-btn" style="background: #0891b2;">
+							<button type="button" class="role-card-btn" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
 								Continue as Psychologist <i class="fa fa-arrow-right"></i>
 							</button>
 						</div>
@@ -513,7 +516,7 @@
 						<div class="role-card-body">
 							<h3 class="role-card-title">College Administration</h3>
 							<p class="role-card-desc">Access executive campus stress analytics, department-wise risk distributions, coping adoption rates, active psychologists, and export Excel reports.</p>
-							<button type="button" class="role-card-btn" style="background: #3730a3;">
+							<button type="button" class="role-card-btn" style="background: linear-gradient(135deg, #0284c7 0%, #0d9488 100%);">
 								Continue as College Admin <i class="fa fa-arrow-right"></i>
 							</button>
 						</div>

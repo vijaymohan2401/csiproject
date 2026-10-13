@@ -1,58 +1,78 @@
 body {
-    font-family: 'Google Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', Arial, sans-serif;
     margin: 0;
-    padding: 0;
-   
-    height: 100vh;
+    padding: 16px;
+    background-color: #f0f7ff;
+    color: #0f172a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
 .container {
     text-align: center;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(2, 132, 199, 0.08);
+    border: 1px solid #e0f2fe;
+    width: 100%;
+    max-width: 600px;
+    overflow: hidden;
 }
 
 .header {
-    background-color: #D3A3F1;
-    padding: 5px;
+    background: linear-gradient(135deg, #0284c7 0%, #38bdf8 60%, #10b981 100%);
+    padding: 14px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    gap: 16px;
 }
 
 .title {
+    font-family: 'Outfit', sans-serif;
     font-size: 24px;
     color: white;
     margin: 0;
+    font-weight: 700;
 }
 
 .image {
-    height: 130px;
-    width: 130px;
-    margin-top: 10px;
+    height: 55px;
+    width: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .main {
-    padding: 20px;
+    padding: 24px;
 }
 
 .controls {
-    margin: 20px auto;
+    margin: 12px auto 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    width: 300px;
+    gap: 14px;
 }
 
 .control-label {
-    font-size: 18px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #475569;
 }
 
 .count-select {
-    font-size: 18px;
+    font-size: 15px;
+    padding: 6px 14px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    color: #0f172a;
+    outline: none;
+    cursor: pointer;
 }
 
 .timer {
@@ -60,33 +80,49 @@ body {
 }
 
 .timer-display {
-    font-size: 48px;
-    color: #D3A3F1;
-    font-weight: bold;
+    font-family: 'Outfit', sans-serif;
+    font-size: 64px;
+    color: #0284c7;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1;
 }
 
 .instruction-text {
-    font-size: 18px;
-    margin: 20px 0;
+    font-size: 15px;
+    color: #475569;
+    line-height: 1.5;
+    margin: 20px 0 24px;
 }
 
 .buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 16px;
 }
 
 .control-button, .done-button {
-    padding: 10px 20px;
+    padding: 11px 28px;
     border: none;
-    border-radius: 10px;
-    background-color: #D3A3F1;
-    color: black;
-    font-weight: bold;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
     cursor: pointer;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25);
+    transition: all 0.2s ease;
+}
+
+.control-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(2, 132, 199, 0.35);
 }
 
 .done-button:disabled {
-    background-color: grey;
+    background: #cbd5e1;
+    box-shadow: none;
     cursor: not-allowed;
+    color: #94a3b8;
 }

@@ -56,20 +56,20 @@ function renderQuestion() {
   const progressPercent = Math.round(((index + 1) / questions.length) * 100);
 
   appDiv.innerHTML = `
-    <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 18px; padding: 2rem; backdrop-filter: blur(16px); box-shadow: var(--shadow-lg);">
+    <div style="background: #ffffff; border: 1px solid #bae6fd; border-radius: 20px; padding: 2.25rem; box-shadow: 0 10px 25px -5px rgba(2,132,199,0.08);">
       <!-- Progress Bar -->
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-        <span style="font-size: 0.85rem; font-weight: 700; color: #818cf8; text-transform: uppercase;">
+        <span style="font-size: 0.85rem; font-weight: 700; color: #0284c7; text-transform: uppercase; letter-spacing: 0.04em;">
           Question ${index + 1} of ${questions.length} • ${currentQuestion.set || "Stress"}
         </span>
-        <span style="font-size: 0.85rem; color: #94a3b8; font-weight: 600;">${progressPercent}% Complete</span>
+        <span style="font-size: 0.85rem; color: #0284c7; font-weight: 700;">${progressPercent}% Complete</span>
       </div>
-      <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.06); border-radius: 9999px; margin-bottom: 2rem; overflow: hidden;">
-        <div style="width: ${progressPercent}%; height: 100%; background: var(--gradient-primary); transition: width 0.3s ease;"></div>
+      <div style="width: 100%; height: 8px; background: #e0f2fe; border-radius: 9999px; margin-bottom: 2rem; overflow: hidden;">
+        <div style="width: ${progressPercent}%; height: 100%; background: linear-gradient(90deg, #0284c7 0%, #10b981 100%); transition: width 0.35s ease;"></div>
       </div>
 
       <!-- Question Title -->
-      <h3 style="font-size: 1.35rem; color: #ffffff; line-height: 1.5; margin-bottom: 1.75rem;">
+      <h3 style="font-size: 1.35rem; color: #0c4a6e; font-weight: 700; line-height: 1.5; margin-bottom: 1.75rem;">
         ${currentQuestion.text}
       </h3>
 
@@ -78,10 +78,10 @@ function renderQuestion() {
         ${currentQuestion.options.map((option, i) => `
           <button type="button" 
                   onclick="handleOptionClick(${i}, ${currentQuestion.scores[i]}, '${currentQuestion.set || "Stress"}')"
-                  style="display: flex; align-items: center; gap: 14px; padding: 14px 18px; background: rgba(255,255,255,0.04); border: 1px solid var(--border-subtle); border-radius: 12px; color: #e2e8f0; font-size: 0.95rem; font-family: inherit; text-align: left; cursor: pointer; transition: all 0.2s ease;"
-                  onmouseover="this.style.background='rgba(99,102,241,0.15)'; this.style.borderColor='rgba(99,102,241,0.4)';"
-                  onmouseout="this.style.background='rgba(255,255,255,0.04)'; this.style.borderColor='var(--border-subtle)';">
-            <span style="width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.8rem; color: #818cf8; flex-shrink: 0;">
+                  style="display: flex; align-items: center; gap: 14px; padding: 14px 18px; background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; color: #1e293b; font-size: 0.95rem; font-family: inherit; font-weight: 500; text-align: left; cursor: pointer; transition: all 0.2s ease;"
+                  onmouseover="this.style.background='#f0f9ff'; this.style.borderColor='#38bdf8'; this.style.transform='translateX(4px)';"
+                  onmouseout="this.style.background='#f8fafc'; this.style.borderColor='#e2e8f0'; this.style.transform='translateX(0)';">
+            <span style="width: 30px; height: 30px; border-radius: 50%; background: #e0f2fe; border: 1px solid #bae6fd; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.82rem; color: #0284c7; flex-shrink: 0;">
               ${String.fromCharCode(65 + i)}
             </span>
             <span style="flex-grow: 1;">${option}</span>
@@ -89,8 +89,8 @@ function renderQuestion() {
         `).join('')}
       </div>
 
-      <div style="font-size: 0.8rem; color: #64748b; text-align: center;">
-        Select the option that best reflects your feelings over the past 7 days.
+      <div style="font-size: 0.82rem; color: #64748b; text-align: center;">
+        🌿 Take your time — choose the option that reflects your thoughts over the past 7 days.
       </div>
     </div>
   `;
@@ -113,25 +113,25 @@ function handleOptionClick(optionIndex, score, set) {
 function getSeverityBadge(score, set) {
   // Clinical DASS-21 Thresholds
   let severity = "Normal";
-  let color = "#10b981";
-  let bg = "rgba(16,185,129,0.15)";
-  let border = "rgba(16,185,129,0.3)";
+  let color = "#059669";
+  let bg = "#ecfdf5";
+  let border = "#a7f3d0";
 
   if (set === "Stress") {
-    if (score >= 17) { severity = "Severe"; color = "#f43f5e"; bg = "rgba(244,63,94,0.15)"; border = "rgba(244,63,94,0.3)"; }
-    else if (score >= 13) { severity = "Moderate"; color = "#f59e0b"; bg = "rgba(245,158,11,0.15)"; border = "rgba(245,158,11,0.3)"; }
-    else if (score >= 8) { severity = "Mild"; color = "#38bdf8"; bg = "rgba(56,189,248,0.15)"; border = "rgba(56,189,248,0.3)"; }
+    if (score >= 17) { severity = "Severe"; color = "#b91c1c"; bg = "#fef2f2"; border = "#fecaca"; }
+    else if (score >= 13) { severity = "Moderate"; color = "#c2410c"; bg = "#fff7ed"; border = "#fed7aa"; }
+    else if (score >= 8) { severity = "Mild"; color = "#0369a1"; bg = "#f0f9ff"; border = "#bae6fd"; }
   } else if (set === "Anxiety") {
-    if (score >= 10) { severity = "Severe"; color = "#f43f5e"; bg = "rgba(244,63,94,0.15)"; border = "rgba(244,63,94,0.3)"; }
-    else if (score >= 8) { severity = "Moderate"; color = "#f59e0b"; bg = "rgba(245,158,11,0.15)"; border = "rgba(245,158,11,0.3)"; }
-    else if (score >= 4) { severity = "Mild"; color = "#38bdf8"; bg = "rgba(56,189,248,0.15)"; border = "rgba(56,189,248,0.3)"; }
+    if (score >= 10) { severity = "Severe"; color = "#b91c1c"; bg = "#fef2f2"; border = "#fecaca"; }
+    else if (score >= 8) { severity = "Moderate"; color = "#c2410c"; bg = "#fff7ed"; border = "#fed7aa"; }
+    else if (score >= 4) { severity = "Mild"; color = "#0369a1"; bg = "#f0f9ff"; border = "#bae6fd"; }
   } else {
-    if (score >= 14) { severity = "Severe"; color = "#f43f5e"; bg = "rgba(244,63,94,0.15)"; border = "rgba(244,63,94,0.3)"; }
-    else if (score >= 10) { severity = "Moderate"; color = "#f59e0b"; bg = "rgba(245,158,11,0.15)"; border = "rgba(245,158,11,0.3)"; }
-    else if (score >= 5) { severity = "Mild"; color = "#38bdf8"; bg = "rgba(56,189,248,0.15)"; border = "rgba(56,189,248,0.3)"; }
+    if (score >= 14) { severity = "Severe"; color = "#b91c1c"; bg = "#fef2f2"; border = "#fecaca"; }
+    else if (score >= 10) { severity = "Moderate"; color = "#c2410c"; bg = "#fff7ed"; border = "#fed7aa"; }
+    else if (score >= 5) { severity = "Mild"; color = "#0369a1"; bg = "#f0f9ff"; border = "#bae6fd"; }
   }
 
-  return `<span style="background:${bg}; color:${color}; border:1px solid ${border}; padding:4px 10px; border-radius:9999px; font-size:0.75rem; font-weight:700; text-transform:uppercase;">${severity}</span>`;
+  return `<span style="background:${bg}; color:${color}; border:1px solid ${border}; padding:4px 12px; border-radius:9999px; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">${severity}</span>`;
 }
 
 function showResults() {
@@ -142,39 +142,39 @@ function showResults() {
   saveResults(scores, uid);
 
   appDiv.innerHTML = `
-    <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 18px; padding: 2.5rem; backdrop-filter: blur(16px); box-shadow: var(--shadow-lg); text-align: center;">
-      <div style="width: 72px; height: 72px; border-radius: 50%; background: rgba(16,185,129,0.15); color: #10b981; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; margin: 0 auto 1.25rem; border: 1px solid rgba(16,185,129,0.3);">
+    <div style="background: #ffffff; border: 1px solid #bae6fd; border-radius: 20px; padding: 2.75rem 2rem; box-shadow: 0 10px 25px -5px rgba(2,132,199,0.08); text-align: center;">
+      <div style="width: 76px; height: 76px; border-radius: 50%; background: #ecfdf5; color: #059669; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; margin: 0 auto 1.25rem; border: 1.5px solid #a7f3d0;">
         ✓
       </div>
-      <h2 style="font-size: 1.85rem; color: #fff; margin-bottom: 0.5rem;">Assessment Completed!</h2>
-      <p style="color: var(--text-muted); max-width: 580px; margin: 0 auto 2rem; font-size: 0.95rem;">
-        Here is your clinical DASS-21 diagnostic summary. Your results have been securely recorded into your wellness profile.
+      <h2 style="font-size: 1.85rem; color: #0c4a6e; font-weight: 800; margin-bottom: 0.5rem;">Assessment Completed!</h2>
+      <p style="color: #64748b; max-width: 580px; margin: 0 auto 2rem; font-size: 0.95rem; line-height: 1.6;">
+        Here is your clinical DASS-21 summary. Your scores have been securely saved to guide your personal stress management journey.
       </p>
 
       <!-- Results Scorecards -->
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2.25rem;">
         ${Object.entries(scores).map(([set, score]) => `
-          <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 1.25rem; display: flex; flex-direction: column; align-items: center; gap: 8px;">
-            <span style="font-size: 0.85rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">${set} Scale</span>
-            <span style="font-size: 2.2rem; font-weight: 800; color: #ffffff;">${score}</span>
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1.25rem; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+            <span style="font-size: 0.82rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.04em;">${set} Scale</span>
+            <span style="font-size: 2.4rem; font-weight: 800; color: #0c4a6e;">${score}</span>
             ${getSeverityBadge(score, set)}
           </div>
         `).join('')}
       </div>
 
       <!-- Recommended Action Plan -->
-      <div style="background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.25); border-radius: 14px; padding: 1.5rem; text-align: left; margin-bottom: 2rem;">
-        <h4 style="color: #fff; margin-top: 0; margin-bottom: 0.5rem; font-size: 1.05rem;">
-          💡 Personalized Coping Prescription:
+      <div style="background: linear-gradient(135deg, #f0fdf4 0%, #ecfeff 50%, #fff7ed 100%); border: 1px solid #a7f3d0; border-radius: 16px; padding: 1.5rem; text-align: left; margin-bottom: 2rem;">
+        <h4 style="color: #065f46; font-weight: 700; margin-top: 0; margin-bottom: 0.5rem; font-size: 1.05rem;">
+          💡 Personalized Coping Prescription
         </h4>
-        <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.6; margin: 0 0 1rem;">
-          To mitigate autonomic nervous system activation, practice <strong>Box Breathing</strong> or <strong>5-4-3-2-1 Sensory Grounding</strong> for at least 5 minutes daily. If your stress levels feel overwhelming, consider a confidential session with a campus counselor.
+        <p style="color: #334155; font-size: 0.92rem; line-height: 1.6; margin: 0 0 1.2rem;">
+          To gently soothe your nervous system, practice <strong>Box Breathing</strong> or <strong>5-4-3-2-1 Sensory Grounding</strong> for at least 5 minutes today. If you need confidential guidance, our university counselors are here to listen.
         </p>
         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-          <a href="coping.html" class="serene-btn-primary" style="text-decoration: none; padding: 0.55rem 1.2rem; font-size: 0.88rem;">
+          <a href="coping.html" class="serene-btn-primary" style="text-decoration: none; padding: 0.6rem 1.4rem; font-size: 0.9rem;">
             <i class="fa fa-spa"></i> Practice Coping Tools
           </a>
-          <a href="groups.html" style="display: inline-flex; align-items: center; gap: 6px; padding: 0.55rem 1.2rem; background: rgba(255,255,255,0.06); border: 1px solid var(--border-subtle); border-radius: 9999px; color: #fff; font-size: 0.88rem; text-decoration: none;">
+          <a href="groups.html" style="display: inline-flex; align-items: center; gap: 8px; padding: 0.6rem 1.4rem; background: #ffffff; border: 1.5px solid #bae6fd; border-radius: 9999px; color: #0284c7; font-weight: 700; font-size: 0.9rem; text-decoration: none; transition: all 0.2s ease;">
             <i class="fa fa-user-doctor"></i> Book Counselor Session
           </a>
         </div>

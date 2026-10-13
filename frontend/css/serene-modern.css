@@ -1,44 +1,70 @@
 /* ==========================================================================
-   SereneCampus Modern Design System
-   Unified CSS for Student Wellness, Coping Mechanisms & Campus Portals
+   SereneCampus Modern Design System - Peaceful Light Sanctuary
+   Unified CSS for Student Wellness, Academic Stress & Coping Portals
+   Palette: Calming Sky Blue, Restorative Mint Green, Comforting Peach/Orange, Clean White
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --bg-primary: #0b0f19;
-  --bg-secondary: #111827;
-  --bg-card: rgba(17, 24, 39, 0.75);
-  --bg-card-hover: rgba(30, 41, 59, 0.85);
-  --bg-glass: rgba(255, 255, 255, 0.03);
+  /* Peaceful Light Backgrounds */
+  --bg-primary: #f0f7ff;
+  --bg-secondary: #f8fafc;
+  --bg-card: rgba(255, 255, 255, 0.94);
+  --bg-card-hover: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.75);
 
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-active: rgba(99, 102, 241, 0.4);
+  /* Calming Soft Borders */
+  --border-subtle: #e2e8f0;
+  --border-light-blue: #bae6fd;
+  --border-mint: #a7f3d0;
+  --border-peach: #fed7aa;
+  --border-active: #0284c7;
   --border-glow: rgba(16, 185, 129, 0.35);
 
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
+  /* High-Legibility Gentle Text */
+  --text-main: #0f172a;
+  --text-heading: #0c4a6e;
+  --text-muted: #475569;
   --text-subtle: #64748b;
 
-  --accent-indigo: #6366f1;
-  --accent-violet: #8b5cf6;
+  /* Peaceful Signature Palette: Light Blue, Green, Peach/Orange, Pure White */
+  --peace-sky: #0284c7;
+  --peace-sky-light: #e0f2fe;
+  --peace-sky-mid: #38bdf8;
+  --peace-green: #059669;
+  --peace-green-light: #ecfdf5;
+  --peace-green-mid: #10b981;
+  --peace-orange: #ea580c;
+  --peace-orange-light: #fff7ed;
+  --peace-orange-mid: #f97316;
+  --peace-peach: #ffedd5;
+  --peace-white: #ffffff;
+
+  /* Legacy Accent Aliases (Remapped to Peaceful Hues) */
+  --accent-indigo: #0284c7;
+  --accent-violet: #0ea5e9;
   --accent-emerald: #10b981;
   --accent-cyan: #06b6d4;
   --accent-rose: #f43f5e;
-  --accent-amber: #f59e0b;
+  --accent-amber: #f97316;
 
-  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+  /* Soothing Gradients */
+  --gradient-primary: linear-gradient(135deg, #0284c7 0%, #0ea5e9 50%, #10b981 100%);
   --gradient-coping: linear-gradient(135deg, #059669 0%, #10b981 50%, #06b6d4 100%);
   --gradient-ocean: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
-  --gradient-warm: linear-gradient(135deg, #f59e0b 0%, #f43f5e 100%);
-  --gradient-violet: linear-gradient(135deg, #7c3aed 0%, #c084fc 100%);
-  --gradient-dark: linear-gradient(180deg, #111827 0%, #0b0f19 100%);
+  --gradient-warm: linear-gradient(135deg, #f97316 0%, #fb923c 50%, #f59e0b 100%);
+  --gradient-peach: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+  --gradient-violet: linear-gradient(135deg, #0284c7 0%, #14b8a6 100%);
+  --gradient-peaceful-hero: linear-gradient(135deg, #e0f2fe 0%, #ecfdf5 55%, #fff7ed 100%);
+  --gradient-card-top: linear-gradient(90deg, #38bdf8, #34d399, #fb923c);
 
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 25px rgba(99, 102, 241, 0.25);
-  --shadow-glow-emerald: 0 0 25px rgba(16, 185, 129, 0.25);
+  /* Delicate Serene Shadows */
+  --shadow-sm: 0 2px 8px rgba(2, 132, 199, 0.05);
+  --shadow-md: 0 8px 24px -4px rgba(2, 132, 199, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 16px 36px -6px rgba(2, 132, 199, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+  --shadow-glow: 0 0 24px rgba(2, 132, 199, 0.2);
+  --shadow-glow-emerald: 0 0 24px rgba(16, 185, 129, 0.2);
 
   --radius-sm: 8px;
   --radius-md: 14px;
@@ -57,7 +83,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--bg-primary);
+  background: linear-gradient(180deg, #f0f7ff 0%, #f4fbf7 35%, #fff9f2 70%, #f0fdf4 100%) fixed;
   color: var(--text-main);
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.6;
@@ -69,7 +95,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Outfit', sans-serif;
   font-weight: 700;
-  color: var(--text-main);
+  color: var(--text-heading);
   margin-top: 0;
 }
 
@@ -80,18 +106,19 @@ a {
 }
 
 /* ==========================================================================
-   Serene Modern Global Navigation Bar
+   Serene Modern Global Navigation Bar (Light & Airy)
    ========================================================================== */
 
 .serene-nav {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(11, 15, 25, 0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-light-blue);
   padding: 0.75rem 1.5rem;
+  box-shadow: 0 4px 20px -2px rgba(2, 132, 199, 0.06);
   transition: var(--transition-smooth);
 }
 
@@ -115,13 +142,13 @@ a {
 .serene-brand-icon {
   width: 42px;
   height: 42px;
-  background: var(--gradient-primary);
+  background: linear-gradient(135deg, #0284c7 0%, #10b981 100%);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.35rem;
-  box-shadow: var(--shadow-glow);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
 }
 
 .serene-brand-title {
@@ -129,7 +156,7 @@ a {
   font-size: 1.3rem;
   font-weight: 800;
   letter-spacing: -0.5px;
-  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+  background: linear-gradient(135deg, #0284c7 0%, #059669 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -139,18 +166,18 @@ a {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  background: rgba(16, 185, 129, 0.15);
-  color: var(--accent-emerald);
-  padding: 2px 7px;
+  background: #ecfdf5;
+  color: #059669;
+  padding: 2px 8px;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  border: 1px solid #a7f3d0;
   margin-left: 0.35rem;
 }
 
 .serene-menu {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -164,7 +191,7 @@ a {
   border-radius: var(--radius-full);
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--text-muted);
+  color: #475569;
   transition: var(--transition-fast);
   border: 1px solid transparent;
 }
@@ -174,16 +201,17 @@ a {
 }
 
 .serene-link:hover {
-  color: var(--text-main);
-  background: rgba(255, 255, 255, 0.05);
-  border-color: var(--border-subtle);
+  color: #0284c7;
+  background: #f0f7ff;
+  border-color: #bae6fd;
 }
 
 .serene-link.active {
-  color: #ffffff;
-  background: rgba(99, 102, 241, 0.15);
-  border-color: rgba(99, 102, 241, 0.4);
-  box-shadow: 0 0 16px rgba(99, 102, 241, 0.2);
+  color: #0284c7;
+  background: #e0f2fe;
+  border-color: #7dd3fc;
+  box-shadow: 0 2px 10px rgba(2, 132, 199, 0.12);
+  font-weight: 700;
 }
 
 .serene-user-area {
@@ -197,8 +225,8 @@ a {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-subtle);
+  background: #f0f7ff;
+  border: 1px solid var(--border-light-blue);
   padding: 0.4rem 0.9rem 0.4rem 0.5rem;
   border-radius: var(--radius-full);
   cursor: pointer;
@@ -206,8 +234,8 @@ a {
 }
 
 .serene-user-chip:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.15);
+  background: #e0f2fe;
+  border-color: #7dd3fc;
 }
 
 .serene-user-avatar {
@@ -215,7 +243,7 @@ a {
   height: 34px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--accent-indigo);
+  border: 2px solid #0284c7;
 }
 
 .serene-user-name {
@@ -232,21 +260,21 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.5rem 0.9rem;
+  padding: 0.5rem 0.95rem;
   border-radius: var(--radius-full);
   font-size: 0.85rem;
   font-weight: 600;
-  background: rgba(244, 63, 94, 0.1);
-  color: #fb7185;
-  border: 1px solid rgba(244, 63, 94, 0.25);
+  background: #fff1f2;
+  color: #e11d48;
+  border: 1px solid #fecdd3;
   cursor: pointer;
   transition: var(--transition-fast);
 }
 
 .serene-logout-btn:hover {
-  background: rgba(244, 63, 94, 0.2);
-  border-color: rgba(244, 63, 94, 0.4);
-  color: #ffffff;
+  background: #ffe4e6;
+  border-color: #fda4af;
+  color: #be123c;
 }
 
 /* ==========================================================================
@@ -259,17 +287,16 @@ a {
   padding: 1.75rem 1.5rem 4rem;
 }
 
-/* Welcome Hero Card */
+/* Welcome Hero Card (Soothing Pastel Gradient) */
 .serene-hero {
   position: relative;
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
-  border: 1px solid var(--border-subtle);
+  background: var(--gradient-peaceful-hero);
+  border: 1px solid #bae6fd;
   border-radius: var(--radius-lg);
   padding: 2.25rem 2.5rem;
   margin-bottom: 2rem;
   overflow: hidden;
-  backdrop-filter: blur(16px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 10px 30px -5px rgba(2, 132, 199, 0.1);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -283,43 +310,42 @@ a {
   right: -20%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
   pointer-events: none;
 }
 
 .serene-hero-content {
   position: relative;
   z-index: 1;
-  max-width: 750px;
+  max-width: 780px;
 }
 
 .serene-hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.35rem 0.9rem;
+  padding: 0.35rem 0.95rem;
   border-radius: var(--radius-full);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  background: rgba(16, 185, 129, 0.15);
-  color: var(--accent-emerald);
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  background: #ffffff;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.12);
   margin-bottom: 0.85rem;
 }
 
 .serene-hero-title {
-  font-size: 2.15rem;
+  font-size: 2.2rem;
   font-weight: 800;
   line-height: 1.25;
-  margin-bottom: 0.6rem;
-  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.65rem;
+  color: #0c4a6e;
 }
 
 .serene-hero-desc {
   font-size: 1.05rem;
-  color: var(--text-muted);
+  color: #334155;
   margin-bottom: 1.25rem;
   line-height: 1.6;
 }
@@ -327,7 +353,7 @@ a {
 .serene-hero-stats {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
@@ -335,20 +361,22 @@ a {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 0.5rem 1rem;
+  background: #ffffff;
+  padding: 0.55rem 1.1rem;
   border-radius: var(--radius-md);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid #e2e8f0;
   font-size: 0.85rem;
+  color: #475569;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
 }
 
 .serene-stat-pill strong {
-  color: var(--text-main);
+  color: #0f172a;
   font-size: 0.95rem;
 }
 
 /* ==========================================================================
-   Interactive Feature Cards Grid (Self-Test, Coping, Journal, Appointments)
+   Interactive Feature Cards Grid (Light & Reassuring)
    ========================================================================== */
 
 .serene-grid-4 {
@@ -377,13 +405,13 @@ a {
   border-radius: var(--radius-lg);
   padding: 1.75rem;
   transition: var(--transition-smooth);
-  backdrop-filter: blur(14px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
   text-decoration: none;
   cursor: pointer;
+  box-shadow: var(--shadow-md);
 }
 
 .serene-card::before {
@@ -394,14 +422,14 @@ a {
   right: 0;
   height: 4px;
   background: var(--card-accent, var(--gradient-primary));
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 .serene-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-5px);
   background: var(--bg-card-hover);
-  border-color: rgba(255, 255, 255, 0.18);
-  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  border-color: #cbd5e1;
+  box-shadow: var(--shadow-lg);
 }
 
 .serene-card-header {
@@ -419,8 +447,8 @@ a {
   align-items: center;
   justify-content: center;
   font-size: 1.75rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-subtle);
+  background: #f0f7ff;
+  border: 1px solid #bae6fd;
 }
 
 .serene-card-badge {
@@ -428,7 +456,7 @@ a {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  padding: 3px 8px;
+  padding: 4px 9px;
   border-radius: var(--radius-full);
 }
 
@@ -436,7 +464,7 @@ a {
   font-size: 1.35rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .serene-card-desc {
@@ -451,39 +479,48 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #0284c7;
   padding: 0.65rem 1.15rem;
   border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--border-subtle);
+  background: #f0f7ff;
+  border: 1px solid #bae6fd;
   transition: var(--transition-fast);
   width: fit-content;
 }
 
 .serene-card:hover .serene-card-action {
   background: var(--card-accent, var(--gradient-primary));
+  color: #ffffff;
   border-color: transparent;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(2, 132, 199, 0.25);
 }
 
 /* Card theme variations */
 .card-theme-coping {
   --card-accent: var(--gradient-coping);
 }
+.card-theme-coping .serene-card-icon {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+}
 .card-theme-selftest {
-  --card-accent: var(--gradient-primary);
+  --card-accent: var(--gradient-ocean);
 }
 .card-theme-journal {
   --card-accent: var(--gradient-warm);
 }
+.card-theme-journal .serene-card-icon {
+  background: #fff7ed;
+  border-color: #fed7aa;
+}
 .card-theme-doctor {
-  --card-accent: var(--gradient-violet);
+  --card-accent: linear-gradient(135deg, #0284c7 0%, #10b981 100%);
 }
 
 /* ==========================================================================
-   Mood Tracker Bar & Wellness Pulse
+   Mood Tracker Bar & Wellness Pulse (Light Peace Palette)
    ========================================================================== */
 
 .serene-wellness-section {
@@ -504,7 +541,6 @@ a {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: 1.75rem;
-  backdrop-filter: blur(14px);
   box-shadow: var(--shadow-md);
 }
 
@@ -524,6 +560,7 @@ a {
   align-items: center;
   gap: 0.6rem;
   margin: 0;
+  color: #0f172a;
 }
 
 /* Mood Emoji Bar */
@@ -546,34 +583,35 @@ a {
   justify-content: center;
   gap: 0.4rem;
   padding: 0.9rem 0.5rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-subtle);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: var(--transition-fast);
 }
 
 .mood-emoji-btn:hover {
-  background: rgba(255, 255, 255, 0.09);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: #f0f7ff;
+  border-color: #bae6fd;
   transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.1);
 }
 
 .mood-emoji-btn.active {
-  background: rgba(99, 102, 241, 0.2);
-  border-color: var(--accent-indigo);
-  box-shadow: 0 0 16px rgba(99, 102, 241, 0.3);
+  background: #e0f2fe;
+  border-color: #0284c7;
+  box-shadow: 0 0 16px rgba(2, 132, 199, 0.2);
 }
 
 .mood-emoji-btn span.emoji-icon {
   font-size: 2rem;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.06));
 }
 
 .mood-emoji-btn span.emoji-label {
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--text-muted);
+  color: #475569;
 }
 
 /* ==========================================================================
@@ -611,7 +649,6 @@ a {
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  backdrop-filter: blur(14px);
   box-shadow: var(--shadow-md);
 }
 
@@ -627,7 +664,7 @@ a {
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-  border: 2px solid var(--accent-indigo);
+  border: 2px solid #0284c7;
 }
 
 .serene-composer-inputs {
@@ -639,11 +676,11 @@ a {
 
 .serene-input {
   width: 100%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-subtle);
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
   border-radius: var(--radius-md);
   padding: 0.75rem 1rem;
-  color: #ffffff;
+  color: #0f172a;
   font-family: inherit;
   font-size: 0.95rem;
   outline: none;
@@ -651,9 +688,9 @@ a {
 }
 
 .serene-input:focus {
-  border-color: var(--accent-indigo);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  border-color: #0284c7;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
 }
 
 .serene-textarea {
@@ -678,19 +715,19 @@ a {
 .serene-tag-btn {
   font-size: 0.75rem;
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-muted);
-  padding: 0.3rem 0.65rem;
+  background: #f0f7ff;
+  border: 1px solid #bae6fd;
+  color: #0284c7;
+  padding: 0.35rem 0.75rem;
   border-radius: var(--radius-full);
   cursor: pointer;
   transition: var(--transition-fast);
 }
 
 .serene-tag-btn:hover {
-  background: rgba(99, 102, 241, 0.15);
-  color: #a5b4fc;
-  border-color: rgba(99, 102, 241, 0.3);
+  background: #e0f2fe;
+  color: #0369a1;
+  border-color: #7dd3fc;
 }
 
 .serene-btn-primary {
@@ -698,7 +735,7 @@ a {
   align-items: center;
   gap: 0.5rem;
   padding: 0.65rem 1.4rem;
-  background: var(--gradient-primary);
+  background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
   color: #ffffff;
   border: none;
   border-radius: var(--radius-full);
@@ -706,29 +743,28 @@ a {
   font-weight: 700;
   font-size: 0.95rem;
   cursor: pointer;
-  box-shadow: var(--shadow-glow);
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25);
   transition: var(--transition-fast);
 }
 
 .serene-btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 8px 20px rgba(2, 132, 199, 0.35);
 }
 
-/* Modern Post Card */
+/* Modern Post Card (Light Peaceful Box) */
 .serene-post-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  backdrop-filter: blur(14px);
   box-shadow: var(--shadow-md);
   transition: var(--transition-smooth);
 }
 
 .serene-post-card:hover {
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: #cbd5e1;
 }
 
 .serene-post-author {
@@ -756,26 +792,24 @@ a {
   font-size: 0.95rem;
   font-weight: 700;
   margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
+  color: #0f172a;
 }
 
 .serene-author-meta span {
   font-size: 0.78rem;
-  color: var(--text-subtle);
+  color: #64748b;
 }
 
 .serene-post-title {
   font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 0.6rem;
-  color: #ffffff;
+  color: #0c4a6e;
 }
 
 .serene-post-text {
   font-size: 0.95rem;
-  color: var(--text-muted);
+  color: #334155;
   line-height: 1.6;
   margin-bottom: 1rem;
 }
@@ -801,10 +835,10 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-muted);
-  padding: 0.45rem 0.9rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  padding: 0.45rem 0.95rem;
   border-radius: var(--radius-full);
   font-size: 0.85rem;
   font-weight: 600;
@@ -813,9 +847,9 @@ a {
 }
 
 .serene-like-btn:hover, .serene-like-btn.liked {
-  background: rgba(244, 63, 94, 0.15);
-  color: #fb7185;
-  border-color: rgba(244, 63, 94, 0.35);
+  background: #fff1f2;
+  color: #e11d48;
+  border-color: #fecdd3;
 }
 
 /* ==========================================================================
@@ -824,7 +858,7 @@ a {
 
 .serene-coping-grid {
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 340px 1fr;
   gap: 2rem;
 }
 
@@ -850,18 +884,29 @@ a {
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: var(--transition-fast);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.02);
 }
 
 .serene-tech-item:hover {
-  background: var(--bg-card-hover);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: #f0f7ff;
+  border-color: #bae6fd;
   transform: translateX(4px);
 }
 
 .serene-tech-item.active {
-  background: rgba(99, 102, 241, 0.15);
-  border-color: var(--accent-indigo);
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.25);
+  background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%);
+  border-color: #0284c7;
+  box-shadow: 0 4px 16px rgba(2, 132, 199, 0.15);
+}
+
+.serene-tech-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  border: 1px solid #e0f2fe;
+  flex-shrink: 0;
+  background: #ffffff;
 }
 
 .serene-tech-icon {
@@ -872,7 +917,8 @@ a {
   align-items: center;
   justify-content: center;
   font-size: 1.4rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   flex-shrink: 0;
 }
 
@@ -880,7 +926,7 @@ a {
   font-size: 0.95rem;
   font-weight: 700;
   margin: 0 0 0.25rem;
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .serene-tech-meta span {
@@ -893,7 +939,6 @@ a {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: 1.75rem;
-  backdrop-filter: blur(16px);
   box-shadow: var(--shadow-lg);
 }
 
@@ -902,8 +947,9 @@ a {
   height: 600px;
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: #0f172a;
-  border: 1px solid var(--border-subtle);
+  background: #ffffff;
+  border: 1px solid var(--border-light-blue);
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.08);
   margin-top: 1rem;
 }
 
@@ -911,6 +957,88 @@ a {
   width: 100%;
   height: 100%;
   border: none;
+  background: #ffffff;
+}
+
+/* Visual Coping Techniques Grid (Cards with Images) */
+.coping-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 1100px) {
+  .coping-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 580px) {
+  .coping-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.coping-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.coping-card:hover {
+  transform: translateY(-4px);
+  border-color: #0284c7;
+  box-shadow: 0 10px 24px rgba(2, 132, 199, 0.12);
+}
+
+.coping-card.active {
+  border-color: #0284c7;
+  background: #f0f7ff;
+  box-shadow: 0 0 0 2px #0284c7, 0 8px 20px rgba(2, 132, 199, 0.15);
+}
+
+.coping-card-img-wrap {
+  width: 100%;
+  height: 120px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f8fafc;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e0f2fe;
+}
+
+.coping-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.coping-card:hover .coping-card-img-wrap img {
+  transform: scale(1.05);
+}
+
+.coping-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.coping-card-desc {
+  font-size: 0.8rem;
+  color: #64748b;
+  line-height: 1.4;
 }
 
 /* Legacy Post & Feed Enhancements */
@@ -920,14 +1048,13 @@ a {
   border-radius: var(--radius-lg) !important;
   padding: 1.5rem !important;
   margin-bottom: 1.5rem !important;
-  backdrop-filter: blur(14px) !important;
   box-shadow: var(--shadow-md) !important;
   color: var(--text-main) !important;
   transition: var(--transition-smooth) !important;
 }
 
 .central-meta:hover {
-  border-color: rgba(255, 255, 255, 0.15) !important;
+  border-color: #cbd5e1 !important;
 }
 
 .friend-info {
@@ -945,7 +1072,7 @@ a {
   height: 44px;
   border-radius: 50% !important;
   object-fit: cover;
-  border: 2px solid var(--accent-indigo);
+  border: 2px solid #0284c7;
 }
 
 .friend-name {
@@ -960,7 +1087,7 @@ a {
   text-decoration: none;
   font-size: 1.05rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #0f172a;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -968,7 +1095,7 @@ a {
 
 .friend-name span {
   font-size: 0.8rem;
-  color: var(--text-subtle);
+  color: #64748b;
 }
 
 .post-meta {
@@ -979,7 +1106,7 @@ a {
 
 .post-meta ins b {
   font-size: 1.25rem;
-  color: #ffffff;
+  color: #0c4a6e;
   font-weight: 700;
   display: block;
   margin-top: 0.25rem;
@@ -987,7 +1114,7 @@ a {
 
 .post-meta .description b {
   font-size: 0.95rem;
-  color: var(--text-muted);
+  color: #334155;
   font-weight: 400;
   line-height: 1.6;
 }
@@ -1021,7 +1148,7 @@ a {
 }
 
 .card-with-comments {
-  background: rgba(255, 255, 255, 0.02) !important;
+  background: #f8fafc !important;
   border-radius: var(--radius-md) !important;
   padding: 1rem !important;
   border: 1px solid var(--border-subtle) !important;
@@ -1050,36 +1177,37 @@ a {
 .comment__user-name {
   font-size: 0.85rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #0f172a;
   margin: 0;
 }
 
 .comment__chip {
   font-size: 0.7rem;
-  background: rgba(99, 102, 241, 0.2);
-  color: #a5b4fc;
-  padding: 2px 6px;
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 2px 8px;
   border-radius: 4px;
   margin: 0;
 }
 
 .comment__text {
   font-size: 0.88rem;
-  color: var(--text-muted);
+  color: #475569;
   margin: 0;
   padding-left: 2rem;
 }
 
 /* ==========================================================================
-   Footer
+   Footer (Clean, Reassuring Light Theme)
    ========================================================================== */
 
 .serene-footer {
-  border-top: 1px solid var(--border-subtle);
-  background: rgba(11, 15, 25, 0.95);
+  border-top: 1px solid var(--border-light-blue);
+  background: #ffffff;
   padding: 3rem 1.5rem 2rem;
-  color: var(--text-muted);
+  color: #475569;
   margin-top: 4rem;
+  box-shadow: 0 -4px 20px rgba(2, 132, 199, 0.04);
 }
 
 .serene-footer-inner {
@@ -1101,14 +1229,33 @@ a {
 .serene-footer-brand h3 {
   font-size: 1.35rem;
   margin-bottom: 0.75rem;
-  color: #ffffff;
+  color: #0284c7;
 }
 
 .serene-footer-copy {
   text-align: center;
   font-size: 0.82rem;
-  color: var(--text-subtle);
+  color: #64748b;
   padding-top: 2rem;
-  border-top: 1px solid var(--border-subtle);
+  border-top: 1px solid #e2e8f0;
 }
 
+/* Coping Studio Interactive Stage & Iframe Player */
+.serene-iframe-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 540px;
+  height: 560px;
+  background: #ffffff;
+  border: 1.5px solid #bae6fd;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px -4px rgba(2, 132, 199, 0.08);
+}
+
+.serene-iframe-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}

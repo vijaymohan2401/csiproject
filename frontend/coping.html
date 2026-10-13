@@ -53,9 +53,9 @@
     </div>
   </nav>
 
-  <!-- Notification Toast -->
-  <div id="copingToast" style="display:none; position:fixed; bottom:24px; right:24px; z-index:9999; background:rgba(15,23,42,0.95); border:1px solid #10b981; color:#fff; padding:14px 22px; border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,0.5); backdrop-filter:blur(10px); font-weight:600; display:flex; align-items:center; gap:10px;">
-    <span id="toastIcon">🧘</span>
+  <!-- Notification Toast (Peaceful Light Green) -->
+  <div id="copingToast" style="display:none; position:fixed; bottom:24px; right:24px; z-index:9999; background:rgba(255,255,255,0.96); border:1.5px solid #10b981; color:#065f46; padding:14px 22px; border-radius:14px; box-shadow:0 12px 30px rgba(16,185,129,0.18); backdrop-filter:blur(10px); font-weight:700; align-items:center; gap:10px;">
+    <span id="toastIcon">✨</span>
     <span id="toastMsg">Exercise completed! +50 Wellness Points awarded.</span>
   </div>
 
@@ -68,9 +68,9 @@
         <div class="serene-hero-badge">
           <i class="fa fa-spa"></i> Evidence-Based Somatic & Cognitive Coping
         </div>
-        <h1 class="serene-hero-title">Adaptive Coping Studio</h1>
+        <h1 class="serene-hero-title">Adaptive Coping Sanctuary</h1>
         <p class="serene-hero-desc">
-          When academic stress or panic strikes, somatic exercises immediately activate your vagus nerve to slow down your heart rate and re-center your cognitive focus. Select any proven technique below.
+          When academic pressure, exam anxiety, or panic strikes, somatic exercises immediately activate your vagus nerve to slow down your heart rate and re-center your cognitive focus. Select any proven technique below to begin.
         </p>
         <div class="serene-hero-stats">
           <div class="serene-stat-pill">
@@ -78,25 +78,118 @@
             <span>Completed Today: <strong id="completedCount">2 Sessions</strong></span>
           </div>
           <div class="serene-stat-pill">
-            <i class="fa fa-star" style="color:#f59e0b;"></i>
+            <i class="fa fa-star" style="color:#f97316;"></i>
             <span>Wellness Points: <strong id="wellnessPoints">180 Pts</strong></span>
+          </div>
+          <div class="serene-stat-pill">
+            <i class="fa fa-cloud-sun" style="color:#0284c7;"></i>
+            <span>Mindful State: <strong>Calm & Re-centered</strong></span>
           </div>
         </div>
       </div>
+      <div class="d-none d-lg-block" style="text-align:center;">
+        <img src="images/affirmation.png" alt="Peaceful Mind" style="width:140px; height:140px; border-radius:50%; object-fit:cover; border:4px solid #ffffff; box-shadow:0 10px 25px rgba(2,132,199,0.15);" />
+        <div style="font-size:0.8rem; font-weight:700; color:#0284c7; margin-top:8px;">8 Guided Coping Rituals</div>
+      </div>
     </section>
+
+    <!-- Visual Coping Technique Cards Grid (8 Techniques with Images) -->
+    <div style="margin-bottom: 1.25rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <h3 style="margin:0; font-size:1.25rem; color:#0c4a6e;">
+          <i class="fa fa-table-cells-large" style="color:#0284c7; margin-right:8px;"></i>
+          Explore Coping Rituals
+        </h3>
+        <span style="font-size:0.85rem; color:#64748b;">Tap any card to launch the guided interactive exercise</span>
+      </div>
+
+      <div class="coping-cards-grid">
+        <!-- 1. Box Breathing -->
+        <div class="coping-card active" id="card-BoxBreathing" onclick="selectTechnique('BoxBreathing', 'Box Breathing (4-4-4-4)', 'Inhale 4s • Hold 4s • Exhale 4s • Hold 4s', 'A tactical breathing method used to regain control in high-stress college exam and interview situations.')">
+          <div class="coping-card-img-wrap">
+            <img src="images/box_breathing.png" alt="Box Breathing" />
+          </div>
+          <div class="coping-card-title">Box Breathing</div>
+          <div class="coping-card-desc">4-4-4-4 rhythm for instant focus and nerve regulation</div>
+        </div>
+
+        <!-- 2. 4-7-8 Technique -->
+        <div class="coping-card" id="card-4-7-8_technique" onclick="selectTechnique('4-7-8_technique', '4-7-8 Relaxing Breath', 'Inhale 4s • Hold 7s • Exhale 8s', 'Dr. Andrew Weil\'s natural tranquilizer for the nervous system, ideal for evening study anxiety and insomnia.')">
+          <div class="coping-card-img-wrap">
+            <img src="images/478_breathing.png" alt="4-7-8 Breathing" />
+          </div>
+          <div class="coping-card-title">4-7-8 Relaxation</div>
+          <div class="coping-card-desc">Natural tranquilizer for sleep disturbance and burnout</div>
+        </div>
+
+        <!-- 3. 5-4-3-2-1 Sensory Grounding -->
+        <div class="coping-card" id="card-5-4-3-2-1" onclick="selectTechnique('5-4-3-2-1', '5-4-3-2-1 Sensory Grounding', 'Acknowledge 5 visual, 4 touch, 3 sound, 2 smell, 1 taste sensations', 'Cognitive grounding to pull you out of anxiety spirals and reconnect you to immediate physical reality.')">
+          <div class="coping-card-img-wrap">
+            <img src="images/54321_grounding.png" alt="5-4-3-2-1 Grounding" />
+          </div>
+          <div class="coping-card-title">5-4-3-2-1 Grounding</div>
+          <div class="coping-card-desc">Rapidly anchor sensory awareness to break panic cycles</div>
+        </div>
+
+        <!-- 4. Alternate Nostril Breathing -->
+        <div class="coping-card" id="card-alternate_nostril" onclick="selectTechnique('alternate_nostril', 'Alternate Nostril Breathing', 'Nadi Shodhana Pranayama', 'Balances the left and right hemispheres of the brain, promoting clear mental focus before exams.')">
+          <div class="coping-card-img-wrap">
+            <img src="images/alternate_nostril.png" alt="Alternate Nostril" />
+          </div>
+          <div class="coping-card-title">Alternate Nostril</div>
+          <div class="coping-card-desc">Harmonize autonomic balance and restore mental clarity</div>
+        </div>
+
+        <!-- 5. Positive Affirmations -->
+        <div class="coping-card" id="card-affrimation" onclick="selectTechnique('affrimation', 'Positive Affirmations', 'Cognitive Reframing for Imposter Syndrome', 'Break self-doubt, reframe negative automatic thoughts, and foster self-compassion.')">
+          <div class="coping-card-img-wrap">
+            <img src="images/affirmation.png" alt="Positive Affirmations" />
+          </div>
+          <div class="coping-card-title">Positive Affirmations</div>
+          <div class="coping-card-desc">Shatter academic self-doubt with reassuring spoken affirmations</div>
+        </div>
+
+        <!-- 6. Belly Breathing -->
+        <div class="coping-card" id="card-belly_breathing" onclick="selectTechnique('belly_breathing', 'Diaphragmatic Belly Breathing', 'Deep abdominal breathing with chest steady', 'Eliminates shallow chest breathing caused by prolonged sitting and studying.')">
+          <div class="coping-card-img-wrap">
+            <img src="images/belly_breathing.png" alt="Belly Breathing" />
+          </div>
+          <div class="coping-card-title">Belly Breathing</div>
+          <div class="coping-card-desc">Release shallow chest breathing and deep bodily tension</div>
+        </div>
+
+        <!-- 7. 8-4-7 Technique -->
+        <div class="coping-card" id="card-8-4-7_technique" onclick="selectTechnique('8-4-7_technique', '8-4-7 Calming Sequence', 'Controlled rhythmic inhalation and exhalation', 'Fast-acting decompression sequence for study fatigue and acute burnout.')">
+          <div class="coping-card-img-wrap">
+            <img src="images/847_technique.png" alt="8-4-7 Technique" />
+          </div>
+          <div class="coping-card-title">8-4-7 Method</div>
+          <div class="coping-card-desc">High-efficiency rhythmic sequence for acute exam panic</div>
+        </div>
+
+        <!-- 8. Counting Backwards -->
+        <div class="coping-card" id="card-counting_backwards" onclick="selectTechnique('counting_backwards', 'Backward Counting Focus', 'Count down from 100 in steps of 7', 'Engages executive cognitive function in the prefrontal cortex to disengage panic centers.')">
+          <div class="coping-card-img-wrap">
+            <img src="images/counting_backwards.png" alt="Counting Backwards" />
+          </div>
+          <div class="coping-card-title">Backward Counting</div>
+          <div class="coping-card-desc">Prefrontal cortex engagement to disengage amygdala overdrive</div>
+        </div>
+      </div>
+    </div>
 
     <!-- Studio Grid (Technique Picker + Interactive Stage) -->
     <div class="serene-coping-grid">
 
-      <!-- Left: Techniques Selector (8 Techniques) -->
+      <!-- Left: Techniques Selector (8 Techniques with Image Thumbnails) -->
       <aside class="serene-technique-list">
-        <div style="font-size:0.85rem; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.25rem;">
+        <div style="font-size:0.85rem; font-weight:700; color:#0284c7; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.25rem;">
           Select Coping Ritual
         </div>
 
         <!-- 1. Box Breathing -->
         <div class="serene-tech-item active" id="item-BoxBreathing" onclick="selectTechnique('BoxBreathing', 'Box Breathing (4-4-4-4)', 'Inhale 4s • Hold 4s • Exhale 4s • Hold 4s', 'A tactical breathing method used to regain control in high-stress college exam and interview situations.')">
-          <div class="serene-tech-icon" style="color:#38bdf8;">📦</div>
+          <img src="images/box_breathing.png" alt="Box Breathing" class="serene-tech-thumb" />
           <div class="serene-tech-meta">
             <h4>Box Breathing (4-4-4-4)</h4>
             <span>4 min • Autonomic Reset</span>
@@ -105,7 +198,7 @@
 
         <!-- 2. 4-7-8 Technique -->
         <div class="serene-tech-item" id="item-4-7-8_technique" onclick="selectTechnique('4-7-8_technique', '4-7-8 Relaxing Breath', 'Inhale 4s • Hold 7s • Exhale 8s', 'Dr. Andrew Weil\'s natural tranquilizer for the nervous system, ideal for evening study anxiety and insomnia.')">
-          <div class="serene-tech-icon" style="color:#818cf8;">🌬️</div>
+          <img src="images/478_breathing.png" alt="4-7-8 Relaxation" class="serene-tech-thumb" />
           <div class="serene-tech-meta">
             <h4>4-7-8 Relaxation</h4>
             <span>5 min • Deep Calm & Sleep</span>
@@ -114,7 +207,7 @@
 
         <!-- 3. 5-4-3-2-1 Sensory Grounding -->
         <div class="serene-tech-item" id="item-5-4-3-2-1" onclick="selectTechnique('5-4-3-2-1', '5-4-3-2-1 Sensory Grounding', 'Acknowledge 5 visual, 4 touch, 3 sound, 2 smell, 1 taste sensations', 'Cognitive grounding to pull you out of anxiety spirals and reconnect you to immediate physical reality.')">
-          <div class="serene-tech-icon" style="color:#34d399;">🖐️</div>
+          <img src="images/54321_grounding.png" alt="5-4-3-2-1 Grounding" class="serene-tech-thumb" />
           <div class="serene-tech-meta">
             <h4>5-4-3-2-1 Grounding</h4>
             <span>3 min • Panic Interruption</span>
@@ -123,7 +216,7 @@
 
         <!-- 4. Alternate Nostril Breathing -->
         <div class="serene-tech-item" id="item-alternate_nostril" onclick="selectTechnique('alternate_nostril', 'Alternate Nostril Breathing', 'Nadi Shodhana Pranayama', 'Balances the left and right hemispheres of the brain, promoting clear mental focus before exams.')">
-          <div class="serene-tech-icon" style="color:#fbbf24;">👃</div>
+          <img src="images/alternate_nostril.png" alt="Alternate Nostril" class="serene-tech-thumb" />
           <div class="serene-tech-meta">
             <h4>Alternate Nostril</h4>
             <span>5 min • Focus & Balance</span>
@@ -132,7 +225,7 @@
 
         <!-- 5. Affirmations -->
         <div class="serene-tech-item" id="item-affrimation" onclick="selectTechnique('affrimation', 'Positive Affirmations', 'Cognitive Reframing for Imposter Syndrome', 'Break self-doubt, reframe negative automatic thoughts, and foster self-compassion.')">
-          <div class="serene-tech-icon" style="color:#f472b6;">✨</div>
+          <img src="images/affirmation.png" alt="Affirmations" class="serene-tech-thumb" />
           <div class="serene-tech-meta">
             <h4>Affirmations Ritual</h4>
             <span>2 min • Confidence Boost</span>
@@ -141,7 +234,7 @@
 
         <!-- 6. Belly Breathing -->
         <div class="serene-tech-item" id="item-belly_breathing" onclick="selectTechnique('belly_breathing', 'Diaphragmatic Belly Breathing', 'Deep abdominal breathing with chest steady', 'Eliminates shallow chest breathing caused by prolonged sitting and studying.')">
-          <div class="serene-tech-icon" style="color:#a78bfa;">🫁</div>
+          <img src="images/belly_breathing.png" alt="Belly Breathing" class="serene-tech-thumb" />
           <div class="serene-tech-meta">
             <h4>Belly Breathing</h4>
             <span>4 min • Tension Release</span>
@@ -150,7 +243,7 @@
 
         <!-- 7. 8-4-7 Technique -->
         <div class="serene-tech-item" id="item-8-4-7_technique" onclick="selectTechnique('8-4-7_technique', '8-4-7 Calming Sequence', 'Controlled rhythmic inhalation and exhalation', 'Fast-acting decompression sequence for study fatigue and acute burnout.')">
-          <div class="serene-tech-icon" style="color:#fb7185;">🌊</div>
+          <img src="images/847_technique.png" alt="8-4-7 Calm" class="serene-tech-thumb" />
           <div class="serene-tech-meta">
             <h4>8-4-7 Calm Method</h4>
             <span>3 min • Rapid Relief</span>
@@ -159,7 +252,7 @@
 
         <!-- 8. Counting Backwards -->
         <div class="serene-tech-item" id="item-counting_backwards" onclick="selectTechnique('counting_backwards', 'Backward Counting Focus', 'Count down from 100 in steps of 7', 'Engages executive cognitive function in the prefrontal cortex to disengage panic centers.')">
-          <div class="serene-tech-icon" style="color:#38bdf8;">🔢</div>
+          <img src="images/counting_backwards.png" alt="Counting Backwards" class="serene-tech-thumb" />
           <div class="serene-tech-meta">
             <h4>Backward Counting</h4>
             <span>3 min • Mental Clarity</span>
@@ -171,8 +264,8 @@
       <section class="serene-stage-panel">
         <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1rem;">
           <div>
-            <h2 id="stageTitle" style="font-size:1.65rem; margin:0 0 0.35rem; color:#fff;">Box Breathing (4-4-4-4)</h2>
-            <div id="stageSubtitle" style="font-size:0.9rem; color:#38bdf8; font-weight:600;">Inhale 4s • Hold 4s • Exhale 4s • Hold 4s</div>
+            <h2 id="stageTitle" style="font-size:1.65rem; margin:0 0 0.35rem; color:#0c4a6e;">Box Breathing (4-4-4-4)</h2>
+            <div id="stageSubtitle" style="font-size:0.95rem; color:#0284c7; font-weight:700;">Inhale 4s • Hold 4s • Exhale 4s • Hold 4s</div>
           </div>
           <button class="serene-btn-primary" onclick="markCompleted()" style="background:var(--gradient-coping);">
             <i class="fa fa-circle-check"></i> Mark as Completed (+50 Pts)
@@ -185,20 +278,20 @@
 
         <!-- Interactive Embedded Player Container -->
         <div class="serene-iframe-wrapper">
-          <iframe id="techniqueFrame" src="./copingtechs/BoxBreathing/" title="Coping Technique Player"></iframe>
+          <iframe id="techniqueFrame" src="./copingtechs/BoxBreathing/index.html" title="Coping Technique Player"></iframe>
         </div>
 
         <!-- Bottom Guidance Strip -->
         <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-top:1.5rem; padding-top:1.25rem; border-top:1px solid var(--border-subtle);">
-          <div style="display:flex; align-items:center; gap:8px; font-size:0.85rem; color:#94a3b8;">
-            <i class="fa fa-lightbulb" style="color:#f59e0b;"></i>
-            <span>Tip: Close your eyes or focus softly on the guiding dot while breathing through your nose.</span>
+          <div style="display:flex; align-items:center; gap:8px; font-size:0.88rem; color:#475569;">
+            <i class="fa fa-lightbulb" style="color:#f97316;"></i>
+            <span>Tip: Close your eyes or softly follow the rhythm while breathing through your nose.</span>
           </div>
           <div style="display:flex; gap:12px;">
-            <a href="journal.html" style="font-size:0.85rem; color:#818cf8; font-weight:600; text-decoration:none;">
+            <a href="journal.html" style="font-size:0.88rem; color:#0284c7; font-weight:700; text-decoration:none;">
               <i class="fa fa-pen"></i> Log in Journal
             </a>
-            <a href="groups.html" style="font-size:0.85rem; color:#34d399; font-weight:600; text-decoration:none;">
+            <a href="groups.html" style="font-size:0.88rem; color:#059669; font-weight:700; text-decoration:none;">
               <i class="fa fa-user-doctor"></i> Talk to Counselor
             </a>
           </div>
@@ -219,19 +312,20 @@
       </div>
 
       <div>
-        <h4 style="font-size:1rem; color:#fff; margin-bottom:1rem;">Campus Resources</h4>
+        <h4 style="font-size:1rem; color:#0c4a6e; margin-bottom:1rem;">Campus Resources</h4>
         <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; font-size:0.9rem;">
-          <li><a href="index.html" style="color:#94a3b8;">Student Dashboard</a></li>
-          <li><a href="selftest.html" style="color:#94a3b8;">Stress Assessment (DASS-21)</a></li>
-          <li><a href="journal.html" style="color:#94a3b8;">Daily Reflection Journal</a></li>
-          <li><a href="groups.html" style="color:#94a3b8;">Confidential Counseling</a></li>
+          <li><a href="index.html" style="color:#475569;">Student Home</a></li>
+          <li><a href="newsfeed.html" style="color:#475569;">Community Feed</a></li>
+          <li><a href="selftest.html" style="color:#475569;">Stress Assessment (DASS-21)</a></li>
+          <li><a href="journal.html" style="color:#475569;">Daily Reflection Journal</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 style="font-size:1rem; color:#fff; margin-bottom:1rem;">Emergency Contacts</h4>
-        <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:6px;">National Mental Health Helpline: 14416</p>
-        <p style="font-size:0.85rem; color:#94a3b8;">100% Free & Confidential</p>
+        <h4 style="font-size:1rem; color:#0c4a6e; margin-bottom:1rem;">Crisis & Immediate Support</h4>
+        <p style="font-size:0.85rem; color:#475569; margin-bottom:6px;">National Mental Health Helpline: <strong>14416 (Tele-MANAS)</strong></p>
+        <p style="font-size:0.85rem; color:#475569; margin-bottom:6px;">Campus Wellness Cell: <strong>+91 91214 22554</strong></p>
+        <p style="font-size:0.85rem; color:#059669; font-weight:700;">100% Free & Confidential</p>
       </div>
     </div>
 
@@ -252,16 +346,33 @@
 
     function selectTechnique(techId, title, subtitle, desc) {
       currentTechnique = techId;
+
+      // Update sidebar list items active state
       document.querySelectorAll(".serene-tech-item").forEach(item => item.classList.remove("active"));
       const selectedItem = document.getElementById("item-" + techId);
       if (selectedItem) selectedItem.classList.add("active");
 
+      // Update top visual cards active state
+      document.querySelectorAll(".coping-card").forEach(card => card.classList.remove("active"));
+      const selectedCard = document.getElementById("card-" + techId);
+      if (selectedCard) selectedCard.classList.add("active");
+
+      // Update text in stage
       document.getElementById("stageTitle").textContent = title;
       document.getElementById("stageSubtitle").textContent = subtitle;
       document.getElementById("stageDesc").textContent = desc;
 
+      // Load iframe
       const iframe = document.getElementById("techniqueFrame");
-      iframe.src = `./copingtechs/${techId}/`;
+      if (iframe) {
+        iframe.src = `./copingtechs/${techId}/index.html`;
+      }
+
+      // Smooth scroll if mobile
+      if (window.innerWidth < 992) {
+        const stage = document.querySelector(".serene-stage-panel");
+        if (stage) stage.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
 
     function markCompleted() {

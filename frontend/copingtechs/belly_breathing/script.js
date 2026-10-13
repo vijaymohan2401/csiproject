@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.style.display = 'none';
         controlButton.disabled = false;
         controlButton.innerText = 'Play';
-        instructionText.innerText = "Let's get start by clicking Play button and follow the rhythm of the circle.";
+        instructionText.innerText = "Tap Play to begin and follow the soothing rhythm of the circle.";
         isDone = false;
     });
 
@@ -44,8 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function startAnimation() {
         isAnimating = true;
-        controlButton.innerText = 'Stop';
-        instructionText.innerText = 'Breathe in slowly through your nose for 4 count';
+        controlButton.innerText = 'Pause';
+        instructionText.innerText = 'Inhale gently through your nose for 4 counts, expanding your belly...';
         animateCircle('expand');
     }
 
@@ -54,8 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
         controlButton.innerText = 'Play';
         animation.style.width = '50px';
         animation.style.height = '50px';
-        animation.style.backgroundColor = '#7F8C8D';
-        instructionText.innerText = "Click Start to begin the task.";
+        animation.style.backgroundColor = '#0284c7';
+        instructionText.innerText = "Tap Start to begin your calming belly breathing session.";
     }
 
     function animateCircle(action) {
@@ -63,8 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (action === 'expand') {
                 animation.style.width = '100px';
                 animation.style.height = '100px';
-                animation.style.backgroundColor = '#D3A3F1';
-                instructionText.innerText = 'Breathe in slowly through your nose for 4 count';
+                animation.style.backgroundColor = '#0284c7';
+                instructionText.innerText = 'Inhale gently through your nose for 4 counts, expanding your belly...';
 
                 setTimeout(() => {
                     if (isAnimating) {
@@ -74,8 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (action === 'contract') {
                 animation.style.width = '50px';
                 animation.style.height = '50px';
-                animation.style.backgroundColor = 'blue';
-                instructionText.innerText = 'Breathe out slowly through your mouth for 4 count';
+                animation.style.backgroundColor = '#10b981';
+                instructionText.innerText = 'Exhale smoothly through your mouth for 4 counts, releasing bodily tension...';
 
                 setTimeout(() => {
                     if (isAnimating) {
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function reset() {
         isDone = true;
         controlButton.innerText = 'Start';
-        instructionText.innerText = 'Click Start to begin the task.';
+        instructionText.innerText = 'Tap Start to begin your calming belly breathing session.';
         doneButton.disabled = true;
     }
 });
